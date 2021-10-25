@@ -4,24 +4,18 @@ import com.kj.WhatShouldIEatTodayBack.dto.RecommendServiceReq;
 import com.kj.WhatShouldIEatTodayBack.dto.ResponseDocument;
 import com.kj.WhatShouldIEatTodayBack.service.RecommendationService;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
 
@@ -39,7 +33,7 @@ class RecommendationControllerTest {
     @Autowired
     MockMvc mockMvc;
 
-    @Mock
+    @MockBean
     RecommendationService recommendationService;
 
     @Test
@@ -61,10 +55,10 @@ class RecommendationControllerTest {
     @DisplayName("정상적인 값이 들어올 경우 정상적인 값을 반환한다.")
     void controllerFunctionTest() {
         // given
-        RecommendationController recommendationController = new RecommendationController();
+        RecommendationController recommendationController = new RecommendationController(recommendationService);
         RecommendServiceReq recommendServiceReq = new RecommendServiceReq();
 
-        ArrayList categoriesData = new ArrayList<String>();
+        ArrayList<String> categoriesData = new ArrayList<>();
         categoriesData.add("KoreanFood");
         categoriesData.add("JapaneseFood");
 

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RecommendationController {
 
+    private final RecommendationService recommendationService;
+
 
     @RequestMapping(value = "/recommendation")
     public ResponseDocument recommendation(@RequestBody RecommendServiceReq userData) {
