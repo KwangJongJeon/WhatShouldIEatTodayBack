@@ -5,9 +5,18 @@ import com.kj.WhatShouldIEatTodayBack.dto.SearchLocalAPIRes;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
 class KakaoAPIClientTest {
+
+    @Autowired
+    KakaoAPIClient kakaoAPIClient;
 
     @DisplayName("API로부터 객체에 값을 저장 할 수 있다.")
     @Test
@@ -18,8 +27,9 @@ class KakaoAPIClientTest {
         String radius = "2000";
 
         SearchLocalAPIReq searchLocalAPIReq = new SearchLocalAPIReq(query, latitude, longitude, radius);
-        KakaoAPIClient kakaoAPIClient = new KakaoAPIClient();
         SearchLocalAPIRes responseData = kakaoAPIClient.localSearch(searchLocalAPIReq);
+        System.out.println("*******************************");
+        System.out.println(kakaoAPIClient.kakaoLocalSearchUrl);
 
         Assertions.assertThat(responseData).isNotNull();
     }
