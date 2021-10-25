@@ -45,6 +45,7 @@ class SearchLocalAPIReqTest {
     @DisplayName("Dto가 카카오 API가 요구하는 양식을 충족한다.")
     @Test
     void checkRequestIsValid() {
+        // given
         String query = "한식";
         String latitude = "36.3376482";
         String longitude = "127.3933957";
@@ -63,6 +64,8 @@ class SearchLocalAPIReqTest {
 
         HttpEntity<Object> httpEntity = new HttpEntity<>(httpHeaders);
         ParameterizedTypeReference<SearchLocalAPIRes> responseType = new ParameterizedTypeReference<>() {};
+
+        // when
         ResponseEntity<SearchLocalAPIRes> responseEntity = new RestTemplate().exchange(
                 uri,
                 HttpMethod.GET,
@@ -70,6 +73,7 @@ class SearchLocalAPIReqTest {
                 responseType
         );
 
+        // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
