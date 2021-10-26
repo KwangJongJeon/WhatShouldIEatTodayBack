@@ -3,7 +3,7 @@ package com.kj.WhatShouldIEatTodayBack.dto;
 
 import lombok.Data;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 카카오 API로부터 받아온 데이터를 저장하는 객체입니다.
@@ -16,6 +16,6 @@ import java.util.ArrayList;
 @Data
 public class SearchLocalAPIRes {
 
-    ArrayList<ResponseDocument> documents;
+    List<ResponseDocument> documents;
     ResponseMeta meta;
 }

@@ -1,10 +1,13 @@
 package com.kj.WhatShouldIEatTodayBack.api.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kj.WhatShouldIEatTodayBack.dto.RecommendServiceReq;
 import com.kj.WhatShouldIEatTodayBack.dto.ResponseDocument;
 import com.kj.WhatShouldIEatTodayBack.service.RecommendationService;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,9 +46,9 @@ class RecommendationControllerTest {
     @Test
     @DisplayName("컨트롤러에 유저 데이터가 정상적으로 들어오지 않았을 경우 400 상태이상 코드를 리턴한다.")
     void reqDtoExceptionHandling2() throws Exception {
-        String failedUserData = "\"latitude\": \"36.342038853926766\",\n" +
+        String failedUserData = "{\"latitude\": \"36.342038853926766\",\n" +
                 "\"longitude\": \"127.38479286399112\",\n" +
-                "\"categories\": \"[koreanFood, japaneseFood]\"";
+                "\"categories\": \"[KoreanFood, JapaneseFood]\"}";
 
         ResultActions resultActions = mockMvc.perform(
                 get("/api/recommendation")
@@ -81,5 +84,25 @@ class RecommendationControllerTest {
         Assertions.assertThat(result).isNotNull();
         Assertions.assertThat(result.getId()).isNotNull();
 
+    }
+
+    @Test
+    @DisplayName("컨트롤러 통합 테스트")
+    void recommendationControllerIntegrationTest() throws Exception {
+
+        String userData = "{\n" +
+                "\"latitude\": \"36.342038853926766\",\n" +
+                "\"longitude\": \"127.38479286399112\",\n" +
+                "\"range\": \"1000\", \n" +
+                "\"categories\": [\"KoreanFood\", \"JapaneseFood\"]\n" +
+                "}";
+
+
+        mockMvc.perform(
+                get("/api/recommendation")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(userData))
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 }
