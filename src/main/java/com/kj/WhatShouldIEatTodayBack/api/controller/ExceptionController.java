@@ -4,7 +4,6 @@ package com.kj.WhatShouldIEatTodayBack.api.controller;
 import com.kj.WhatShouldIEatTodayBack.Exception.CategoryMenuIsNotRegistered;
 import com.kj.WhatShouldIEatTodayBack.Exception.KakaoServerIsNotRespondException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * 예외 처리 핸들러
  *  @author KwangJong Jeon
  *  @since 0.1
+ *
+ *  @TODO : 예외 로그 파일로 저장하기 -> slf4j
  */
 @Slf4j
 @ControllerAdvice

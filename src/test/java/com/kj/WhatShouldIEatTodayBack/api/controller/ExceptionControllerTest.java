@@ -1,7 +1,6 @@
 package com.kj.WhatShouldIEatTodayBack.api.controller;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.*;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -37,7 +33,7 @@ class ExceptionControllerTest  {
                 .build();
     }
 
-    @DisplayName("카테고리에 ")
+    @DisplayName("스프링에 등록되지 않은 카테고리일경우 예외를 리턴해야한다.")
     @Test
     void exceptionHandlingTest() throws Exception {
 

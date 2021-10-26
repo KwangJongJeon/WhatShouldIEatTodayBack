@@ -1,7 +1,5 @@
 package com.kj.WhatShouldIEatTodayBack.Exception;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * 카카오 서버가 응답하지 않을 경우를 위한 예외
