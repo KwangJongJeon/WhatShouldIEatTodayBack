@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -106,8 +107,20 @@ public class RecommendationService {
      * 카테고리를 랜덤하게 하나 뽑아 리턴하는 메소드.
      * @param categories 유저가 보낸 데이터 중 '카테고리'에 해당하는 값들의 리스트
      * @return 카테고리 중 하나를 뽑아 리턴한다.
+     *
+     * @TODO: 리팩토링 필요 - 카테고리가 주어진 범위가 아닐때 Exception을 던지는 것을 처리해야함 -> Enum등을 써서 코드를 깔끔하게 좀 정리하자
      */
     private String selectCategoryRandomly(List<String> categories) {
+
+        HashMap<String, Integer> permittedCategory = new HashMap<String, Integer>();
+        permittedCategory.put("KoreanFood", 1);
+        permittedCategory.put("ChineseFood", 1);
+        permittedCategory.put("JapaneseFood", 1);
+
+        for (String category : categories) {
+            if(permittedCategory.getOrDefault(category, 0) != 1)
+                throw new CategoryMenuIsNotRegistered(category + "는 서비스에 등록되지 않은 카테고리입니다");
+        }
 
         int randomValue = (int)(Math.random()*categories.size());
 
