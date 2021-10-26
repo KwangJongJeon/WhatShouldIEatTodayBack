@@ -9,8 +9,8 @@ import org.springframework.util.MultiValueMap;
 @Data
 public class SearchLocalAPIReq {
     private final String query;
-    private final String x;
-    private final String y;
+    private final String x; // 중심좌표의 x값 혹은 longitude, 특정 지역을 중심으로 검색하려고 할 경우 radius와 함께 사용
+    private final String y; // 중심좌표의 y값 혹은 latitude
     private final String radius;
     private String categoryGroupCode;
     private String rect;

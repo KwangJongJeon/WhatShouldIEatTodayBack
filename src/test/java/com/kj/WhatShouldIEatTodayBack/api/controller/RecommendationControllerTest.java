@@ -56,7 +56,7 @@ class RecommendationControllerTest {
     }
 
     @Test
-    @DisplayName("정상적인 값이 들어올 경우 정상적인 값을 반환한다.")
+    @DisplayName("정상적인 값이 들어올 경우 값을 반환한다.")
     void controllerFunctionTest() {
         // given
         RecommendServiceReq recommendServiceReq = new RecommendServiceReq();
