@@ -3,6 +3,7 @@ package com.kj.WhatShouldIEatTodayBack.api.controller;
 import com.kj.WhatShouldIEatTodayBack.dto.RecommendServiceReq;
 import com.kj.WhatShouldIEatTodayBack.dto.ResponseDocument;
 import com.kj.WhatShouldIEatTodayBack.service.RecommendationService;
+import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -26,15 +28,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebAppConfiguration
 @AutoConfigureMockMvc
-@ExtendWith(SpringExtension.class)
-@WebMvcTest(RecommendationController.class)
+@SpringBootTest
 class RecommendationControllerTest {
 
     @Autowired
     MockMvc mockMvc;
 
-    @MockBean
+    @Autowired
     RecommendationService recommendationService;
+
+    @Autowired
+    RecommendationController recommendationController;
 
     @Test
     @DisplayName("컨트롤러에 유저 데이터가 정상적으로 들어오지 않았을 경우 400 상태이상 코드를 리턴한다.")
@@ -55,7 +59,6 @@ class RecommendationControllerTest {
     @DisplayName("정상적인 값이 들어올 경우 정상적인 값을 반환한다.")
     void controllerFunctionTest() {
         // given
-        RecommendationController recommendationController = new RecommendationController(recommendationService);
         RecommendServiceReq recommendServiceReq = new RecommendServiceReq();
 
         ArrayList<String> categoriesData = new ArrayList<>();

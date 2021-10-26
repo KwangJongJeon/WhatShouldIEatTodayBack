@@ -1,7 +1,6 @@
 package com.kj.WhatShouldIEatTodayBack.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 
 /**
@@ -12,7 +11,7 @@ import lombok.Setter;
  * @author KwangJong Jeon
  * @since 0.1
  */
-@Getter @Setter
+@Data
 public class ResponseDocument {
     private String id;
     private String place_name;

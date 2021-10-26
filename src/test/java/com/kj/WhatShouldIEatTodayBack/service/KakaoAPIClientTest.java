@@ -33,19 +33,9 @@ class KakaoAPIClientTest {
     void sendToKakaoAPIProperly() {
 
         SearchLocalAPIRes responseData = kakaoAPIClient.localSearch(searchLocalAPIReq);
-        System.out.println("*******************************");
-        System.out.println(kakaoAPIClient.kakaoLocalSearchUrl);
 
-        Assertions.assertThat(responseData).isNotNull();
+        Assertions.assertThat(responseData.getDocuments()).isNotNull();
+        Assertions.assertThat(responseData.getMeta()).isNotNull();
+
     }
-
-    @DisplayName("카카오 서버가 동작하지 않을 경우 Exception을 발생시킨다.")
-    @Test
-    void KakaoServerIsNotRespond() {
-        SearchLocalAPIRes searchLocalAPIRes = kakaoAPIClient.localSearch(searchLocalAPIReq);
-        assertThrows(KakaoServerIsNotRespondException.class, () -> {
-            kakaoAPIClient.localSearch(searchLocalAPIReq);
-        });
-    }
-
 }
