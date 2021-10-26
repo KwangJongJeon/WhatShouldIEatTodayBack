@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ExceptionController {
 
     /**
+     * 카카오 서버가 응답하지 않을경우 발생하는 예외
      * @param exception KakaoServerIsNotRespondException을 인자로 받습니다.
      * @return 502 Bad Gateway Http status code를 리턴합니다.
      */
@@ -33,6 +34,7 @@ public class ExceptionController {
 
 
     /**
+     * 프론트에서 제공한 카테고리 값이 서버에 등록되어 있지 않을 경우 발생하는 예외
      * @param exception CategoryMenuIsNotRegistered를 인자로 받습니다
      * @return 400 Bad Request Http status code를 리턴합니다.
      */
