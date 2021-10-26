@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.kj.WhatShouldIEatTodayBack"},{"l":"com.kj.WhatShouldIEatTodayBack.api.controller"},{"l":"com.kj.WhatShouldIEatTodayBack.dto"},{"l":"com.kj.WhatShouldIEatTodayBack.Exception"},{"l":"com.kj.WhatShouldIEatTodayBack.service"}]
