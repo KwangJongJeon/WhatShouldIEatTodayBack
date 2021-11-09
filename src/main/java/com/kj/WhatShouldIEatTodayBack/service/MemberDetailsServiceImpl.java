@@ -27,9 +27,11 @@ public class MemberDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String memberEmail) throws UsernameNotFoundException {
-        return memberRepository.findByMemberEmail(memberEmail)
+        MemberDetailsDTO memberDetailsDTO = memberRepository.findByMemberEmail(memberEmail)
                 .stream().findFirst()
                 .map(u -> new MemberDetailsDTO(u, u.getMemberRole().getGrantedAuthority()))
                 .orElseThrow(() -> new UsernameNotFoundException(memberEmail + " is not founded"));
+
+        return memberDetailsDTO;
     }
 }

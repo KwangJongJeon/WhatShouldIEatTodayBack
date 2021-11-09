@@ -22,6 +22,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.projectlombok:lombok:1.18.18'
 
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // thymeleaf
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+
 	implementation 'org.springframework.boot:spring-boot-starter-security' // spring security
 
 	implementation("com.google.guava:guava:31.0.1-jre") // google guava
