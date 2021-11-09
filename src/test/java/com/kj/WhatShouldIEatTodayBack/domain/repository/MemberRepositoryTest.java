@@ -1,6 +1,7 @@
 package com.kj.WhatShouldIEatTodayBack.domain.repository;
 
 import com.kj.WhatShouldIEatTodayBack.domain.Member;
+import com.kj.WhatShouldIEatTodayBack.enums.MemberRole;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -34,11 +34,13 @@ class MemberRepositoryTest {
         String email = "test@test.com";
         String password = "password";
         String name = "KJ";
+        MemberRole role = MemberRole.USER;
 
         memberRepository.save(Member.builder()
                 .memberEmail(email)
                 .memberPw(password)
                 .name(name)
+                .memberRole(role)
                 .build()
         );
 
@@ -61,11 +63,13 @@ class MemberRepositoryTest {
         String password = "password";
         String name = "KJ";
         String expectedNickName = "nickname";
+        MemberRole role = MemberRole.USER;
 
         memberRepository.save(Member.builder()
                 .memberEmail(email)
                 .memberPw(password)
                 .name(name)
+                .memberRole(role)
                 .build()
         );
 
@@ -86,11 +90,13 @@ class MemberRepositoryTest {
         String password = "password";
         String name = "KJ";
         String expectedPassword = "changedPassword";
+        MemberRole role = MemberRole.USER;
 
         memberRepository.save(Member.builder()
                 .memberEmail(email)
                 .memberPw(password)
                 .name(name)
+                .memberRole(role)
                 .build()
         );
 
@@ -101,5 +107,32 @@ class MemberRepositoryTest {
         Member member = memberList.get(0);
         member.changePassword(expectedPassword);
         assertThat(member.getMemberPw()).isEqualTo(expectedPassword);
+    }
+
+    @DisplayName("멤버의 역할이 정상적으로 변경된다.")
+    @Test
+    void updateRole() {
+        // given
+        String email = "test@test.com";
+        String password = "password";
+        String name = "KJ";
+        MemberRole role = MemberRole.USER;
+        MemberRole expectedRole = MemberRole.ADMIN;
+
+        memberRepository.save(Member.builder()
+                .memberEmail(email)
+                .memberPw(password)
+                .name(name)
+                .memberRole(role)
+                .build()
+        );
+
+        // when
+        List<Member> memberList = memberRepository.findAll();
+
+        // then
+        Member member = memberList.get(0);
+        member.changeMemberRole(expectedRole);
+        assertThat(member.getMemberRole()).isEqualTo(expectedRole);
     }
 }
