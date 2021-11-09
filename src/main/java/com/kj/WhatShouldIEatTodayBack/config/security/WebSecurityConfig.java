@@ -1,5 +1,6 @@
 package com.kj.WhatShouldIEatTodayBack.config.security;
 
+import com.kj.WhatShouldIEatTodayBack.service.MemberDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
+    private final MemberDetailsServiceImpl memberDetailsService;
 
 
     /** 정적 자원에 대해서는 Security 설정을 적용하지 않는다. */
@@ -52,13 +54,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        super.configure(auth);
+        auth.authenticationProvider(daoAuthenticationProvider());
     }
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder);
-        provider.setUserDetailsService();
+        provider.setUserDetailsService(memberDetailsService);
+        return provider;
     }
 }

@@ -1,5 +1,6 @@
 package com.kj.WhatShouldIEatTodayBack.domain;
 
+import com.kj.WhatShouldIEatTodayBack.enums.MemberRole;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -27,16 +28,23 @@ public class Member extends BaseEntity{
 //    @Column(nullable = false)
 //    private String phoneNumber
 
+    @Column(nullable = false, length = 50)
+    @Enumerated(EnumType.STRING)
+    private MemberRole memberRole;
+
+
     @Column
     private String nickName;
 
 
 
+
     @Builder
-    public Member(String memberEmail, String memberPw, String name) {
+    public Member(String memberEmail, String memberPw, String name, MemberRole memberRole) {
         this.memberEmail = memberEmail;
         this.memberPw = memberPw;
         this.name = name;
+        this.memberRole = memberRole;
     }
 
     // TODO: Role 기능 구현
@@ -53,5 +61,7 @@ public class Member extends BaseEntity{
         this.nickName = nickName;
     }
 
-
+    public void changeMemberRole(MemberRole role) {
+        this.memberRole = role;
+    }
 }
