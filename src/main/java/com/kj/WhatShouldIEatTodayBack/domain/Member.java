@@ -10,26 +10,47 @@ import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
-@Table(name = "Member")
 @Entity
 public class Member extends BaseEntity{
 
-    @Setter
+
     @Column(nullable = false, unique = true, length = 50)
     private String memberEmail;
 
-    @Setter
     @Column(nullable = false)
     private String memberPw;
 
+    @Column(nullable = false)
+    private String name;
+
+    // TODO: 핸드폰 번호 구현
+//    @Column(nullable = false)
+//    private String phoneNumber
+
+    @Column
+    private String nickName;
+
+
+
     @Builder
-    public Member(String memberEmail, String memberPw) {
+    public Member(String memberEmail, String memberPw, String name) {
         this.memberEmail = memberEmail;
         this.memberPw = memberPw;
+        this.name = name;
     }
 
-//    @Setter
-//    @Column(nullable = false, length = 50)
-//    @Enumerated(EnumType.STRING)
-//    private
+    //    @Setter
+    //    @Column(nullable = false, length = 50)
+    //    @Enumerated(EnumType.STRING)
+    //    private
+
+    public void changePassword(String password) {
+        this.memberPw = password;
+    }
+
+    public void changeNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+
 }
