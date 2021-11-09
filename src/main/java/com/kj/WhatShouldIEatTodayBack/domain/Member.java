@@ -36,9 +36,6 @@ public class Member extends BaseEntity{
     @Column
     private String nickName;
 
-
-
-
     @Builder
     public Member(String memberEmail, String memberPw, String name, MemberRole memberRole) {
         this.memberEmail = memberEmail;
@@ -47,11 +44,6 @@ public class Member extends BaseEntity{
         this.memberRole = memberRole;
     }
 
-    // TODO: Role 기능 구현
-    //    @Setter
-    //    @Column(nullable = false, length = 50)
-    //    @Enumerated(EnumType.STRING)
-    //    private
 
     public void changePassword(String password) {
         this.memberPw = password;
