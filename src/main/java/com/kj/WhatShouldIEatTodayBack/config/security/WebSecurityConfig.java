@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @RequiredArgsConstructor
@@ -31,24 +32,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // TODO: csrf를 사용하는 부분으로 수정 필요
-        http.csrf().disable().authorizeRequests()
-                .antMatchers("/api/reservation/**").authenticated()
+        // API로만 통신 할 것이기 때문에 csrf는 비활성화
+        http
+                .csrf()
+                    .disable()
+                .authorizeRequests()
+                    .antMatchers("/api/reservation/**").authenticated()
                 .and()
                 .formLogin()
                     .loginPage("/login")
                     .permitAll()
-                    .defaultSuccessUrl("/loginSuccess", true)
-                    .passwordParameter("password")
-                    .usernameParameter("username")
+                .defaultSuccessUrl("/loginSuccess", true)
+                .passwordParameter("password")
+                .usernameParameter("username")
                 .and()
                 .logout()
-                    .logoutUrl("/loginFailure")
-                    // TODO: 현재 csrf를 사용하지 않아 get메소드로 사용되고 있는데, csrf를 사용하도록 설정 한 뒤 변경 필요
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
-                    .clearAuthentication(true)
-                    .invalidateHttpSession(true)
-                    .deleteCookies("JSESSIONID", "remember-me")
+                .logoutUrl("/loginFailure")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID", "remember-me")
                     .logoutSuccessUrl("/login");
     }
 
