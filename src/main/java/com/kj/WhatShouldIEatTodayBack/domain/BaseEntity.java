@@ -25,4 +25,8 @@ public abstract class BaseEntity {
     @UpdateTimestamp
     @Column(length = 20)
     private LocalDateTime updatedAt;
+
+    @Setter
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT true")
+    private Boolean isEnable = true; // 사용 여부
 }

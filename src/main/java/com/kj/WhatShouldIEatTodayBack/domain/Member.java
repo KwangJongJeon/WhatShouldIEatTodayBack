@@ -39,6 +39,7 @@ public class Member extends BaseEntity{
         this.name = name;
     }
 
+    // TODO: Role 기능 구현
     //    @Setter
     //    @Column(nullable = false, length = 50)
     //    @Enumerated(EnumType.STRING)
