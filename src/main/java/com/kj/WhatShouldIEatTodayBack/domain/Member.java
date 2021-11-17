@@ -14,6 +14,9 @@ import java.time.LocalDateTime;
 @Entity
 public class Member extends BaseEntity{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long memberId;
 
     @Column(nullable = false, unique = true, length = 50)
     private String memberEmail;
@@ -24,26 +27,36 @@ public class Member extends BaseEntity{
     @Column(nullable = false)
     private String name;
 
-    // TODO: 핸드폰 번호 구현
-//    @Column(nullable = false)
-//    private String phoneNumber
+    // 01x-xxxx-xxxx 중 가장 첫번째 부분을 저장
+    // 01012345678, 010-1234-5678 등의 포맷팅을 손쉽게 처리하기 위해서 나눠서 구현했음.
+    @Column(nullable = false)
+    private String phone1;
+
+    @Column(nullable = false)
+    private String phone2;
+
+    @Column(nullable = false)
+    private String phone3;
+
 
     @Column(nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
     private MemberRole memberRole;
 
-
     @Column
     private String nickName;
 
     @Builder
-    public Member(String memberEmail, String memberPw, String name, MemberRole memberRole) {
+    public Member(String memberEmail, String memberPw, String name,
+                  String phone1, String phone2, String phone3, MemberRole memberRole) {
         this.memberEmail = memberEmail;
         this.memberPw = memberPw;
         this.name = name;
+        this.phone1 = phone1;
+        this.phone2 = phone2;
+        this.phone3 = phone3;
         this.memberRole = memberRole;
     }
-
 
     public void changePassword(String password) {
         this.memberPw = password;

@@ -40,6 +40,9 @@ class MemberRepositoryTest {
                 .memberEmail(email)
                 .memberPw(password)
                 .name(name)
+                .phone1("010")
+                .phone2("1234")
+                .phone3("5678")
                 .memberRole(role)
                 .build()
         );
@@ -69,6 +72,9 @@ class MemberRepositoryTest {
                 .memberEmail(email)
                 .memberPw(password)
                 .name(name)
+                .phone1("010")
+                .phone2("1234")
+                .phone3("5678")
                 .memberRole(role)
                 .build()
         );
@@ -96,6 +102,9 @@ class MemberRepositoryTest {
                 .memberEmail(email)
                 .memberPw(password)
                 .name(name)
+                .phone1("010")
+                .phone2("1234")
+                .phone3("5678")
                 .memberRole(role)
                 .build()
         );
@@ -123,6 +132,9 @@ class MemberRepositoryTest {
                 .memberEmail(email)
                 .memberPw(password)
                 .name(name)
+                .phone1("010")
+                .phone2("1234")
+                .phone3("5678")
                 .memberRole(role)
                 .build()
         );
