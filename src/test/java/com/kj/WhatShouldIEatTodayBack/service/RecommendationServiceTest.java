@@ -25,8 +25,8 @@ class RecommendationServiceTest {
         RecommendServiceReq recommendServiceReq = new RecommendServiceReq();
 
         ArrayList<String> categoriesData = new ArrayList<>();
-        categoriesData.add("KoreanFood");
-        categoriesData.add("JapaneseFood");
+        categoriesData.add("한식");
+        categoriesData.add("일식");
 
         recommendServiceReq.setCategories(categoriesData);
         recommendServiceReq.setLatitude("36.342038853926766");

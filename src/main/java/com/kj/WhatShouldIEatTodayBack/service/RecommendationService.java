@@ -6,6 +6,7 @@ import com.kj.WhatShouldIEatTodayBack.dto.ResponseDocument;
 import com.kj.WhatShouldIEatTodayBack.dto.SearchLocalAPIReq;
 import com.kj.WhatShouldIEatTodayBack.dto.SearchLocalAPIRes;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class RecommendationService {
 
 
@@ -47,6 +49,9 @@ public class RecommendationService {
         String x = recommendServiceReq.getLongitude();
         String y = recommendServiceReq.getLatitude();
         String radius = recommendServiceReq.getRange();
+
+        log.info("y" + y);
+
 
         /*
          * Kakao API에 검색을 두 번 요청한다
@@ -113,29 +118,32 @@ public class RecommendationService {
     private String selectCategoryRandomly(List<String> categories) {
 
         HashMap<String, Integer> permittedCategory = new HashMap<String, Integer>();
-        permittedCategory.put("KoreanFood", 1);
-        permittedCategory.put("ChineseFood", 1);
-        permittedCategory.put("JapaneseFood", 1);
+        permittedCategory.put("한식", 1);
+        permittedCategory.put("중식", 1);
+        permittedCategory.put("일식", 1);
+        permittedCategory.put("양식", 1);
 
         for (String category : categories) {
             if(permittedCategory.getOrDefault(category, 0) != 1)
-                throw new CategoryMenuIsNotRegistered(category + "는 서비스에 등록되지 않은 카테고리입니다");
+                throw new CategoryMenuIsNotRegistered(category + "은(는) 서비스에 등록되지 않은 카테고리입니다");
         }
 
         int randomValue = (int)(Math.random()*categories.size());
 
         String category = categories.get(randomValue);
 
-        switch (category) {
-            case "KoreanFood":
-                return "한식";
-            case "JapaneseFood":
-                return "일식";
-            case "ChineseFood":
-                return "중식";
-            default:
-                throw new CategoryMenuIsNotRegistered(category + "는 서비스에 등록되지 않은 카테고리입니다");
+        return category;
 
-        }
+//        switch (category) {
+//            case "KoreanFood":
+//                return "한식";
+//            case "JapaneseFood":
+//                return "일식";
+//            case "ChineseFood":
+//                return "중식";
+//            default:
+//                throw new CategoryMenuIsNotRegistered(category + "는 서비스에 등록되지 않은 카테고리입니다");
+
     }
 }
+

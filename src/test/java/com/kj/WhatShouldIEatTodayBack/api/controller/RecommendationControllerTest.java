@@ -57,8 +57,8 @@ class RecommendationControllerTest {
         RecommendServiceReq recommendServiceReq = new RecommendServiceReq();
 
         ArrayList<String> categoriesData = new ArrayList<>();
-        categoriesData.add("KoreanFood");
-        categoriesData.add("JapaneseFood");
+        categoriesData.add("한식");
+        categoriesData.add("일식");
 
         recommendServiceReq.setCategories(categoriesData);
         recommendServiceReq.setLatitude("36.342038853926766");
@@ -86,7 +86,7 @@ class RecommendationControllerTest {
                 "\"latitude\": \"36.342038853926766\",\n" +
                 "\"longitude\": \"127.38479286399112\",\n" +
                 "\"range\": \"1000\", \n" +
-                "\"categories\": [\"KoreanFood\", \"JapaneseFood\"]\n" +
+                "\"categories\": [\"한식\", \"일식\"]\n" +
                 "}";
 
 

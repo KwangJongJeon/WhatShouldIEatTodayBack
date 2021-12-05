@@ -2,11 +2,13 @@ package com.kj.WhatShouldIEatTodayBack.dto;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 @RequiredArgsConstructor
 @Data
+@Slf4j
 public class SearchLocalAPIReq {
     private final String query;
     private final String x; // 중심좌표의 x값 혹은 longitude, 특정 지역을 중심으로 검색하려고 할 경우 radius와 함께 사용
@@ -22,7 +24,7 @@ public class SearchLocalAPIReq {
         LinkedMultiValueMap<String, String> map = new LinkedMultiValueMap<>();
 
         map.add("query", query);
-        map.add("x", y);
+        map.add("x", x);
         map.add("y", y);
         map.add("radius", radius);
 
