@@ -1,11 +1,15 @@
 package com.kj.WhatShouldIEatTodayBack.dto.memberDTO;
 
 import com.kj.WhatShouldIEatTodayBack.domain.Member;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class MemberResponseDto {
     Long memberId;
     String memberEmail;
-    String name;
+    String memberName;
     String nickName;
     String phoneNumber;
 
@@ -14,8 +18,13 @@ public class MemberResponseDto {
     public MemberResponseDto(Member member) {
         memberId = member.getMemberId();
         memberEmail = member.getMemberEmail();
-        name = member.getName();
-        nickName = member.getNickName();
+        memberName = member.getName();
+        if(member.getNickName() == null) {
+            nickName = member.getMemberEmail();
+        } else {
+            nickName = member.getNickName();
+        }
+
         phoneNumber = toStringPhone(member.getPhone1(), member.getPhone2(), member.getPhone3());
     }
 

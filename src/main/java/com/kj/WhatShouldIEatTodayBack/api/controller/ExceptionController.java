@@ -3,6 +3,7 @@ package com.kj.WhatShouldIEatTodayBack.api.controller;
 
 import com.kj.WhatShouldIEatTodayBack.Exception.CategoryMenuIsNotRegistered;
 import com.kj.WhatShouldIEatTodayBack.Exception.KakaoServerIsNotRespondException;
+import com.kj.WhatShouldIEatTodayBack.Exception.UserSessionIsNotValid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +45,16 @@ public class ExceptionController {
     public ResponseEntity<String> handleCategoryMenuIsNotRegistered(CategoryMenuIsNotRegistered exception) {
         log.error("CategoryMenuIsNotRegisteredException was thrown: " + exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
+
+    /**
+     * 유효하지 않은 세션이 들어왔을 경우 발생하는 예외
+     */
+    @ExceptionHandler(UserSessionIsNotValid.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<String> handleUserSessionIsNotValid(UserSessionIsNotValid excpetion) {
+        log.error("UserSessionIsNotValid was thrown: " + excpetion.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(excpetion.getMessage());
     }
 
 }
