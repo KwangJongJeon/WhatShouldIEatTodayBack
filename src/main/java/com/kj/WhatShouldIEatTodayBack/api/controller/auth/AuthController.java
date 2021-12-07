@@ -1,5 +1,6 @@
 package com.kj.WhatShouldIEatTodayBack.api.controller.auth;
 
+import com.kj.WhatShouldIEatTodayBack.dto.memberDTO.MemberCheckResponseDto;
 import com.kj.WhatShouldIEatTodayBack.dto.memberDTO.MemberRequestDto;
 import com.kj.WhatShouldIEatTodayBack.dto.memberDTO.MemberResponseDto;
 import com.kj.WhatShouldIEatTodayBack.service.AuthService;
@@ -49,7 +50,7 @@ public class AuthController {
 
     @RequestMapping(value = "/check")
     @ResponseBody
-    public MemberResponseDto check(Principal principal) {
-        return authService.getMember(principal);
+    public MemberCheckResponseDto check(Principal principal) {
+        return authService.getMemberCheck(principal);
     }
 }
