@@ -71,4 +71,11 @@ public class Member extends BaseEntity{
     public void changeMemberRole(MemberRole role) {
         this.memberRole = role;
     }
+
+    public void changePhoneNumber(String phoneNumber) {
+        int mid = phoneNumber.length() == 10? 6: 7;
+        this.phone1 = phoneNumber.substring(0, 3);
+        this.phone2 = phoneNumber.substring(3, mid);
+        this.phone3 = phoneNumber.substring(mid);
+    }
 }

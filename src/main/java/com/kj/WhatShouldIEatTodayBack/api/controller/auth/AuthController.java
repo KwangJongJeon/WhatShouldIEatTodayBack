@@ -1,6 +1,7 @@
 package com.kj.WhatShouldIEatTodayBack.api.controller.auth;
 
 import com.kj.WhatShouldIEatTodayBack.dto.memberDTO.MemberCheckResponseDto;
+import com.kj.WhatShouldIEatTodayBack.dto.memberDTO.MemberEditRequestDto;
 import com.kj.WhatShouldIEatTodayBack.dto.memberDTO.MemberRequestDto;
 import com.kj.WhatShouldIEatTodayBack.dto.memberDTO.MemberResponseDto;
 import com.kj.WhatShouldIEatTodayBack.service.AuthService;
@@ -23,7 +24,7 @@ public class AuthController {
     private final AuthService authService;
 
     @RequestMapping(value = "/register")
-    public ResponseEntity register(@RequestBody MemberRequestDto memberRequestDto) {
+    public ResponseEntity<String> register(@RequestBody MemberRequestDto memberRequestDto) {
         // TODO: 메시지 단순 String이 아니라 MemberResponseDto를 사용해 반환하도록 할 필요가 있음.
         log.info("register request is arrived!");
         HttpStatus httpStatus;
@@ -52,5 +53,18 @@ public class AuthController {
     @ResponseBody
     public MemberCheckResponseDto check(Principal principal) {
         return authService.getMemberCheck(principal);
+    }
+
+    @RequestMapping(value = "/getMember")
+    @ResponseBody
+    public MemberResponseDto getMember(Principal principal) {
+        return authService.getMember(principal);
+    }
+
+    @RequestMapping(value = "/editMember")
+    @ResponseBody
+    public ResponseEntity editMember(@RequestBody MemberEditRequestDto memberEditRequestDto) {
+        log.info(memberEditRequestDto.toString());
+        return authService.editMember(memberEditRequestDto);
     }
 }
