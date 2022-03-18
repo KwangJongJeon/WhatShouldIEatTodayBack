@@ -29,7 +29,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Configuration
-@CrossOrigin(origins = "https://whatishoudeat.com")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
