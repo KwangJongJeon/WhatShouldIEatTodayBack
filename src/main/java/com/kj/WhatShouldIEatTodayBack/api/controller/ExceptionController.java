@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  *  @author KwangJong Jeon
  *  @since 0.1
  *
- *  @TODO : 예외 로그 파일로 저장하기 -> slf4j
  */
 @Slf4j
 @ControllerAdvice

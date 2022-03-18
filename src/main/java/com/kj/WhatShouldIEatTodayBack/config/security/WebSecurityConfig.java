@@ -66,12 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .invalidateHttpSession(true)
                     .deleteCookies("JSESSIONID", "remember-me")
                     .logoutSuccessUrl("/login");
-//                .and()
-//
-//                .rememberMe()
-//                    .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21))
-//                    .key("temporaryKey") // TODO: 임시 키 나중에 반드시 변경해야함!!!!
-//                    .rememberMeParameter("remember-me");
+
     }
 
     @Override

@@ -19,13 +19,13 @@ import java.security.Principal;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "/api/auth")
+@CrossOrigin(origins = "https://whatishoudeat.com")
 public class AuthController {
 
     private final AuthService authService;
 
     @RequestMapping(value = "/register")
     public ResponseEntity<String> register(@RequestBody MemberRequestDto memberRequestDto) {
-        // TODO: 메시지 단순 String이 아니라 MemberResponseDto를 사용해 반환하도록 할 필요가 있음.
         log.info("register request is arrived!");
         HttpStatus httpStatus;
         String message = "FAILURE";
@@ -43,7 +43,7 @@ public class AuthController {
 
     @GetMapping(value = "/loginSuccess")
     @ResponseBody
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "https://whatishoudeat.com")
     public String loginSuccess(HttpServletRequest request) {
         log.info("request: ", request.toString());
         return "Success";

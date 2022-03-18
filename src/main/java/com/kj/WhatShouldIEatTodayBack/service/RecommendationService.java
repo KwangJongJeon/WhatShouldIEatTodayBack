@@ -113,7 +113,6 @@ public class RecommendationService {
      * @param categories 유저가 보낸 데이터 중 '카테고리'에 해당하는 값들의 리스트
      * @return 카테고리 중 하나를 뽑아 리턴한다.
      *
-     * @TODO: 리팩토링 필요 - 카테고리가 주어진 범위가 아닐때 Exception을 던지는 것을 처리해야함 -> Enum등을 써서 코드를 깔끔하게 좀 정리하자
      */
     private String selectCategoryRandomly(List<String> categories) {
 
