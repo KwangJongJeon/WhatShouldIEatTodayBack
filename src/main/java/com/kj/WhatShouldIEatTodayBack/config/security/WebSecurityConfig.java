@@ -58,8 +58,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .authorizeRequests()
                     .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .and()
-                    .cors()
-                .and()
                     .requiresChannel() // HTTPS로 로그인 필요
                     .antMatchers("/api/auth/login").requiresSecure()
                 .and()
@@ -78,8 +76,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .clearAuthentication(true)
                     .invalidateHttpSession(true)
                     .deleteCookies("JSESSIONID", "remember-me")
-                    .logoutSuccessUrl("/login");
-
+                    .logoutSuccessUrl("/login")
+                .and()
+                .cors();
     }
 
     @Override
