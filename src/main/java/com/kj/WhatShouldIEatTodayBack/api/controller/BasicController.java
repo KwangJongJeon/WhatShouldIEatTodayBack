@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class BasicController {
     @RequestMapping(value="/")
     public String hello() {
-        return "Hello!";
+        return "login";
     }
 }
