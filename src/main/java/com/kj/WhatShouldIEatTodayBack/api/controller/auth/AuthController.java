@@ -19,7 +19,6 @@ import java.security.Principal;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "/api/auth")
-@CrossOrigin(origins = "https://whatishouldeat.com")
 public class AuthController {
 
     private final AuthService authService;
