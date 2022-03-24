@@ -47,6 +47,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .authorizeRequests()
                     .antMatchers("/api/reservation/**").authenticated()
                 .and()
+                    .requiresChannel() // HTTPS로 로그인 필요
+                    .antMatchers("/api/auth/login").requiresSecure()
+                .and()
                     // PreFlightRequest 처리
                     .authorizeRequests()
                     .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
@@ -60,10 +63,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .successHandler(new SimpleUrlAuthenticationSuccessHandler())
                     .failureHandler(new SimpleUrlAuthenticationFailureHandler()) // 로그인 실패시 401 http Status 반환
                 .and()
-                    .requiresChannel() // HTTPS로 로그인 필요
-                .anyRequest()
-                .requiresSecure()
-                    .and()
                 .logout()
                     .logoutUrl("/api/auth/logout")
                     .logoutRequestMatcher(new AntPathRequestMatcher("/api/auth/logout", "GET"))
