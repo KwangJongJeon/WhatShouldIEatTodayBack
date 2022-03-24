@@ -46,9 +46,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .authorizeRequests()
                     .antMatchers("/api/reservation/**").authenticated()
                 .and()
-                    .authorizeRequests()
-                    .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .and()
                     .requiresChannel() // HTTPS로 로그인 필요
                     .antMatchers("/api/auth/login").requiresSecure()
                 .and()
