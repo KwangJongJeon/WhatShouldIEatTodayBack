@@ -7,6 +7,7 @@ import com.kj.WhatShouldIEatTodayBack.dto.memberDTO.MemberResponseDto;
 import com.kj.WhatShouldIEatTodayBack.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.units.qual.C;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
