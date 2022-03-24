@@ -61,7 +61,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .failureHandler(new SimpleUrlAuthenticationFailureHandler()) // 로그인 실패시 401 http Status 반환
                 .and()
                     .requiresChannel() // HTTPS로 로그인 필요
-                    .antMatchers("/api/auth/login").requiresSecure()
+                .anyRequest()
+                .requiresSecure()
                     .and()
                 .logout()
                     .logoutUrl("/api/auth/logout")
