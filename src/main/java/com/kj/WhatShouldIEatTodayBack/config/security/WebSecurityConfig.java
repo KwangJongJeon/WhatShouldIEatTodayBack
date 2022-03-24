@@ -44,13 +44,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf()
                     .disable()
-                    .authorizeRequests()
-                    .antMatchers("/api/reservation/**").authenticated()
-
-                .and()
                     // PreFlightRequest 처리
                     .authorizeRequests()
                     .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                    .and()
+                    .authorizeRequests()
+                    .antMatchers("/api/reservation/**").authenticated()
+
+
+                .and()
+                .requiresChannel() // HTTPS로 로그인 필요
+                .antMatchers("/api/auth/login").requiresSecure()
                 .and()
                 .formLogin()
                     .loginPage("/api/auth/login")
@@ -60,9 +64,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .usernameParameter("memberEmail")
 //                    .successHandler(new SimpleUrlAuthenticationSuccessHandler())
                     .failureHandler(new SimpleUrlAuthenticationFailureHandler()) // 로그인 실패시 401 http Status 반환
-                .and()
-                    .requiresChannel() // HTTPS로 로그인 필요
-                    .antMatchers("/api/auth/login").requiresSecure()
                 .and()
                 .logout()
                     .logoutUrl("/api/auth/logout")
