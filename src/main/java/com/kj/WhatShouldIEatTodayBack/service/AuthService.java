@@ -34,7 +34,9 @@ public class AuthService {
 
     public MemberCheckResponseDto getMemberCheck(Principal principal) {
         try {
+            log.info("1");
             Optional<Member> member = memberRepository.findByMemberEmail(principal.getName());
+            log.info("2");
             log.info("member: " + member.get().getMemberEmail());
             MemberCheckResponseDto memberCheckResponseDto = new MemberCheckResponseDto(member.get());
             return memberCheckResponseDto;

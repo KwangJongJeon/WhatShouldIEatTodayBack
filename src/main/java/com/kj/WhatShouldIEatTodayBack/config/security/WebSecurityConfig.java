@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -45,17 +46,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .disable()
                     .authorizeRequests()
                     .antMatchers("/api/reservation/**").authenticated()
-                .and()
-                    .requiresChannel() // HTTPS로 로그인 필요
-                    .antMatchers("/api/auth/login").requiresSecure()
+//                .and()
+//                    .requiresChannel() // HTTPS로 로그인 필요
+//                    .antMatchers("/api/auth/login").requiresSecure()
                 .and()
                 .formLogin()
                     .loginPage("/api/auth/login")
                     .permitAll()
-//                    .defaultSuccessUrl("/api/auth/loginSuccess", true)
+                    .defaultSuccessUrl("/api/auth/loginSuccess", true)
                     .passwordParameter("memberPw")
                     .usernameParameter("memberEmail")
-//                    .successHandler(new SimpleUrlAuthenticationSuccessHandler())
+                    .successHandler(new SimpleUrlAuthenticationSuccessHandler())
                     .failureHandler(new SimpleUrlAuthenticationFailureHandler()) // 로그인 실패시 401 http Status 반환
                 .and()
                 .logout()
@@ -87,7 +88,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://whatishouldeat.com", "https://whatishoudeat.com"));
+        configuration.setAllowedOrigins(Arrays.asList("https://whatishouldeat.com", "https://whatishoudeat.com", "http://localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
