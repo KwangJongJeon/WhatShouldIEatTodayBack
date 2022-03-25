@@ -41,6 +41,11 @@ public class AuthController {
         return new ResponseEntity<String>(message,httpStatus);
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
     @GetMapping(value = "/login/loginSuccess")
     @ResponseBody
     public String loginSuccess(HttpServletRequest request) {
