@@ -53,11 +53,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .authorizeRequests()
                     .antMatchers("/api/reservation/**").authenticated()
                 .and()
-//                    .requiresChannel() // HTTPS로 로그인 필요
-//                    .antMatchers("/api/auth/login").requiresSecure()
-//                .and()
                     .requiresChannel() // HTTPS로 로그인 필요
-                    .anyRequest().requiresSecure()
+                    .antMatchers("/api/auth/login").requiresSecure()
+//                .and()
+//                    .requiresChannel() // HTTPS로 로그인 필요
+//                    .anyRequest().requiresSecure()
                 .and()
                 .formLogin()
                     .loginPage("/api/auth/login")
