@@ -42,6 +42,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // API로만 통신 할 것이기 때문에 csrf는 비활성화
         http
+                .cors()
+                .and()
                 .csrf()
                     .disable()
                     // PreFlightRequest 처리
@@ -69,9 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .clearAuthentication(true)
                     .invalidateHttpSession(true)
                     .deleteCookies("JSESSIONID", "remember-me")
-                    .logoutSuccessUrl("/login")
-                .and()
-                .cors();
+                    .logoutSuccessUrl("/login");
 
     }
 
