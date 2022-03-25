@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                     .loginPage("/api/auth/login")
                     .permitAll()
-                    .defaultSuccessUrl("/api/auth/login/loginSuccess", true)
+//                    .defaultSuccessUrl("/api/auth/login/loginSuccess", true)
                     .passwordParameter("memberPw")
                     .usernameParameter("memberEmail")
 //                    .successHandler(new SimpleUrlAuthenticationSuccessHandler())
