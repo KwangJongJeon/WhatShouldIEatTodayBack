@@ -62,10 +62,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                     .loginPage("/api/auth/login")
                     .permitAll()
-                    .defaultSuccessUrl("/api/auth/login/loginSuccess", true)
+//                    .defaultSuccessUrl("/api/auth/login/loginSuccess", true)
                     .passwordParameter("memberPw")
                     .usernameParameter("memberEmail")
-//                    .successHandler(new SimpleUrlAuthenticationSuccessHandler())
+                    .successHandler(new SimpleUrlAuthenticationSuccessHandler())
                     .failureHandler(new SimpleUrlAuthenticationFailureHandler()) // 로그인 실패시 401 http Status 반환
                 .and()
                 .logout()
