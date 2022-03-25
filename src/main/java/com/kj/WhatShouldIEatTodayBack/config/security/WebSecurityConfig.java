@@ -50,11 +50,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                     .authorizeRequests()
                     .antMatchers("/api/reservation/**").authenticated()
-
-
-                .and()
-                .requiresChannel() // HTTPS로 로그인 필요
-                .antMatchers("/api/auth/login").requiresSecure()
+//                .and()
+//                .requiresChannel() // HTTPS로 로그인 필요
+//                .antMatchers("/api/auth/login").requiresSecure()
                 .and()
                 .formLogin()
                     .loginPage("/api/auth/login")
@@ -94,7 +92,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://whatishouldeat.com", "https://whatishoudeat.com:8080"));
+        configuration.setAllowedOrigins(Arrays.asList("https://whatishouldeat.com", "https://whatishoudeat.com:8080",
+                "https://whatishoudeat.com:8433", "https://whatishoudeat.com"));
         configuration.setAllowedMethods(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
