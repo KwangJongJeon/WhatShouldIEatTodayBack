@@ -48,6 +48,7 @@ public class AuthController {
 
     @GetMapping(value = "/login/loginSuccess")
     @ResponseBody
+    @CrossOrigin(origins = "https://whatishouldeat.com")
     public String loginSuccess(HttpServletRequest request) {
         log.info("request: ", request.toString());
         return "Success";
