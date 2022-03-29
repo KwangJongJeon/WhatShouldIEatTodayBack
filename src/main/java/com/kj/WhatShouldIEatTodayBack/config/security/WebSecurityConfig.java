@@ -1,5 +1,6 @@
 package com.kj.WhatShouldIEatTodayBack.config.security;
 
+import com.kj.WhatShouldIEatTodayBack.handler.RestLoginSuccessHandler;
 import com.kj.WhatShouldIEatTodayBack.service.MemberDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -65,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                    .defaultSuccessUrl("/api/auth/login/loginSuccess", true)
                     .passwordParameter("memberPw")
                     .usernameParameter("memberEmail")
-                    .successHandler(new SavedRequestAwareAuthenticationSuccessHandler())
+                    .successHandler(new RestLoginSuccessHandler())
                     .failureHandler(new SimpleUrlAuthenticationFailureHandler()) // 로그인 실패시 401 http Status 반환
                 .and()
                 .logout()
