@@ -28,8 +28,9 @@ public class RestLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws ServletException, IOException {
-        addSameSIteCookieAttribute(response);
+
         handle(request, response, authentication);
+        addSameSIteCookieAttribute(response);
     }
 
     protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
