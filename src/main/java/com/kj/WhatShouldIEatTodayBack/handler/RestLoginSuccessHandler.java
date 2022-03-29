@@ -55,7 +55,7 @@ public class RestLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
         final String SAME_SITE_STATUS = "SameSite=None";
 
         String header = response.getHeader(HttpHeaders.SET_COOKIE);
-        response.setHeader(HttpHeaders.SET_COOKIE, String.format("%s; %s", header, SAME_SITE_STATUS));
+        response.setHeader(HttpHeaders.SET_COOKIE, String.format("%s; %s; %s;", header, "Secure", SAME_SITE_STATUS));
     }
 }
 
