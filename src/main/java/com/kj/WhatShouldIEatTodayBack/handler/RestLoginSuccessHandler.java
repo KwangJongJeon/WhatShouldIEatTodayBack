@@ -30,7 +30,6 @@ public class RestLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
                                         Authentication authentication) throws ServletException, IOException {
 
         handle(request, response, authentication);
-        addSameSIteCookieAttribute(response);
     }
 
     protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
@@ -51,12 +50,12 @@ public class RestLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
         clearAuthenticationAttributes(request);
     }
 
-    // samesite 쿠키 설정
-    private void addSameSIteCookieAttribute(HttpServletResponse response) {
-        final String SAME_SITE_STATUS = "SameSite=None";
-
-        String header = response.getHeader(HttpHeaders.SET_COOKIE);
-        response.setHeader(HttpHeaders.SET_COOKIE, String.format("%s; %s; %s;", header, "Secure", SAME_SITE_STATUS));
-    }
+//    // samesite 쿠키 설정
+//    private void addSameSIteCookieAttribute(HttpServletResponse response) {
+//        final String SAME_SITE_STATUS = "SameSite=None";
+//
+//        String header = response.getHeader(HttpHeaders.SET_COOKIE);
+//        response.setHeader(HttpHeaders.SET_COOKIE, String.format("%s; %s; %s;", header, "Secure", SAME_SITE_STATUS));
+//    }
 }
 
