@@ -1,7 +1,9 @@
 package com.kj.WhatShouldIEatTodayBack.handler;
 
+import com.google.common.net.HttpHeaders;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.mapping.Collection;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
@@ -26,6 +28,7 @@ public class RestLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws ServletException, IOException {
+        addSameSIteCookieAttribute(response);
         handle(request, response, authentication);
     }
 
@@ -45,6 +48,14 @@ public class RestLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
             return;
         }
         clearAuthenticationAttributes(request);
+    }
+
+    // samesite 쿠키 설정
+    private void addSameSIteCookieAttribute(HttpServletResponse response) {
+        final String SAME_SITE_STATUS = "SameSite=None";
+
+        String header = response.getHeader(HttpHeaders.SET_COOKIE);
+        response.setHeader(HttpHeaders.SET_COOKIE, String.format("%s; %s", header, SAME_SITE_STATUS));
     }
 }
 
