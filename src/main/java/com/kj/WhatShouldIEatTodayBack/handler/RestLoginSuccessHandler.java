@@ -36,6 +36,11 @@ public class RestLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
             throws IOException, ServletException {
         SavedRequest savedRequest = requestCache.getRequest(request, response);
 
+        // 추후 수정 필요
+        response.getWriter().write("Success");
+        response.getWriter().flush();
+
+
         if(savedRequest == null) {
             clearAuthenticationAttributes(request);
             return;
@@ -49,8 +54,6 @@ public class RestLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
         }
         clearAuthenticationAttributes(request);
 
-        response.getWriter().write("Success");
-        response.getWriter().flush();
     }
 
 //    // samesite 쿠키 설정
