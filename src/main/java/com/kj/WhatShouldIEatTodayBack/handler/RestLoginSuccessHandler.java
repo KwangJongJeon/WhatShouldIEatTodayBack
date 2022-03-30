@@ -48,6 +48,7 @@ public class RestLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
             return;
         }
         clearAuthenticationAttributes(request);
+        response.getWriter().write("Success");
     }
 
 //    // samesite 쿠키 설정
