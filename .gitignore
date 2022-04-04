@@ -38,3 +38,6 @@ out/
 
 # ignore config yml file
 application.yml
+
+# cert for local dev
+*.pkcs12
