@@ -36,15 +36,12 @@ deploy:
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
     secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
-
     bucket: what-i-should-eat-back # S3 버킷
     key: what-i-should-eat-back.zip # 빌드 파일을 압축해서 전달
-
     bundle_type: zip # 압축 확장자
     application: what-i-should-eat-back
     deployment_group: what-i-should-eat-group
-
-    region: ap-northeat-2
+    region: ap-northeast-2
     wait-until-deployed: true
 
 
