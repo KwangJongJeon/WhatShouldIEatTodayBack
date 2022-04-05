@@ -33,6 +33,20 @@ deploy:
     local_dir: deploy # before_deploy에서 생성한 디렉토리
     wait-until-deployed: true
 
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
+    secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
+
+    bucket: what-i-should-eat-back # S3 버킷
+    key: what-i-should-eat-back.zip # 빌드 파일을 압축해서 전달
+
+    bundle_type: zip # 압축 확장자
+    application: what-i-should-eat-back
+    deployment_group: what-i-should-eat-group
+
+    region: ap-northeat-2
+    wait-until-deployed: true
+
 
 # CI 실행 완료시 메일로 알람
 notifications:
