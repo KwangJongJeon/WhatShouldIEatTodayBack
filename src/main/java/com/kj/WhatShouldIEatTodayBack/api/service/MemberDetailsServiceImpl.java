@@ -1,4 +1,4 @@
-package com.kj.WhatShouldIEatTodayBack.service;
+package com.kj.WhatShouldIEatTodayBack.api.service;
 
 import com.kj.WhatShouldIEatTodayBack.domain.Member;
 import com.kj.WhatShouldIEatTodayBack.domain.repository.MemberDetailsDTO;

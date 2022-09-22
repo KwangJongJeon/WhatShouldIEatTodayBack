@@ -1,4 +1,4 @@
-package com.kj.WhatShouldIEatTodayBack.service;
+package com.kj.WhatShouldIEatTodayBack.api.service;
 
 import com.kj.WhatShouldIEatTodayBack.Exception.CategoryMenuIsNotRegistered;
 import com.kj.WhatShouldIEatTodayBack.dto.RecommendServiceReq;

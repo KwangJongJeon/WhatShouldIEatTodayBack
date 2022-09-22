@@ -4,10 +4,9 @@ import com.kj.WhatShouldIEatTodayBack.dto.memberDTO.MemberCheckResponseDto;
 import com.kj.WhatShouldIEatTodayBack.dto.memberDTO.MemberEditRequestDto;
 import com.kj.WhatShouldIEatTodayBack.dto.memberDTO.MemberRequestDto;
 import com.kj.WhatShouldIEatTodayBack.dto.memberDTO.MemberResponseDto;
-import com.kj.WhatShouldIEatTodayBack.service.AuthService;
+import com.kj.WhatShouldIEatTodayBack.api.service.AuthServiceAPI;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.checkerframework.checker.units.qual.C;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,9 +19,9 @@ import java.security.Principal;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "/api/auth")
-public class AuthController {
+public class AuthControllerAPI {
 
-    private final AuthService authService;
+    private final AuthServiceAPI authServiceAPI;
 
     @RequestMapping(value = "/register")
     public ResponseEntity<String> register(@RequestBody MemberRequestDto memberRequestDto) {
@@ -30,7 +29,7 @@ public class AuthController {
         HttpStatus httpStatus;
         String message = "FAILURE";
         try {
-            authService.register(memberRequestDto);
+            authServiceAPI.register(memberRequestDto);
             httpStatus = HttpStatus.OK;
             message = "SUCCESS";
 
@@ -57,19 +56,19 @@ public class AuthController {
     @RequestMapping(value = "/check")
     @ResponseBody
     public MemberCheckResponseDto check(Principal principal) {
-        return authService.getMemberCheck(principal);
+        return authServiceAPI.getMemberCheck(principal);
     }
 
     @RequestMapping(value = "/getMember")
     @ResponseBody
     public MemberResponseDto getMember(Principal principal) {
-        return authService.getMember(principal);
+        return authServiceAPI.getMember(principal);
     }
 
     @RequestMapping(value = "/editMember")
     @ResponseBody
     public ResponseEntity editMember(@RequestBody MemberEditRequestDto memberEditRequestDto) {
         log.info(memberEditRequestDto.toString());
-        return authService.editMember(memberEditRequestDto);
+        return authServiceAPI.editMember(memberEditRequestDto);
     }
 }

@@ -2,10 +2,9 @@ package com.kj.WhatShouldIEatTodayBack.api.controller;
 
 import com.kj.WhatShouldIEatTodayBack.dto.RecommendServiceReq;
 import com.kj.WhatShouldIEatTodayBack.dto.ResponseDocument;
-import com.kj.WhatShouldIEatTodayBack.service.RecommendationService;
+import com.kj.WhatShouldIEatTodayBack.api.service.RecommendationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
