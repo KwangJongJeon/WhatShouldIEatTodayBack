@@ -21,8 +21,6 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
     private final AuthService authService;
 
     @GetMapping("/login")
