@@ -3,11 +3,9 @@ package com.kj.WhatShouldIEatTodayBack.controller.auth;
 import com.kj.WhatShouldIEatTodayBack.controller.dto.LoginFormDto;
 import com.kj.WhatShouldIEatTodayBack.controller.dto.RegisterFormDto;
 import com.kj.WhatShouldIEatTodayBack.domain.Member;
-import com.kj.WhatShouldIEatTodayBack.domain.repository.MemberRepository;
 import com.kj.WhatShouldIEatTodayBack.service.AuthService;
 import com.kj.WhatShouldIEatTodayBack.session.SessionConst;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -61,6 +59,8 @@ public class AuthController {
 
     @PostMapping("/register")
     public String register(@Validated @ModelAttribute RegisterFormDto registerFormDto, BindingResult result) {
+
+        authService.checkMemberIsUnique(registerFormDto, result);
 
         if(result.hasErrors()) {
             return "auth/register";

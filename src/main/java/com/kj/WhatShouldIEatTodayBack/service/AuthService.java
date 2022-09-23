@@ -6,6 +6,7 @@ import com.kj.WhatShouldIEatTodayBack.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 @RequiredArgsConstructor
 @Service
@@ -27,6 +28,17 @@ public class AuthService {
         Member member = registerFormDto.makeEntityExceptPassword();
         member.encodePassword(passwordEncoder.encode(registerFormDto.getMemberPw()));
         memberRepository.save(member);
+    }
+
+    public boolean checkMemberIsUnique(RegisterFormDto registerFormDto, BindingResult result) {
+        Member member = registerFormDto.makeEntityExceptPassword();
+
+        if(!memberRepository.findByMemberEmail(member.getMemberEmail()).isEmpty()) {
+            result.reject(null, "이미 존재하는 아이디입니다.");
+            return false;
+        }
+
+        return true;
     }
 
 

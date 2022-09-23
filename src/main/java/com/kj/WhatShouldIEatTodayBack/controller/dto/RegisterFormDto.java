@@ -11,7 +11,7 @@ import javax.validation.constraints.Pattern;
 
 @Data
 public class RegisterFormDto {
-
+    
     @NotBlank
     @Unique
     private String memberEmail;
