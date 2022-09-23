@@ -2,6 +2,7 @@ package com.kj.WhatShouldIEatTodayBack.controller.dto;
 
 import com.kj.WhatShouldIEatTodayBack.domain.Member;
 import com.kj.WhatShouldIEatTodayBack.enums.MemberRole;
+import com.kj.WhatShouldIEatTodayBack.validator.Password;
 import lombok.Data;
 import org.checkerframework.common.aliasing.qual.Unique;
 
@@ -11,12 +12,12 @@ import javax.validation.constraints.Pattern;
 
 @Data
 public class RegisterFormDto {
-    
+
     @NotBlank
     @Unique
     private String memberEmail;
 
-    @NotBlank
+    @Password
     private String memberPw;
 
     @NotBlank
