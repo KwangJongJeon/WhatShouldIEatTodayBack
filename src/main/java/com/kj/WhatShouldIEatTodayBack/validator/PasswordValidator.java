@@ -8,8 +8,9 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
 
     private static final int MIN_SIZE = 8;
     private static final int MAX_SIZE = 20;
-    private static final String regexPasswordPattern = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])";
-    private static final String regexPasswordSize = "^[A-Za-z[0-9]$@$!%*#?&]{" + MIN_SIZE + "," + MAX_SIZE + "}$";
+    private static final String regexPasswordPattern
+            = "^((?=.*\\d)(?=.*[a-zA-Z])(?=.*[\\W]).{" + MIN_SIZE + "," + MAX_SIZE + "})$";
+    private static final String regexPasswordSize = "^[A-Za-z[0-9].!@#$%^&*()_+?]{" + MIN_SIZE + "," + MAX_SIZE + "}$";
 
     @Override
     public void initialize(Password constraintAnnotation) {

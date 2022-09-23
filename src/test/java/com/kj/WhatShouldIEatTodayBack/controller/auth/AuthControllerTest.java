@@ -14,6 +14,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -30,6 +32,10 @@ class AuthControllerTest {
     @Autowired
     private AuthService authService;
 
+    String email = UUID.randomUUID().toString();
+    String password = "test123!@#";
+
+
     @Test
     void loginForm() throws Exception {
         mvc.perform(get("/auth/login"))
@@ -43,7 +49,6 @@ class AuthControllerTest {
     void login() throws Exception {
         // given
         String memberEmail = registerMember();
-        String password = "test123";
 
         LoginFormDto loginFormDto = new LoginFormDto();
         loginFormDto.setMemberEmail(memberEmail);
@@ -89,8 +94,8 @@ class AuthControllerTest {
     void register() throws Exception {
         // given
         RegisterFormDto registerFormDto = new RegisterFormDto();
-        registerFormDto.setMemberEmail("test");
-        registerFormDto.setMemberPw("test123");
+        registerFormDto.setMemberEmail(email);
+        registerFormDto.setMemberPw(password);
         registerFormDto.setMemberName("tester");
         registerFormDto.setPhoneNumber("01012345678");
 
@@ -106,7 +111,8 @@ class AuthControllerTest {
     void registerFail() throws Exception {
         // given
         RegisterFormDto registerFormDto = new RegisterFormDto();
-        registerFormDto.setMemberEmail("test");
+        registerFormDto.setMemberEmail(email);
+        registerFormDto.setMemberPw("wrongpassword");
         registerFormDto.setMemberName("tester");
         registerFormDto.setPhoneNumber("01012345678"); // password를 공백으로 한 상황
 
@@ -121,8 +127,8 @@ class AuthControllerTest {
     private String registerMember() {
 
         RegisterFormDto registerFormDto = new RegisterFormDto();
-        registerFormDto.setMemberEmail("test");
-        registerFormDto.setMemberPw("test123");
+        registerFormDto.setMemberEmail(email);
+        registerFormDto.setMemberPw(password);
         registerFormDto.setMemberName("tester");
         registerFormDto.setPhoneNumber("01012345678");
 

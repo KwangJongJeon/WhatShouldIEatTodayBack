@@ -2,6 +2,7 @@ package com.kj.WhatShouldIEatTodayBack.controller.auth;
 
 import com.kj.WhatShouldIEatTodayBack.controller.dto.LoginFormDto;
 import com.kj.WhatShouldIEatTodayBack.controller.dto.RegisterFormDto;
+import com.kj.WhatShouldIEatTodayBack.controller.dto.UpdateFormDto;
 import com.kj.WhatShouldIEatTodayBack.domain.Member;
 import com.kj.WhatShouldIEatTodayBack.service.AuthService;
 import com.kj.WhatShouldIEatTodayBack.session.SessionConst;
