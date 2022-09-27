@@ -1,12 +1,11 @@
 package com.kj.WhatShouldIEatTodayBack.controller.auth;
 
-import com.kj.WhatShouldIEatTodayBack.controller.dto.LoginFormDto;
-import com.kj.WhatShouldIEatTodayBack.controller.dto.RegisterFormDto;
-import com.kj.WhatShouldIEatTodayBack.controller.dto.UpdateFormDto;
+import com.kj.WhatShouldIEatTodayBack.controller.dto.*;
 import com.kj.WhatShouldIEatTodayBack.domain.Member;
 import com.kj.WhatShouldIEatTodayBack.service.AuthService;
 import com.kj.WhatShouldIEatTodayBack.session.SessionConst;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/auth")
@@ -79,6 +79,60 @@ public class AuthController {
         if(session != null) {
             session.invalidate();
         }
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/checkUser")
+    public String checkPasswordForm(@ModelAttribute CheckFormDto checkFormDto, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        checkFormDto.setMemberEmail(member.getMemberEmail());
+        return "auth/checkPassword";
+    }
+
+
+    @PostMapping("/checkUser")
+    public String checkPassword(@ModelAttribute CheckFormDto checkFormDto) {
+        Member loginMember = authService.login(checkFormDto.getMemberEmail(), checkFormDto.getMemberPw());
+        if(loginMember == null) {
+            return "auth/checkPassword";
+        }
+
+
+        return "redirect:editUser";
+    }
+
+    @GetMapping("/editUser")
+    public String editUserForm(@ModelAttribute EditUserFormDto editUserFormDto, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        if(member == null) {
+            return "redirect:/";
+        }
+
+        editUserFormDto.setMemberEmail(member.getMemberEmail());
+        editUserFormDto.setMemberName(member.getName());
+        editUserFormDto.setNickName(member.getNickName());
+        editUserFormDto.setPhoneNumber(member.getPhone1()+member.getPhone2()+member.getPhone3());
+
+
+        return "auth/editUser";
+    }
+
+    @PostMapping("/editUser")
+    public String editUser(@ModelAttribute EditUserFormDto editUserFormDto, BindingResult result, HttpServletRequest request) {
+        authService.checkMemberNicknameIsUnique(editUserFormDto.getMemberEmail(), editUserFormDto.getNickName(), result);
+
+        if(result.hasErrors()) {
+            return "auth/editUser";
+        }
+
+        log.info("test");
+
+        Member updatedMember = authService.updateUser(editUserFormDto);
+        request.getSession().setAttribute(SessionConst.LOGIN_MEMBER, updatedMember);
+
 
         return "redirect:/";
     }

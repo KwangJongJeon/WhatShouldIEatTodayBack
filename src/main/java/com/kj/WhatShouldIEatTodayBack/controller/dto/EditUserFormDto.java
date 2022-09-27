@@ -6,12 +6,12 @@ import com.kj.WhatShouldIEatTodayBack.validator.Password;
 import lombok.Data;
 import org.checkerframework.common.aliasing.qual.Unique;
 
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+
 @Data
-public class RegisterFormDto {
+public class EditUserFormDto {
 
     @NotBlank
     @Unique
@@ -27,6 +27,9 @@ public class RegisterFormDto {
     @Pattern(regexp = "[0-9]{10,11}", message = "10~11자리 숫자만 입력 가능합니다.")
     private String phoneNumber;
 
+    @Unique
+    @NotBlank
+    private String nickName;
 
     private String[] parsePhone() {
         String[] phones = new String[3];
@@ -44,7 +47,7 @@ public class RegisterFormDto {
         return Member.builder()
                 .memberEmail(memberEmail)
                 .name(memberName)
-                .nickName(memberEmail)
+                .nickName(nickName)
                 .phone1(phones[0])
                 .phone2(phones[1])
                 .phone3(phones[2])
