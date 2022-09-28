@@ -1,22 +1,24 @@
 package com.kj.WhatShouldIEatTodayBack.service;
 
+import com.kj.WhatShouldIEatTodayBack.controller.dto.EditUserFormDto;
 import com.kj.WhatShouldIEatTodayBack.controller.dto.RegisterFormDto;
 import com.kj.WhatShouldIEatTodayBack.domain.Member;
 import com.kj.WhatShouldIEatTodayBack.domain.repository.MemberRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.*;
 
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 class AuthServiceTest {
 
@@ -29,8 +31,9 @@ class AuthServiceTest {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    String email = UUID.randomUUID().toString();
-    String password = UUID.randomUUID().toString();
+
+    String email = "testTester";
+    String password = "tester123!@#";
 
     @Test
     @Transactional
@@ -39,19 +42,14 @@ class AuthServiceTest {
         // given
         BindingResult result = new BeanPropertyBindingResult(null, "controller");
 
-        RegisterFormDto registerFormDto = new RegisterFormDto();
-        registerFormDto.setMemberEmail(email);
-        registerFormDto.setMemberPw(password);
-        registerFormDto.setMemberName("tester");
-        registerFormDto.setPhoneNumber("01012345678");
-
-        Member member = registerFormDto.makeEntityExceptPassword();
-        member.encodePassword(passwordEncoder.encode(password));
+        RegisterFormDto registerFormDto = getRegisterFormDto(email);
 
         authService.register(registerFormDto);
 
+        // when, then
         assertThat(authService.checkMemberIsUnique(registerFormDto, result)).isEqualTo(false);
     }
+
 
     @Test
     @Transactional
@@ -59,14 +57,7 @@ class AuthServiceTest {
     void register() {
 
         // given
-        RegisterFormDto registerFormDto = new RegisterFormDto();
-        registerFormDto.setMemberEmail(email);
-        registerFormDto.setMemberPw(password);
-        registerFormDto.setMemberName("tester");
-        registerFormDto.setPhoneNumber("01012345678");
-
-        Member member = registerFormDto.makeEntityExceptPassword();
-        member.encodePassword(passwordEncoder.encode(password));
+        RegisterFormDto registerFormDto = getRegisterFormDto(email);
 
         // when
         authService.register(registerFormDto);
@@ -82,14 +73,7 @@ class AuthServiceTest {
     void login() {
 
         // given
-        RegisterFormDto registerFormDto = new RegisterFormDto();
-        registerFormDto.setMemberEmail(email);
-        registerFormDto.setMemberPw(password);
-        registerFormDto.setMemberName("tester");
-        registerFormDto.setPhoneNumber("01012345678");
-
-        Member member = registerFormDto.makeEntityExceptPassword();
-        member.encodePassword(passwordEncoder.encode(password));
+        RegisterFormDto registerFormDto = getRegisterFormDto(email);
 
         authService.register(registerFormDto);
         Member expected = memberRepository.findByMemberEmail(email).get();
@@ -98,5 +82,49 @@ class AuthServiceTest {
         Member loginMember = authService.login(email, password);
 
         assertThat(loginMember).isEqualTo(expected);
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("정상적으로 회원의 정보가 변경된다")
+    void updateUser() {
+        // given
+        authService.register(getRegisterFormDto(email));
+
+        String expectedNickName = "expectedNickName";
+        String expectedPhone = "01000000000";
+
+        EditUserFormDto editUserFormDto = new EditUserFormDto();
+        editUserFormDto.setMemberEmail(email);
+        editUserFormDto.setNickName(expectedNickName);
+        editUserFormDto.setMemberPw(password);
+        editUserFormDto.setPhoneNumber(expectedPhone);
+
+        // when
+        Member member = authService.updateUser(editUserFormDto);
+
+        // then
+        assertThat(member.getNickName()).isEqualTo(expectedNickName);
+        assertThat(member.getPhone1()+member.getPhone2()+member.getPhone3()).isEqualTo(expectedPhone);
+    }
+
+
+    /**
+     * Default
+     * email    - testTester
+     * pw       - tester123!@#
+     * name     - tester
+     * phone    - 01012345678
+     */
+    private RegisterFormDto getRegisterFormDto(String emailInput) {
+        RegisterFormDto registerFormDto = new RegisterFormDto();
+        registerFormDto.setMemberEmail(emailInput);
+        registerFormDto.setMemberPw(password);
+        registerFormDto.setMemberName("tester");
+        registerFormDto.setPhoneNumber("01012345678");
+
+        Member member = registerFormDto.makeEntityExceptPassword();
+        member.encodePassword(passwordEncoder.encode(password));
+        return registerFormDto;
     }
 }

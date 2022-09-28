@@ -2,6 +2,7 @@ package com.kj.WhatShouldIEatTodayBack.domain;
 
 import com.kj.WhatShouldIEatTodayBack.enums.MemberRole;
 import lombok.*;
+import org.checkerframework.common.aliasing.qual.Unique;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -43,6 +44,7 @@ public class Member extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private MemberRole memberRole;
 
+    @Unique
     @Column
     private String nickName;
 
