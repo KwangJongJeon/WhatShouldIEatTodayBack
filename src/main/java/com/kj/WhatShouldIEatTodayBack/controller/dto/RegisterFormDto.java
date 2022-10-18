@@ -5,6 +5,7 @@ import com.kj.WhatShouldIEatTodayBack.enums.MemberRole;
 import com.kj.WhatShouldIEatTodayBack.validator.Password;
 import lombok.Data;
 import org.checkerframework.common.aliasing.qual.Unique;
+import org.hibernate.validator.constraints.Range;
 
 
 import javax.validation.constraints.NotBlank;
@@ -24,18 +25,20 @@ public class RegisterFormDto {
     private String memberName;
 
     @NotBlank
-    @Pattern(regexp = "[0-9]{10,11}", message = "10~11자리 숫자만 입력 가능합니다.")
+    @Range(min = 10, max = 11)
     private String phoneNumber;
 
 
     private String[] parsePhone() {
         String[] phones = new String[3];
-        int mid = phoneNumber.length() == 10? 6: 7;
 
-        phones[0] = phoneNumber.substring(0, 3);
-        phones[1] = phoneNumber.substring(3, mid);
-        phones[2] = phoneNumber.substring(mid);
+        if(phoneNumber.length()>7) {
+            int mid = phoneNumber.length() == 10? 6: 7;
 
+            phones[0] = phoneNumber.substring(0, 3);
+            phones[1] = phoneNumber.substring(3, mid);
+            phones[2] = phoneNumber.substring(mid);
+        }
         return phones;
     }
 

@@ -1,8 +1,13 @@
 package com.kj.WhatShouldIEatTodayBack.validator;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.text.MessageFormat;
+
 
 public class PasswordValidator implements ConstraintValidator<Password, String> {
 
@@ -11,6 +16,9 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
     private static final String regexPasswordPattern
             = "^((?=.*\\d)(?=.*[a-zA-Z])(?=.*[\\W]).{" + MIN_SIZE + "," + MAX_SIZE + "})$";
     private static final String regexPasswordSize = "^[A-Za-z[0-9].!@#$%^&*()_+?]{" + MIN_SIZE + "," + MAX_SIZE + "}$";
+
+
+
 
     @Override
     public void initialize(Password constraintAnnotation) {
@@ -23,6 +31,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
         boolean passwordSizeIsValid = password.matches(regexPasswordSize);
 
         if(!passwordSizeIsValid) {
+
             addConstraintViolation(
                     context,
                     MessageFormat.format("비밀번호의 길이는 {0}자 ~ {1}자여야 합니다.", MIN_SIZE, MAX_SIZE)

@@ -46,7 +46,7 @@ public class AuthService {
         Member member = registerFormDto.makeEntityExceptPassword();
 
         if(!memberRepository.findByMemberEmail(member.getMemberEmail()).isEmpty()) {
-            result.reject(null, "이미 존재하는 아이디입니다.");
+            result.rejectValue("memberEmail", "duplicate", "이미 존재하는 아이디입니다.");
             return false;
         }
 
@@ -61,7 +61,7 @@ public class AuthService {
 
         if(resultList.isEmpty()) return true;
 
-        result.reject(null, "이미 존재하는 닉네임입니다.");
+        result.rejectValue("nickName", "duplicate", "이미 존재하는 닉네임입니다.");
 
         for (Member member : resultList) {
             log.info("memberEmail = {}", member);

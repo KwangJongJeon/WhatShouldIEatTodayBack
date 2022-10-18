@@ -17,7 +17,7 @@
 <body>
 <div class="container">
     <div class="py-5 text-center">
-        <h2>로그인</h2>
+        <h2 th:text="#{page.editUser}">유저 정보 수정</h2>
     </div>
     <form action="auth/update" th:action th:object="${updateFormDto}" method="post">
         <div th:if="${#fields.hasGlobalErrors()}">
@@ -25,13 +25,13 @@
                th:text="${err}">전체 오류 메시지</p>
         </div>
         <div>
-            <label for="loginId">로그인 ID</label>
+            <label for="loginId" th:text="#{userInfo.id}">로그인 ID</label>
             <input type="text" id="loginId" th:field="*{memberEmail}" class="formcontrol"
                    th:errorclass="field-error">
             <div class="field-error" th:errors="*{memberEmail}" />
         </div>
         <div>
-            <label for="password">비밀번호</label>
+            <label for="password" th:text="#{userInfo.password}">비밀번호</label>
             <input type="password" id="password" th:field="*{memberPw}"
                    class="form-control"
                    th:errorclass="field-error">
@@ -40,13 +40,14 @@
         <hr class="my-4">
         <div class="row">
             <div class="col">
-                <button class="w-100 btn btn-primary btn-lg" type="submit">
+                <button class="w-100 btn btn-primary btn-lg" type="submit" th:text="#{button.ok}">
                     로그인</button>
             </div>
             <div class="col">
                 <button class="w-100 btn btn-secondary btn-lg"
                         onclick="location.href='items.html'"
                         th:onclick="|location.href='@{/}'|"
+                        th:text="#{button.cancel}"
                         type="button">취소</button>
             </div>
         </div>
