@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Password {
-    String message() default "패스워드가 올바르지 않습니다.";
+    String message() default "{javax.validation.constraints.Password.message}";
 
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};

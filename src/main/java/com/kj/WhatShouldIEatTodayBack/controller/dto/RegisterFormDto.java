@@ -5,7 +5,6 @@ import com.kj.WhatShouldIEatTodayBack.enums.MemberRole;
 import com.kj.WhatShouldIEatTodayBack.validator.Password;
 import lombok.Data;
 import org.checkerframework.common.aliasing.qual.Unique;
-import org.hibernate.validator.constraints.Range;
 
 
 import javax.validation.constraints.NotBlank;
@@ -25,7 +24,7 @@ public class RegisterFormDto {
     private String memberName;
 
     @NotBlank
-    @Range(min = 10, max = 11)
+    @Pattern(regexp = "[0-9]{10,11}")
     private String phoneNumber;
 
 

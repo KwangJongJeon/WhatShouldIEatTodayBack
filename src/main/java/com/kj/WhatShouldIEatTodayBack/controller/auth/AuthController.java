@@ -61,7 +61,9 @@ public class AuthController {
     @PostMapping("/register")
     public String register(@Validated @ModelAttribute RegisterFormDto registerFormDto, BindingResult result) {
 
-        authService.checkMemberIsUnique(registerFormDto, result);
+        if(!authService.checkMemberIsUnique(registerFormDto, result)) {
+            result.rejectValue("memberEmail", "duplicate", "이미 존재하는 아이디입니다.");
+        }
 
         if(result.hasErrors()) {
             return "auth/register";
@@ -122,7 +124,10 @@ public class AuthController {
 
     @PostMapping("/editUser")
     public String editUser(@ModelAttribute EditUserFormDto editUserFormDto, BindingResult result, HttpServletRequest request) {
-        authService.checkMemberNicknameIsUnique(editUserFormDto.getMemberEmail(), editUserFormDto.getNickName(), result);
+
+        if(!authService.checkMemberNicknameIsUnique(editUserFormDto.getMemberEmail(), editUserFormDto.getNickName(), result)) {
+            result.rejectValue("nickName", "duplicate", "이미 존재하는 닉네임입니다.");
+        }
 
         if(result.hasErrors()) {
             return "auth/editUser";
