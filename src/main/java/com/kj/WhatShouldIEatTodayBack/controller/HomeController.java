@@ -1,12 +1,14 @@
 package com.kj.WhatShouldIEatTodayBack.controller;
 
 
+import com.kj.WhatShouldIEatTodayBack.controller.dto.LoginFormDto;
 import com.kj.WhatShouldIEatTodayBack.domain.Member;
 import com.kj.WhatShouldIEatTodayBack.session.SessionConst;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,7 +24,7 @@ public class HomeController {
 
         // 로그인 되어 있지 않을 경우
         if(session == null) {
-            return "home";
+            return "page/home";
         }
 
         Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
@@ -30,4 +32,20 @@ public class HomeController {
         model.addAttribute("member", loginMember);
         return "loginHome";
     }
+
+    @GetMapping("/test")
+    public String test() {
+        return "page/home";
+    }
+
+    @GetMapping("/test2")
+    public String test2() {
+        return "fragment/footer";
+    }
+
+    @GetMapping("/test3")
+    public String test3(@ModelAttribute LoginFormDto loginFormDto) {
+        return "page/login";
+    }
+
 }

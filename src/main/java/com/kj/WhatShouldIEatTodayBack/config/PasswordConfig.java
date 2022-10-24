@@ -1,4 +1,4 @@
-package com.kj.WhatShouldIEatTodayBack.config.security;
+package com.kj.WhatShouldIEatTodayBack.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

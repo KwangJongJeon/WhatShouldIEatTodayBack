@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragment/config :: config}"/>
+</head>
+<body>
+<div class="container">
+    <div th:replace="~{fragment/header :: header}">Header</div>
+    <div class="container">
+    </div>
+    <div th:replace="~{fragment/footer :: footer}">footer</div>
+</div> <!-- /container -->
+</body>
+</html>

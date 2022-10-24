@@ -1,0 +1,17 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="layout(title, links, header, content, footer)">
+    <meta charset="utf-8">
+    <title th:replace="${title}">레이아웃 타이틀</title>
+    <!-- 공통 -->
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/bootstrap.min.css}">
+<!--    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/headers.css}"}>-->
+
+    <!-- 추가 -->
+    <th:block th:replace="${links}"/>
+</head>
+<body>
+<div th:replace="${header}">레이아웃 헤더</div>
+<div th:replace="${content}">레이아웃 컨텐츠</div>
+<div th:replace="${footer}">레이아웃 푸터</div>
+</body>
+

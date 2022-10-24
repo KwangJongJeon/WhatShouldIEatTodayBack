@@ -24,7 +24,7 @@ public class AuthController {
 
     @GetMapping("/login")
     public String loginForm(@ModelAttribute LoginFormDto loginFormDto) {
-        return "auth/login";
+        return "page/login";
     }
 
     @PostMapping("/login")
@@ -40,7 +40,7 @@ public class AuthController {
 
         if(loginMember == null) {
             result.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
-            return "auth/login";
+            return "page/login";
         }
 
         // 로그인 성공 처리
@@ -98,7 +98,7 @@ public class AuthController {
     public String checkPassword(@ModelAttribute CheckFormDto checkFormDto) {
         Member loginMember = authService.login(checkFormDto.getMemberEmail(), checkFormDto.getMemberPw());
         if(loginMember == null) {
-            return "auth/checkPassword";
+            return "page/checkPassword";
         }
 
 
