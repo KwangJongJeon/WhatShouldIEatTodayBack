@@ -24,7 +24,7 @@ public class AuthController {
 
     @GetMapping("/login")
     public String loginForm(@ModelAttribute LoginFormDto loginFormDto) {
-        return "page/login";
+        return "page/auth/login";
     }
 
     @PostMapping("/login")
@@ -33,14 +33,14 @@ public class AuthController {
                         HttpServletRequest request) {
 
         if(result.hasErrors()) {
-            return "auth/login";
+            return "page/auth/login";
         }
 
         Member loginMember = authService.login(loginFormDto.getMemberEmail(), loginFormDto.getMemberPw());
 
         if(loginMember == null) {
             result.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
-            return "page/login";
+            return "page/auth/login";
         }
 
         // 로그인 성공 처리
@@ -102,7 +102,7 @@ public class AuthController {
         }
 
 
-        return "redirect:editUser";
+        return "redirect:/auth/editUser";
     }
 
     @GetMapping("/editUser")
@@ -119,7 +119,7 @@ public class AuthController {
         editUserFormDto.setPhoneNumber(member.getPhone1()+member.getPhone2()+member.getPhone3());
 
 
-        return "auth/editUser";
+        return "page/auth/editUser";
     }
 
     @PostMapping("/editUser")
@@ -130,7 +130,7 @@ public class AuthController {
         }
 
         if(result.hasErrors()) {
-            return "auth/editUser";
+            return "page/editUser";
         }
 
         log.info("test");

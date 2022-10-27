@@ -40,7 +40,7 @@ class AuthControllerTest {
     void loginForm() throws Exception {
         mvc.perform(get("/auth/login"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("auth/login"))
+                .andExpect(view().name("page/auth/login"))
                 .andReturn();
     }
 
@@ -76,7 +76,7 @@ class AuthControllerTest {
         mvc.perform(post("/auth/login")
                         .flashAttr("loginFormDto", loginFormDto))
                 .andExpect(status().isOk())
-                .andExpect(view().name("auth/login"))
+                .andExpect(view().name("page/auth/login"))
                 .andReturn();
     }
 
