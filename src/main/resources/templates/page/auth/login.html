@@ -19,8 +19,12 @@
     </style>
 </head>
 <body>
-        <div th:replace="~{fragment/header :: header}">Header</div>
 
+        <!-- 헤더 -->
+        <div th:replace="${member} ? ~{fragment/header :: header-login} : ~{fragment/header :: header-not-login}">Header</div>
+
+
+        <!-- 콘텐츠 -->
         <div class="container content-size" max-w>
         <!-- title -->
             <div class="py-5 text-center">
@@ -62,6 +66,8 @@
                 </form>
             </main>
         </div>
+
+        <!-- 푸터 -->
         <div th:replace="~{fragment/footer :: footer}">footer</div>
 </body>
 </html>

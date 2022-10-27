@@ -5,7 +5,7 @@
 </head>
 <body>
 <div class="container">
-    <div th:replace="~{fragment/header :: header}">Header</div>
+    <div th:replace="${member} ? ~{fragment/header :: header-login} : ~{fragment/header :: header-not-login}">Header</div>
     <div th:replace="~{fragment/hero :: hero ('오늘은 뭐먹지?', '버튼 하나로 식사 고민을 해결해보세요!', 'todo'
                                              ,'식사 추천', 'Contact')}">mainContent</div>
     <div th:replace="~{fragment/footer :: footer}">footer</div>

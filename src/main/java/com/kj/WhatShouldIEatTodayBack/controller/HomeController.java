@@ -22,15 +22,14 @@ public class HomeController {
 
         HttpSession session = request.getSession(false);
 
-        // 로그인 되어 있지 않을 경우
-        if(session == null) {
-            return "page/home";
+        // 로그인 되어있을 경우
+        if(session != null) {
+            Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+            log.info("nickName = {}", loginMember.getNickName());
+            model.addAttribute("member", loginMember);
         }
 
-        Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
-        log.info("nickName = {}", loginMember.getNickName());
-        model.addAttribute("member", loginMember);
-        return "loginHome";
+        return "page/home";
     }
 
     @GetMapping("/test")

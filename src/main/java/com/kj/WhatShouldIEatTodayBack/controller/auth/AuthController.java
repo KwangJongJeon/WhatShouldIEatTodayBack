@@ -74,7 +74,7 @@ public class AuthController {
         return "redirect:/";
     }
 
-    @PostMapping("/logout")
+    @RequestMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 
