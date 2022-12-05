@@ -34,7 +34,7 @@ public class HomeController {
 
     @GetMapping("/test")
     public String test() {
-        return "page/home";
+        return "page/test";
     }
 
     @GetMapping("/test2")

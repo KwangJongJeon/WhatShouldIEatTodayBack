@@ -1,0 +1,59 @@
+div, input, textarea {
+    box-sizing: border-box;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    background: #97BE11;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    background: #DFE9AC;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #97BE11;
+    border-color: #28590C;
+}
+
+#map {
+    height:800px;
+}
+
+.range-container {
+    height: 300px;
+    background-color: #eee;
+}
+
+.range-box {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.form-container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.map-container {
+    background-color: #eee;
+}
+
+.form-btn {
+    border: none;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 50px;
+    padding-right: 50px;
+
+    background-color: #28590C;
+    color: #eee;
+
+    border-radius: 5px;
+    
+}
+
+
+
+
+

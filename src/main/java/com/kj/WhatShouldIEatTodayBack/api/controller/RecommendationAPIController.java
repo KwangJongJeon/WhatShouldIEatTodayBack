@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping(value = "/api")
 @RestController
-public class RecommendationController {
+public class RecommendationAPIController {
 
     private final RecommendationService recommendationService;
 
