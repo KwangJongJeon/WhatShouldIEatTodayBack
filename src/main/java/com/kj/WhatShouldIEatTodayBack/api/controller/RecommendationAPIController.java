@@ -1,7 +1,7 @@
 package com.kj.WhatShouldIEatTodayBack.api.controller;
 
-import com.kj.WhatShouldIEatTodayBack.dto.RecommendServiceReq;
-import com.kj.WhatShouldIEatTodayBack.dto.ResponseDocument;
+import com.kj.WhatShouldIEatTodayBack.dto.api.RecommendServiceReq;
+import com.kj.WhatShouldIEatTodayBack.dto.api.ResponseDocument;
 import com.kj.WhatShouldIEatTodayBack.api.service.RecommendationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

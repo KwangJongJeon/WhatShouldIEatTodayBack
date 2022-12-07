@@ -1,8 +1,8 @@
 package com.kj.WhatShouldIEatTodayBack.api.service;
 
 import com.kj.WhatShouldIEatTodayBack.Exception.KakaoServerIsNotRespondException;
-import com.kj.WhatShouldIEatTodayBack.dto.SearchLocalAPIReq;
-import com.kj.WhatShouldIEatTodayBack.dto.SearchLocalAPIRes;
+import com.kj.WhatShouldIEatTodayBack.dto.api.SearchLocalAPIReq;
+import com.kj.WhatShouldIEatTodayBack.dto.api.SearchLocalAPIRes;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;

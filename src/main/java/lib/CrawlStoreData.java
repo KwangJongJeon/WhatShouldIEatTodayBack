@@ -1,6 +1,6 @@
 package lib;
 
-import com.kj.WhatShouldIEatTodayBack.dto.ResponseDocument;
+import com.kj.WhatShouldIEatTodayBack.dto.api.ResponseDocument;
 
 public class CrawlStoreData {
 

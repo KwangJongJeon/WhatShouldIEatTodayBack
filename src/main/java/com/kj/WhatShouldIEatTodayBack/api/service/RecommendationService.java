@@ -1,10 +1,10 @@
 package com.kj.WhatShouldIEatTodayBack.api.service;
 
 import com.kj.WhatShouldIEatTodayBack.Exception.CategoryMenuIsNotRegistered;
-import com.kj.WhatShouldIEatTodayBack.dto.RecommendServiceReq;
-import com.kj.WhatShouldIEatTodayBack.dto.ResponseDocument;
-import com.kj.WhatShouldIEatTodayBack.dto.SearchLocalAPIReq;
-import com.kj.WhatShouldIEatTodayBack.dto.SearchLocalAPIRes;
+import com.kj.WhatShouldIEatTodayBack.dto.api.RecommendServiceReq;
+import com.kj.WhatShouldIEatTodayBack.dto.api.ResponseDocument;
+import com.kj.WhatShouldIEatTodayBack.dto.api.SearchLocalAPIReq;
+import com.kj.WhatShouldIEatTodayBack.dto.api.SearchLocalAPIRes;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

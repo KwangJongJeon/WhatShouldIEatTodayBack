@@ -1,4 +1,4 @@
-package com.kj.WhatShouldIEatTodayBack.domain;
+package com.kj.WhatShouldIEatTodayBack.domain.member;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -2,7 +2,7 @@ package com.kj.WhatShouldIEatTodayBack.controller.auth;
 
 import com.kj.WhatShouldIEatTodayBack.controller.dto.LoginFormDto;
 import com.kj.WhatShouldIEatTodayBack.controller.dto.RegisterFormDto;
-import com.kj.WhatShouldIEatTodayBack.domain.Member;
+import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
 import com.kj.WhatShouldIEatTodayBack.service.AuthService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

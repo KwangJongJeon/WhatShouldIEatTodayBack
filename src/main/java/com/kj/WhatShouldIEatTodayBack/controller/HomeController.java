@@ -2,7 +2,7 @@ package com.kj.WhatShouldIEatTodayBack.controller;
 
 
 import com.kj.WhatShouldIEatTodayBack.controller.dto.LoginFormDto;
-import com.kj.WhatShouldIEatTodayBack.domain.Member;
+import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
 import com.kj.WhatShouldIEatTodayBack.session.SessionConst;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

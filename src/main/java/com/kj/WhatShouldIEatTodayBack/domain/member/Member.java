@@ -1,13 +1,10 @@
-package com.kj.WhatShouldIEatTodayBack.domain;
+package com.kj.WhatShouldIEatTodayBack.domain.member;
 
 import com.kj.WhatShouldIEatTodayBack.enums.MemberRole;
 import lombok.*;
 import org.checkerframework.common.aliasing.qual.Unique;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 
 @NoArgsConstructor

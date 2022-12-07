@@ -1,19 +1,12 @@
 package com.kj.WhatShouldIEatTodayBack.api.service;
 
-import com.kj.WhatShouldIEatTodayBack.domain.Member;
-import com.kj.WhatShouldIEatTodayBack.domain.repository.MemberDetailsDTO;
-import com.kj.WhatShouldIEatTodayBack.domain.repository.MemberRepository;
+import com.kj.WhatShouldIEatTodayBack.domain.member.repository.MemberDetailsDTO;
+import com.kj.WhatShouldIEatTodayBack.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import net.bytebuddy.build.Plugin;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
 
 /**
  * 유저의 인증에 필요한 클래스

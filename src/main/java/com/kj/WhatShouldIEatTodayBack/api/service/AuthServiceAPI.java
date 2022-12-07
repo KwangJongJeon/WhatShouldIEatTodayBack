@@ -1,8 +1,8 @@
 package com.kj.WhatShouldIEatTodayBack.api.service;
 
 import com.kj.WhatShouldIEatTodayBack.Exception.UserSessionIsNotValid;
-import com.kj.WhatShouldIEatTodayBack.domain.Member;
-import com.kj.WhatShouldIEatTodayBack.domain.repository.MemberRepository;
+import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
+import com.kj.WhatShouldIEatTodayBack.domain.member.repository.MemberRepository;
 import com.kj.WhatShouldIEatTodayBack.dto.memberDTO.MemberCheckResponseDto;
 import com.kj.WhatShouldIEatTodayBack.dto.memberDTO.MemberEditRequestDto;
 import com.kj.WhatShouldIEatTodayBack.dto.memberDTO.MemberRequestDto;

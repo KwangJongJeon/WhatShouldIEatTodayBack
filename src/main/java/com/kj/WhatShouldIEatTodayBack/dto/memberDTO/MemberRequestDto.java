@@ -1,12 +1,9 @@
 package com.kj.WhatShouldIEatTodayBack.dto.memberDTO;
 
-import com.kj.WhatShouldIEatTodayBack.domain.Member;
+import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
 import com.kj.WhatShouldIEatTodayBack.enums.MemberRole;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

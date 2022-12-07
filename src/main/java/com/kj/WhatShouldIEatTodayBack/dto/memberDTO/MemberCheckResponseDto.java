@@ -1,6 +1,6 @@
 package com.kj.WhatShouldIEatTodayBack.dto.memberDTO;
 
-import com.kj.WhatShouldIEatTodayBack.domain.Member;
+import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
 import lombok.Getter;
 import lombok.Setter;
 

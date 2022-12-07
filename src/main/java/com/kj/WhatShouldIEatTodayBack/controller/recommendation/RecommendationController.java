@@ -1,6 +1,6 @@
 package com.kj.WhatShouldIEatTodayBack.controller.recommendation;
 
-import com.kj.WhatShouldIEatTodayBack.domain.Member;
+import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
 import com.kj.WhatShouldIEatTodayBack.session.SessionConst;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

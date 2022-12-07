@@ -1,4 +1,4 @@
-package com.kj.WhatShouldIEatTodayBack.dto;
+package com.kj.WhatShouldIEatTodayBack.dto.api;
 
 /**
  * @author Jeon KwangJong

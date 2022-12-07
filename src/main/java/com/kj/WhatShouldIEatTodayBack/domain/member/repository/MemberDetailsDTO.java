@@ -1,6 +1,6 @@
-package com.kj.WhatShouldIEatTodayBack.domain.repository;
+package com.kj.WhatShouldIEatTodayBack.domain.member.repository;
 
-import com.kj.WhatShouldIEatTodayBack.domain.Member;
+import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Delegate;

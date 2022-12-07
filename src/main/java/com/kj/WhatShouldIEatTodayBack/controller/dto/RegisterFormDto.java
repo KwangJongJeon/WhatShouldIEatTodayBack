@@ -1,6 +1,6 @@
 package com.kj.WhatShouldIEatTodayBack.controller.dto;
 
-import com.kj.WhatShouldIEatTodayBack.domain.Member;
+import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
 import com.kj.WhatShouldIEatTodayBack.enums.MemberRole;
 import com.kj.WhatShouldIEatTodayBack.validator.Password;
 import lombok.Data;
