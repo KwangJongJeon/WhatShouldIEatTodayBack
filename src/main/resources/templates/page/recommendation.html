@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="../css/recommendation.css" rel="stylesheet">
+
+
+    <!--개발시 APP KEY 숨겨야함(메시지로)-->
+    <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b880d55870754431f0fedf7f011061fc"></script>
+
+
+    <title>EatToday</title>
+</head>
+
+<body>
+<!--NavBar-->
+<div th:replace="${member} ? ~{fragment/header :: header-login} : ~{fragment/header :: header-not-login}">Header</div>
+
+<div class="container">
+    <form class="form-container p-4" th:object="${recommendationDto}" action="/recommendation" th:action="@{/recommendation}" method="post">
+        <h3 class="pageName pt-5 pb-5">오늘의 식사 추천</h3>
+        <div class="p-5 shadow-sm">
+            <div class="row">
+                <div class="col-6 form-check p-5 border-end" >
+                    <div class="range-box">
+                        <div class="d-flex">
+                            <p class="me-auto">탐색 범위</span></p>
+                            <p id="rangeValue" class="text-end">2000</p><span>m</span>
+                        </div>
+                        <input id="range" type="range" class="form-range" min="100" max="4000"
+                               step=100 value="2000" th:field="*{range}">
+                    </div>
+                </div>
+                <div class="row col-6 input-container p-5 align-items-center">
+                    <div class="col-4 me-4"><h6 class="sub-title">메뉴 선정</h6></div>
+                    <div class="col-8 row">
+                        <div th:each = "category: ${categories}" class="form-check col-6">
+                            <input type="checkbox" th:field="*{categories}" th:value="${category.key}" class="form-check-input">
+                            <label th:for="${#ids.prev('categories')}" th:text="${category.value}" class="form-check-label">카테고리</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="map-container mt-3">
+            <div id="map">
+                <script>
+                    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                        mapOption = {
+                            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                            level: 3 // 지도의 확대 레벨
+                        };
+
+                    // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+                    var map = new kakao.maps.Map(mapContainer, mapOption);
+                </script>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="form-btn mt-5">추천받기</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="/js/recommendation.js" th:src="@{/js/recommendation.js}"></script>
+
+</body>
+
+</html>
