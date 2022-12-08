@@ -51,15 +51,14 @@ public class RecommendationController {
     public String recommendationResult(HttpServletRequest request, @ModelAttribute RecommendationDto recommendationDto, Model model) {
         HttpSession session = request.getSession(false);
 
-        List<String> categories = recommendationDto.getCategories();
-        for (String category : categories) {
-            log.info("category: {}", category);
-        }
+        log.info("lat: {}", recommendationDto.getLatitude());
+        log.info("long: {}", recommendationDto.getLongitude());
 
         if(session != null) {
             Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
             model.addAttribute("member", loginMember);
         }
+
 
         return "page/recommendation";
     }

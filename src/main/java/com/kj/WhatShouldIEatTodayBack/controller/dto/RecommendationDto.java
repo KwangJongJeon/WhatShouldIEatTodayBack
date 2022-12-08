@@ -16,4 +16,6 @@ public class RecommendationDto {
 
     private int range;
     private List<String> categories;
+    private String latitude;
+    private String longitude;
 }
