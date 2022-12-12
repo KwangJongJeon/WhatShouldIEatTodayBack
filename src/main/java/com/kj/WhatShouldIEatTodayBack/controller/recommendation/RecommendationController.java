@@ -1,6 +1,6 @@
 package com.kj.WhatShouldIEatTodayBack.controller.recommendation;
 
-import com.kj.WhatShouldIEatTodayBack.controller.dto.RecommendationDto;
+import com.kj.WhatShouldIEatTodayBack.controller.dto.RecommendationRequestDto;
 import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
 import com.kj.WhatShouldIEatTodayBack.enums.CategoryTypes;
 import com.kj.WhatShouldIEatTodayBack.session.SessionConst;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -24,17 +23,17 @@ public class RecommendationController {
     @ModelAttribute("categories")
     public Map<String, String> categories() {
         Map<String, String> categories = new LinkedHashMap<>();
-        categories.put("KOREAN", "한식");
-        categories.put("WESTERN", "양식");
-        categories.put("JAPANESE", "일식");
-        categories.put("CHINESE", "중식");
+
+        for (CategoryTypes type : CategoryTypes.values()) {
+            categories.put(type.name(), type.getDescription());
+        }
 
         return categories;
     }
 
     @GetMapping("/recommendation")
     public String recommendation(HttpServletRequest request,
-                                 @ModelAttribute RecommendationDto recommendationDto,
+                                 @ModelAttribute RecommendationRequestDto recommendationDto,
                                  Model model) {
 
         HttpSession session = request.getSession(false);
@@ -48,11 +47,15 @@ public class RecommendationController {
     }
 
     @PostMapping("/recommendation")
-    public String recommendationResult(HttpServletRequest request, @ModelAttribute RecommendationDto recommendationDto, Model model) {
+    public String recommendationResult(HttpServletRequest request, @ModelAttribute RecommendationRequestDto recommendationDto, Model model) {
         HttpSession session = request.getSession(false);
 
         log.info("lat: {}", recommendationDto.getLatitude());
         log.info("long: {}", recommendationDto.getLongitude());
+
+        for (String category : recommendationDto.getCategories()) {
+            log.info("category: {}", category);
+        }
 
         if(session != null) {
             Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);

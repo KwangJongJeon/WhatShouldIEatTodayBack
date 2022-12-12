@@ -1,6 +1,5 @@
 package com.kj.WhatShouldIEatTodayBack.controller.dto;
 
-import com.kj.WhatShouldIEatTodayBack.enums.CategoryTypes;
 import lombok.Data;
 
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
  * categories: 유저가 원하는 음식의 종류(ex, 한식, 중식 양식 등)
  */
 @Data
-public class RecommendationDto {
+public class RecommendationRequestDto {
 
     private int range;
     private List<String> categories;
