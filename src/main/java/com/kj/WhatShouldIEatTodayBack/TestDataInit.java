@@ -13,23 +13,23 @@ import javax.annotation.PostConstruct;
 @RequiredArgsConstructor
 public class TestDataInit {
 
-    private final MemberRepository memberRepository;
-    private final AuthService authService;
-    String email = "tester";
-    String password = "test123!@#";
-
-    /**
-     * 테스트용 데이터
-     */
-    @PostConstruct
-    public void init() {
-        RegisterFormDto registerFormDto = new RegisterFormDto();
-
-        registerFormDto.setMemberEmail(email);
-        registerFormDto.setMemberPw(password);
-        registerFormDto.setMemberName("tester");
-        registerFormDto.setPhoneNumber("01012345678");
-
-        authService.register(registerFormDto);
-    }
+//    private final MemberRepository memberRepository;
+//    private final AuthService authService;
+//    String email = "tester";
+//    String password = "test123!@#";
+//
+//    /**
+//     * 테스트용 데이터
+//     */
+//    @PostConstruct
+//    public void init() {
+//        RegisterFormDto registerFormDto = new RegisterFormDto();
+//
+//        registerFormDto.setMemberEmail(email);
+//        registerFormDto.setMemberPw(password);
+//        registerFormDto.setMemberName("tester");
+//        registerFormDto.setPhoneNumber("01012345678");
+//
+//        authService.register(registerFormDto);
+//    }
 }
