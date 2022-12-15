@@ -47,13 +47,13 @@ public class RecommendationController {
     }
 
     @PostMapping("/recommendation")
-    public String recommendationResult(HttpServletRequest request, @ModelAttribute RecommendationRequestDto recommendationDto, Model model) {
+    public String recommendationResult(HttpServletRequest request, @ModelAttribute RecommendationRequestDto recommendationRequestDto, Model model) {
         HttpSession session = request.getSession(false);
 
-        log.info("lat: {}", recommendationDto.getLatitude());
-        log.info("long: {}", recommendationDto.getLongitude());
+        log.info("lat: {}", recommendationRequestDto.getLatitude());
+        log.info("long: {}", recommendationRequestDto.getLongitude());
 
-        for (String category : recommendationDto.getCategories()) {
+        for (String category : recommendationRequestDto.getCategories()) {
             log.info("category: {}", category);
         }
 

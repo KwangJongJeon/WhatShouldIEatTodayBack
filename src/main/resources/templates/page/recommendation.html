@@ -23,7 +23,7 @@
 <div th:replace="${member} ? ~{fragment/header :: header-login} : ~{fragment/header :: header-not-login}">Header</div>
 
 <div class="container">
-    <form class="form-container p-4" th:object="${recommendationDto}" action="/recommendation" th:action="@{/recommendation}" method="post">
+    <form class="form-container p-4" th:object="${recommendationRequestDto}" action="/recommendation" th:action="@{/recommendation}" method="post">
         <h3 class="pageName pt-5 pb-5">오늘의 식사 추천</h3>
         <div class="p-5 shadow-sm">
             <div class="row">
