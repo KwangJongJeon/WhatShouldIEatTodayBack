@@ -6,9 +6,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @NoArgsConstructor
 @Getter
+@Table(name = "store")
 @Entity
 public class Store {
     @Id
