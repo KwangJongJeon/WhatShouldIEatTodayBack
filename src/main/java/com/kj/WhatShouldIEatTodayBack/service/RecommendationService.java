@@ -32,13 +32,14 @@ public class RecommendationService {
          * Distance는 들어온 range값이 meter단위이므로
          * range를 km단위로 만들기 위해 1000을 나눈 값입니다.
          */
-        BigDecimal distance = new BigDecimal(rangeIn).divide(BigDecimal.valueOf(1000), 6, RoundingMode.FLOOR);
+        BigDecimal distance = new BigDecimal(rangeIn).divide(BigDecimal.valueOf(100), 6, RoundingMode.FLOOR);
         BigDecimal RADIUS = BigDecimal.valueOf(6371.009);
+        BigDecimal latitudeCos = BigDecimal.valueOf(Math.cos(latitudeCenter.doubleValue()));
 
         BigDecimal latitudeStart = latitudeCenter.subtract(distance.divide(RADIUS, 6, RoundingMode.FLOOR));
         BigDecimal latitudeEnd = latitudeCenter.add(distance.divide(RADIUS, 6, RoundingMode.FLOOR));
-        BigDecimal longitudeStart = longitudeCenter.add(distance);
-        BigDecimal longitudeEnd = longitudeCenter.subtract(distance);
+        BigDecimal longitudeStart = longitudeCenter.subtract(distance.divide(latitudeCos.multiply(RADIUS), 6, RoundingMode.FLOOR));
+        BigDecimal longitudeEnd = longitudeCenter.add(distance.divide(latitudeCos.multiply(RADIUS), 6, RoundingMode.FLOOR));
 
         return new CoordinateRange(latitudeStart, latitudeEnd, longitudeStart, longitudeEnd);
     }

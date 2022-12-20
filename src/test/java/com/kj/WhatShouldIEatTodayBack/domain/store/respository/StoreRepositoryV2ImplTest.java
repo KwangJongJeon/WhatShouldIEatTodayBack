@@ -54,14 +54,15 @@ class StoreRepositoryImplTest {
 
     @Test
     void findAllInRange() {
-        BigDecimal latitudeStart = BigDecimal.valueOf(36.0);
-        BigDecimal latitudeEnd = BigDecimal.valueOf(37.0);
-        BigDecimal longitudeStart = BigDecimal.valueOf(127.384800);
-        BigDecimal longitudeEnd = BigDecimal.valueOf(125.384800);
+        BigDecimal latitudeStart = BigDecimal.valueOf(36.347431);
+        BigDecimal latitudeEnd = BigDecimal.valueOf(36.350569);
+        BigDecimal longitudeStart = BigDecimal.valueOf(127.377630);
+        BigDecimal longitudeEnd = BigDecimal.valueOf(127.391970);
 
         CoordinateRange coordinateRange = new CoordinateRange(latitudeStart, latitudeEnd, longitudeStart, longitudeEnd);
         List<Store> allInRange = storeRepository.findAllInRange(coordinateRange);
 
+        System.out.println("allInRange = " + allInRange.get(0).getName());
         assertThat(allInRange.get(0)).isNotNull();
     }
 }
