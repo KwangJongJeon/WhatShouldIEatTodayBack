@@ -1,8 +1,8 @@
 package com.kj.WhatShouldIEatTodayBack.api.controller;
 
+import com.kj.WhatShouldIEatTodayBack.api.service.RecommendationServiceAPI;
 import com.kj.WhatShouldIEatTodayBack.dto.api.RecommendServiceReq;
 import com.kj.WhatShouldIEatTodayBack.dto.api.ResponseDocument;
-import com.kj.WhatShouldIEatTodayBack.api.service.RecommendationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RecommendationAPIController {
 
-    private final RecommendationService recommendationService;
+    private final RecommendationServiceAPI recommendationServiceAPI;
 
 
     /**
@@ -33,7 +33,7 @@ public class RecommendationAPIController {
         log.info(userData.toString());
         log.info("Recommendation Request is arrived");
         log.info("latitude: " + userData.getLatitude());
-        return recommendationService.recommendationService(userData);
+        return recommendationServiceAPI.recommendationService(userData);
     }
 
 }

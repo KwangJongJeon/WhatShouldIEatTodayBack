@@ -21,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class RecommendationService {
+public class RecommendationServiceAPI {
 
 
     private final KakaoAPIClient kakaoAPIClient;
