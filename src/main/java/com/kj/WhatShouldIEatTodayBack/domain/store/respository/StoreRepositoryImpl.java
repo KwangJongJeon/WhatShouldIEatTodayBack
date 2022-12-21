@@ -1,9 +1,12 @@
 package com.kj.WhatShouldIEatTodayBack.domain.store.respository;
 
+import com.kj.WhatShouldIEatTodayBack.Exception.CoordinateIsNotValid;
 import com.kj.WhatShouldIEatTodayBack.domain.store.QStore;
 import com.kj.WhatShouldIEatTodayBack.domain.store.Store;
 import com.kj.WhatShouldIEatTodayBack.service.CoordinateRange;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.StringPath;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,11 +62,58 @@ public class StoreRepositoryImpl implements StoreRepository {
                 .fetch();
     }
 
+    @Override
+    public List<Store> findByCategoryAndInRange(CoordinateRange coordinateRange, List<String> categories) {
+        double latitudeStart = coordinateRange.getLatitudeStart().doubleValue();
+        double latitudeEnd = coordinateRange.getLatitudeEnd().doubleValue();
+        double longitudeStart = coordinateRange.getLongitudeStart().doubleValue();
+        double longitudeEnd = coordinateRange.getLongitudeEnd().doubleValue();
+
+        QStore store = QStore.store;
+
+        BooleanBuilder builder = new BooleanBuilder();
+        BooleanBuilder likeBuilder = new BooleanBuilder();
+
+        // 위도 경도 조건 추가
+        builder.and(betweenLatitude(latitudeStart, latitudeEnd));
+        builder.and(betweenLongitude(longitudeStart, longitudeEnd));
+
+        // 입력된 카테고리를 순회하며 LIKE 조건을 추가합니다.
+        for (String category : categories) {
+            likeBuilder.or(QStore.store.divisionTwo.like("%" + category + "%"));
+        }
+
+        builder.and(likeBuilder);
+
+
+
+        return query
+                .select(store)
+                .from(store)
+                .where(builder)
+                .fetch();
+    }
+
+
+
     private BooleanExpression betweenLatitude(double latitudeStart, double latitudeEnd) {
-        return QStore.store.latitude.between(latitudeStart, latitudeEnd);
+        BooleanExpression result = QStore.store.latitude.between(latitudeStart, latitudeEnd);
+
+        if(result == null) {
+            throw new CoordinateIsNotValid("잘못된 위도, 경도 입력입니다.");
+        }
+
+        return result;
     }
 
     private BooleanExpression betweenLongitude(double longitudeStart, double longitudeEnd) {
-        return QStore.store.longitude.between(longitudeStart, longitudeEnd);
+        BooleanExpression result = QStore.store.longitude.between(longitudeStart, longitudeEnd);
+
+        if(result == null) {
+            throw new CoordinateIsNotValid("잘못된 위도, 경도 입력입니다.");
+        }
+
+        return result;
     }
+
 }

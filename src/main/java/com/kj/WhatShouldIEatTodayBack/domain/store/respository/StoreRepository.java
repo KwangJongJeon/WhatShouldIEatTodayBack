@@ -11,4 +11,5 @@ public interface StoreRepository {
     public Store save(Store store);
     public Optional<Store> findById(Long id);
     public List<Store> findAllInRange(CoordinateRange coordinateRange);
+    public List<Store> findByCategoryAndInRange(CoordinateRange coordinateRange, List<String> categories);
 }

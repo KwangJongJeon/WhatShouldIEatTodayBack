@@ -2,9 +2,8 @@ package com.kj.WhatShouldIEatTodayBack.domain.store.respository;
 
 import com.kj.WhatShouldIEatTodayBack.domain.store.Store;
 import com.kj.WhatShouldIEatTodayBack.service.CoordinateRange;
-import com.kj.WhatShouldIEatTodayBack.service.RecommendationService;
-import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +27,7 @@ class StoreRepositoryImplTest {
     @Autowired
     StoreRepository storeRepository;
     Store store;
+    CoordinateRange coordinateRange;
 
     @BeforeEach
     void beforeEach() {
@@ -41,6 +42,13 @@ class StoreRepositoryImplTest {
                 .latitude(37.62059)
                 .longitude(126.699974)
                 .build();
+
+        BigDecimal latitudeStart = BigDecimal.valueOf(36.347431);
+        BigDecimal latitudeEnd = BigDecimal.valueOf(36.350569);
+        BigDecimal longitudeStart = BigDecimal.valueOf(127.377630);
+        BigDecimal longitudeEnd = BigDecimal.valueOf(127.391970);
+
+        coordinateRange = new CoordinateRange(latitudeStart, latitudeEnd, longitudeStart, longitudeEnd);
     }
 
 
@@ -54,15 +62,37 @@ class StoreRepositoryImplTest {
 
     @Test
     void findAllInRange() {
-        BigDecimal latitudeStart = BigDecimal.valueOf(36.347431);
-        BigDecimal latitudeEnd = BigDecimal.valueOf(36.350569);
-        BigDecimal longitudeStart = BigDecimal.valueOf(127.377630);
-        BigDecimal longitudeEnd = BigDecimal.valueOf(127.391970);
-
-        CoordinateRange coordinateRange = new CoordinateRange(latitudeStart, latitudeEnd, longitudeStart, longitudeEnd);
         List<Store> allInRange = storeRepository.findAllInRange(coordinateRange);
 
         System.out.println("allInRange = " + allInRange.get(0).getName());
         assertThat(allInRange.get(0)).isNotNull();
+    }
+
+
+    @Test
+    @DisplayName("주어진 카테고리가 하나일때 정상적으로 작동합니다")
+    void findByCategoryAndInRangeOne() {
+        List<String> categories = new ArrayList<>();
+        categories.add("한식");
+
+        List<Store> result  = storeRepository.findByCategoryAndInRange(coordinateRange, categories);
+
+        System.out.println(result.size());
+
+        assertThat(result.isEmpty()).isEqualTo(false);
+    }
+
+    @Test
+    @DisplayName("주어진 카테고리가 두개일때 정상적으로 작동합니다.")
+    void findByCategoryAndInRangeTwo() {
+        List<String> categories = new ArrayList<>();
+        categories.add("한식");
+        categories.add("일식");
+
+        List<Store> result  = storeRepository.findByCategoryAndInRange(coordinateRange, categories);
+
+        System.out.println(result.size());
+
+        assertThat(result.isEmpty()).isEqualTo(false);
     }
 }
