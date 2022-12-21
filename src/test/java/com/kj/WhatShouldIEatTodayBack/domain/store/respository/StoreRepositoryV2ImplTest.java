@@ -33,14 +33,14 @@ class StoreRepositoryImplTest {
     void beforeEach() {
         store = Store.builder()
                 .name("Test")
-                .region("서울")
+                .region("대전")
                 .divisionOne("음식")
                 .divisionTwo("한식")
                 .divisionThree("비빔밥")
                 .lotAddress("Test")
                 .streetAddress("Test")
-                .latitude(37.62059)
-                .longitude(126.699974)
+                .latitude(36.3467)
+                .longitude(127.3848)
                 .build();
 
         BigDecimal latitudeStart = BigDecimal.valueOf(36.347431);

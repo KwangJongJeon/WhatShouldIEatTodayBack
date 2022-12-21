@@ -1,12 +1,18 @@
 package com.kj.WhatShouldIEatTodayBack.service;
 
+import com.kj.WhatShouldIEatTodayBack.controller.dto.RecommendationRequestDto;
+import com.kj.WhatShouldIEatTodayBack.domain.store.RecommendationResultDto;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -26,5 +32,23 @@ class RecommendationServiceTest {
         System.out.println("range.getLatitudeEnd() = " + range.getLatitudeEnd());
         System.out.println("range.getLongitudeStart() = " + range.getLongitudeStart());
         System.out.println("range.getLongitudeEnd() = " + range.getLongitudeEnd());
+    }
+
+    @Test
+    @DisplayName("추천이 정상적으로 진행됩니다.")
+    void recommendation() {
+        RecommendationRequestDto recommendationRequestDto = new RecommendationRequestDto();
+        List<String> categories = new ArrayList<>();
+        categories.add("KOREAN");
+        recommendationRequestDto.setCategories(categories);
+        recommendationRequestDto.setRange(1000);
+        recommendationRequestDto.setLatitude("36.3467");
+        recommendationRequestDto.setLongitude("127.3848");
+
+        RecommendationResultDto result = recommendationService.recommendation(recommendationRequestDto);
+
+        System.out.println("result = " + result.toString());
+
+        Assertions.assertThat(result).isNotNull();
     }
 }
