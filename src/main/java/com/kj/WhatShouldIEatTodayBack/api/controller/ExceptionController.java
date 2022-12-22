@@ -1,9 +1,9 @@
 package com.kj.WhatShouldIEatTodayBack.api.controller;
 
 
-import com.kj.WhatShouldIEatTodayBack.Exception.CategoryMenuIsNotRegistered;
-import com.kj.WhatShouldIEatTodayBack.Exception.KakaoServerIsNotRespondException;
-import com.kj.WhatShouldIEatTodayBack.Exception.UserSessionIsNotValid;
+import com.kj.WhatShouldIEatTodayBack.exception.CategoryMenuIsNotRegistered;
+import com.kj.WhatShouldIEatTodayBack.exception.KakaoServerIsNotRespondException;
+import com.kj.WhatShouldIEatTodayBack.exception.UserSessionIsNotValid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

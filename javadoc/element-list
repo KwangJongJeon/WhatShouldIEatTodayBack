@@ -1,5 +1,5 @@
 com.kj.WhatShouldIEatTodayBack
 com.kj.WhatShouldIEatTodayBack.api.controller
 com.kj.WhatShouldIEatTodayBack.dto
-com.kj.WhatShouldIEatTodayBack.Exception
+com.kj.WhatShouldIEatTodayBack.exception
 com.kj.WhatShouldIEatTodayBack.service

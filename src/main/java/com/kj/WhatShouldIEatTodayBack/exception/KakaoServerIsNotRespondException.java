@@ -1,4 +1,4 @@
-package com.kj.WhatShouldIEatTodayBack.Exception;
+package com.kj.WhatShouldIEatTodayBack.exception;
 
 
 /**

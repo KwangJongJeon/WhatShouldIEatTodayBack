@@ -1,6 +1,6 @@
 package com.kj.WhatShouldIEatTodayBack.api.service;
 
-import com.kj.WhatShouldIEatTodayBack.Exception.CategoryMenuIsNotRegistered;
+import com.kj.WhatShouldIEatTodayBack.exception.CategoryMenuIsNotRegistered;
 import com.kj.WhatShouldIEatTodayBack.dto.api.RecommendServiceReq;
 import com.kj.WhatShouldIEatTodayBack.dto.api.ResponseDocument;
 import com.kj.WhatShouldIEatTodayBack.dto.api.SearchLocalAPIReq;

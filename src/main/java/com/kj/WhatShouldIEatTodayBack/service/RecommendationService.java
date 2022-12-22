@@ -1,11 +1,10 @@
 package com.kj.WhatShouldIEatTodayBack.service;
 
-import com.kj.WhatShouldIEatTodayBack.Exception.RandomIsNotWorkedProperlyException;
+import com.kj.WhatShouldIEatTodayBack.exception.RandomIsNotWorkedProperlyException;
 import com.kj.WhatShouldIEatTodayBack.controller.dto.RecommendationRequestDto;
 import com.kj.WhatShouldIEatTodayBack.domain.store.RecommendationResultDto;
 import com.kj.WhatShouldIEatTodayBack.domain.store.Store;
 import com.kj.WhatShouldIEatTodayBack.domain.store.respository.StoreRepository;
-import org.springframework.data.geo.Distance;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

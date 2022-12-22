@@ -1,6 +1,6 @@
 package com.kj.WhatShouldIEatTodayBack.service;
 
-import com.kj.WhatShouldIEatTodayBack.Exception.InvalidCategoryName;
+import com.kj.WhatShouldIEatTodayBack.exception.InvalidCategoryName;
 import com.kj.WhatShouldIEatTodayBack.enums.CategoryTypes;
 
 import java.util.ArrayList;

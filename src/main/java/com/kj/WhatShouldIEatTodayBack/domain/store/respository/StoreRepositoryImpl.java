@@ -1,12 +1,11 @@
 package com.kj.WhatShouldIEatTodayBack.domain.store.respository;
 
-import com.kj.WhatShouldIEatTodayBack.Exception.CoordinateIsNotValid;
+import com.kj.WhatShouldIEatTodayBack.exception.CoordinateIsNotValid;
 import com.kj.WhatShouldIEatTodayBack.domain.store.QStore;
 import com.kj.WhatShouldIEatTodayBack.domain.store.Store;
 import com.kj.WhatShouldIEatTodayBack.service.CoordinateRange;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.StringPath;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

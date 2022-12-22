@@ -1,4 +1,4 @@
-package com.kj.WhatShouldIEatTodayBack.Exception;
+package com.kj.WhatShouldIEatTodayBack.exception;
 
 /**
  * Recoomendation에서 잘못된 위도와 경도 정보가 넘어왔을 때 발생하는 예외
