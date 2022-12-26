@@ -2,9 +2,7 @@ package com.kj.WhatShouldIEatTodayBack.service.crawler;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +19,8 @@ import java.util.List;
 @Slf4j
 @Service
 public class CrawlStoreFromNaver implements CrawlStore {
+
+    private final int LOCAL_SEARCH_WAIT_TIME_MILLIS = 5000;
 
     @Override
     public List<Menu> crawlMenu(String storeName) {
@@ -98,12 +98,28 @@ public class CrawlStoreFromNaver implements CrawlStore {
 
         String url = sb.toString();
         driver.get(url);
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(4000));
-        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe#entryIframe")));
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(LOCAL_SEARCH_WAIT_TIME_MILLIS));
 
-        List<WebElement> placeSectionContents = driver.findElements(By.cssSelector(".place_section_content"));
-        WebElement menuElement = placeSectionContents.get(placeSectionContents.size() - 1);
-        List<WebElement> menus = menuElement.findElements(By.cssSelector("ul>li"));
+        List<WebElement> menus;
+
+        try {
+            driver.switchTo().frame(driver.findElement(By.cssSelector("iframe#entryIframe")));
+            List<WebElement> placeSectionContents = driver.findElements(By.cssSelector(".place_section_content"));
+            WebElement menuElement = placeSectionContents.get(placeSectionContents.size() - 1);
+            menus = menuElement.findElements(By.cssSelector("ul>li"));
+        } catch(NoSuchElementException e){
+            log.error(e.toString());
+            driver.quit();
+            return null;
+        } catch(NoSuchFrameException e){
+            log.error(e.toString());
+            driver.quit();
+            return null;
+        } catch(StaleElementReferenceException e){
+            log.error(e.toString());
+            driver.quit();
+            return null;
+        }
 
         List<Menu> menuList = new ArrayList<>();
 
