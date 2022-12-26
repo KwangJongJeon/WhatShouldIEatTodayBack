@@ -143,6 +143,9 @@ public class CrawlStoreFromNaver implements CrawlStore {
             } catch (IllegalFormatConversionException e) {
                 log.error(e.toString());
                 continue;
+            } catch (NumberFormatException e) {
+                log.error(e.toString());
+                continue;
             }
         }
 

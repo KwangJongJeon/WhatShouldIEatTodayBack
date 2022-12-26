@@ -1,21 +1,30 @@
 package com.kj.WhatShouldIEatTodayBack.service;
 
+import com.kj.WhatShouldIEatTodayBack.service.crawler.Menu;
+import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
+@RequiredArgsConstructor
+@Builder
 @Data
 public class RecommendationResultDto {
 
-    private int id;
-    private String name;
-    private String region;
+    private final int id;
+    private final String name;
+    private final String region;
 
-    private String divisionOne;
-    private String divisionTwo;
-    private String divisionThree;
+    private final String divisionOne;
+    private final String divisionTwo;
+    private final String divisionThree;
 
-    private String lotAddress;
-    private String streetAddress;
+    private final String lotAddress;
+    private final String streetAddress;
 
-    private int latitude;
-    private int longitude;
+    private final List<Menu> menuList;
+
+    private final double latitude;
+    private final double longitude;
 }
