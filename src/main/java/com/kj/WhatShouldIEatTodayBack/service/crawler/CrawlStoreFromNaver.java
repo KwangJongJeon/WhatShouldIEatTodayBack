@@ -36,8 +36,15 @@ public class CrawlStoreFromNaver implements CrawlStore {
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe#searchIframe")));
 
-        List<WebElement> elements = driver.findElements(By.cssSelector(".C6RjW>.place_bluelink"));
-        elements.get(0).click();
+        try {
+            List<WebElement> elements = driver.findElements(By.cssSelector(".C6RjW>.place_bluelink"));
+            elements.get(0).click();
+        } catch (Exception e) {
+            log.error(e.toString());
+            driver.quit();
+            return null;
+        }
+
 
         // 프레임 변경
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
@@ -64,7 +71,7 @@ public class CrawlStoreFromNaver implements CrawlStore {
                 }
                 int price = Integer.parseInt(priceBuilder.toString());
                 menuList.add(new Menu(name, price));
-            } catch (OutOfMemoryError e) {
+            } catch (ArrayIndexOutOfBoundsException e) {
                 log.error(e.toString());
                 continue;
             } catch (IllegalFormatConversionException e) {
@@ -73,6 +80,60 @@ public class CrawlStoreFromNaver implements CrawlStore {
             }
         }
 
+        driver.quit();
+
         return menuList;
     }
+
+
+
+    @Override
+    public List<Menu> crawlMenuWithRegion(String region, String storeName) {
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver();
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("https://map.naver.com/v5/search/");
+        sb.append(URLEncoder.encode(region + " " + storeName, StandardCharsets.UTF_8));
+
+        String url = sb.toString();
+        driver.get(url);
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(4000));
+        driver.switchTo().frame(driver.findElement(By.cssSelector("iframe#entryIframe")));
+
+        List<WebElement> placeSectionContents = driver.findElements(By.cssSelector(".place_section_content"));
+        WebElement menuElement = placeSectionContents.get(placeSectionContents.size() - 1);
+        List<WebElement> menus = menuElement.findElements(By.cssSelector("ul>li"));
+
+        List<Menu> menuList = new ArrayList<>();
+
+        for (WebElement menu : menus) {
+            try {
+                String[] menuInfo = menu.getText().split("\n");
+                String name = menuInfo[0];
+                char[] priceCharArr  = menuInfo[1].toCharArray();
+                StringBuilder priceBuilder = new StringBuilder();
+
+                for (char c : priceCharArr) {
+                    if(Character.isDigit(c)) {
+                        priceBuilder.append(c);
+                    }
+                }
+                int price = Integer.parseInt(priceBuilder.toString());
+                menuList.add(new Menu(name, price));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                log.error(e.toString());
+                continue;
+            } catch (IllegalFormatConversionException e) {
+                log.error(e.toString());
+                continue;
+            }
+        }
+
+        driver.quit();
+
+        return menuList;
+    }
+
+
 }

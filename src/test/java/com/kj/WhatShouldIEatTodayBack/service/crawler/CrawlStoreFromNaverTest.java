@@ -19,4 +19,14 @@ class CrawlStoreFromNaverTest {
 
         Assertions.assertThat(menus.size()).isGreaterThan(0);
     }
+
+
+    @DisplayName("지역과 함께 쿼리가 넘어왔을 경우 메뉴가 정상적으로 크롤링 되어진다.")
+    @Test
+    public void crawlMenuWithRegion() {
+        CrawlStoreFromNaver crawler = new CrawlStoreFromNaver();
+        List<Menu> menus = crawler.crawlMenuWithRegion("대전", "이태리국시");
+
+        Assertions.assertThat(menus.size()).isGreaterThan(0);
+    }
 }
