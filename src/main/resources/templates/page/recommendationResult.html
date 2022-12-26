@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="./recommendationResult.css" rel="stylesheet">
+
+    <title>EatToday</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h3>오늘은 중식 어때요?</h3>
+        <div class="container row recommendation-info shadow-sm mt-5 p-5">
+            <div class="col-7 menu-desc">
+                <div class="store-title">
+                    <h5>식당 이름</h5>
+                </div>
+                <div class="store-desc mt-4">
+                    <div class="location">
+                        <i class="fa-sharp fa-solid fa-location-dot me-2"></i>
+                        <span>Location</span>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-phone mt-3 me-1"></i>
+                        <span>010-0000-0000</span>
+                    </div>
+                    <div class="menu mt-5">
+                        <p class="mb-1">Menu</p>
+                        <li>짜장면 000원</li>
+                        <li>간짜장 8000원</li>
+                        <li>짬뽕 7500원</li>
+                        <li>삼선짬뽕 9000원</li>
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 menu-img bg-secondary">
+                <img src="" class="store-img">
+            </div>
+        </div>
+        <div id="map" class="container bg-secondary mt-5"></div>
+    </div>
+
+    <!--개발시 APP KEY 숨겨야함(메시지로)-->
+    <script type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b880d55870754431f0fedf7f011061fc"></script>
+    <script src="./recommendation.js"></script>
+
+</body>
+
+</html>
