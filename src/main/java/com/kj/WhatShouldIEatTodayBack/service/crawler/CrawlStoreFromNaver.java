@@ -2,6 +2,7 @@ package com.kj.WhatShouldIEatTodayBack.service.crawler;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.units.qual.C;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.stereotype.Service;
@@ -88,7 +89,7 @@ public class CrawlStoreFromNaver implements CrawlStore {
 
 
     @Override
-    public List<Menu> crawlMenuWithRegion(String region, String storeName) {
+    public CrawlResultDto crawlMenuWithRegion(String region, String storeName) {
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
 
@@ -101,12 +102,16 @@ public class CrawlStoreFromNaver implements CrawlStore {
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(LOCAL_SEARCH_WAIT_TIME_MILLIS));
 
         List<WebElement> menus;
+        String phoneNumber;
 
         try {
             driver.switchTo().frame(driver.findElement(By.cssSelector("iframe#entryIframe")));
             List<WebElement> placeSectionContents = driver.findElements(By.cssSelector(".place_section_content"));
             WebElement menuElement = placeSectionContents.get(placeSectionContents.size() - 1);
             menus = menuElement.findElements(By.cssSelector("ul>li"));
+
+            phoneNumber = driver.findElement(By.cssSelector("div.x8JmK>span.dry01")).getText();
+
         } catch(NoSuchElementException e){
             log.error(e.toString());
             driver.quit();
@@ -151,7 +156,9 @@ public class CrawlStoreFromNaver implements CrawlStore {
 
         driver.quit();
 
-        return menuList;
+        CrawlResultDto crawlResultDto = new CrawlResultDto(menuList, phoneNumber);
+
+        return crawlResultDto;
     }
 
 

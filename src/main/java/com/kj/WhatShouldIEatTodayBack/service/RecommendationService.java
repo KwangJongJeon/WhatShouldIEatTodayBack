@@ -1,15 +1,18 @@
 package com.kj.WhatShouldIEatTodayBack.service;
 
+import com.kj.WhatShouldIEatTodayBack.exception.NoNearbyStoreException;
 import com.kj.WhatShouldIEatTodayBack.exception.RandomIsNotWorkedProperlyException;
 import com.kj.WhatShouldIEatTodayBack.controller.dto.RecommendationRequestDto;
 import com.kj.WhatShouldIEatTodayBack.domain.store.Store;
 import com.kj.WhatShouldIEatTodayBack.domain.store.respository.StoreRepository;
+import com.kj.WhatShouldIEatTodayBack.service.crawler.CrawlResultDto;
 import com.kj.WhatShouldIEatTodayBack.service.crawler.CrawlStore;
 import com.kj.WhatShouldIEatTodayBack.service.crawler.CrawlStoreFromNaver;
 import com.kj.WhatShouldIEatTodayBack.service.crawler.Menu;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -87,25 +90,35 @@ public class RecommendationService {
             Store store = storeList.get(selectedStoreIdx);
 
             CrawlStore crawler = new CrawlStoreFromNaver();
-            List<Menu> menuList = crawler.crawlMenuWithRegion(store.getRegion(), store.getName());
+            CrawlResultDto crawlResultDto = crawler.crawlMenuWithRegion(store.getRegion(), store.getName());
 
+            List<Menu> menuList = null;
+            String phoneNumber = null;
+
+            if(crawlResultDto != null) {
+               menuList = crawlResultDto.getMenuList();
+               phoneNumber = crawlResultDto.getPhoneNumber();
+            }
 
             RecommendationResultDto resultDto = RecommendationResultDto.builder()
-                    .name(store.getName())
-                    .region(store.getRegion())
-                    .divisionOne(store.getDivisionOne())
-                    .divisionTwo(store.getDivisionTwo())
-                    .divisionThree(store.getDivisionThree())
-                    .lotAddress(store.getLotAddress())
-                    .streetAddress(store.getStreetAddress())
-                    .menuList(menuList)
-                    .latitude(store.getLatitude())
-                    .longitude(store.getLongitude()).build();
+                .name(store.getName())
+                .region(store.getRegion())
+                .divisionOne(store.getDivisionOne())
+                .divisionTwo(store.getDivisionTwo())
+                .divisionThree(store.getDivisionThree())
+                .lotAddress(store.getLotAddress())
+                .streetAddress(store.getStreetAddress())
+                .menuList(menuList)
+                .phoneNumber(phoneNumber)
+                .latitude(store.getLatitude())
+                .longitude(store.getLongitude()).build();
 
 
             return resultDto;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new RandomIsNotWorkedProperlyException("추천도중 잘못된 인덱스가 반환되었습니다.", e);
+        } catch (IllegalArgumentException e) {
+            throw new NoNearbyStoreException("주어진 범위내에 식당이 없습니다.", e);
         }
     }
 }

@@ -24,6 +24,7 @@ public class RecommendationResultDto {
     private final String streetAddress;
 
     private final List<Menu> menuList;
+    private final String phoneNumber;
 
     private final double latitude;
     private final double longitude;

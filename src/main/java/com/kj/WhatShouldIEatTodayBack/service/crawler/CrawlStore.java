@@ -16,5 +16,5 @@ public interface CrawlStore {
      * @param storeName 검색하고자 하는 스토어의 이름
      * @return
      */
-    List<Menu> crawlMenuWithRegion(String region, String storeName);
+    CrawlResultDto crawlMenuWithRegion(String region, String storeName);
 }

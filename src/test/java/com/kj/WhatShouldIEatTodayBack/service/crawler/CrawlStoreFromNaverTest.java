@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.*;
+
 
 class CrawlStoreFromNaverTest {
 
@@ -17,7 +19,7 @@ class CrawlStoreFromNaverTest {
         CrawlStoreFromNaver crawler = new CrawlStoreFromNaver();
         List<Menu> menus = crawler.crawlMenu("이태리국시");
 
-        Assertions.assertThat(menus.size()).isGreaterThan(0);
+        assertThat(menus.size()).isGreaterThan(0);
     }
 
 
@@ -25,8 +27,11 @@ class CrawlStoreFromNaverTest {
     @Test
     public void crawlMenuWithRegion() {
         CrawlStoreFromNaver crawler = new CrawlStoreFromNaver();
-        List<Menu> menus = crawler.crawlMenuWithRegion("대전", "이태리국시");
+        CrawlResultDto crawlResultDto = crawler.crawlMenuWithRegion("대전", "이태리국시");
+        List<Menu> menus = crawlResultDto.getMenuList();
+        String phoneNumber = crawlResultDto.getPhoneNumber();
 
-        Assertions.assertThat(menus.size()).isGreaterThan(0);
+        assertThat(menus.size()).isGreaterThan(0);
+        assertThat(phoneNumber).isNotNull();
     }
 }
