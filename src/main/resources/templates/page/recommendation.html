@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -20,7 +20,7 @@
 
 <body>
 <!--NavBar-->
-<div th:replace="${member} ? ~{fragment/header :: header-login} : ~{fragment/header :: header-not-login}">Header</div>
+<div th:replace="${member} ? ~{fragment/header :: header-login} : ~{fragment/header :: header-not-login}">NavBar</div>
 
 <div class="container">
     <form class="form-container p-4" th:object="${recommendationRequestDto}" action="/recommendation" th:action="@{/recommendation}" method="post">

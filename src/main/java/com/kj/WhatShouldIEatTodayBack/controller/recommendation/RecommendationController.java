@@ -67,17 +67,19 @@ public class RecommendationController {
             log.info("category: {}", category);
         }
 
+
         if(session != null) {
             Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
             model.addAttribute("member", loginMember);
         }
 
-        RecommendationResultDto recommendationResultDto = recommendationService.recommendation(recommendationRequestDto);
-        model.addAttribute(recommendationResultDto);
+        RecommendationResultDto recommendationResult = recommendationService.recommendation(recommendationRequestDto);
+        model.addAttribute("recommendationResult", recommendationResult);
 
-        System.out.println("recommendationResult = " + recommendationResultDto);
 
-        return "page/recommendation";
+        System.out.println("recommendationResult = " + recommendationResult.toString());
+
+        return "page/recommendationResult";
     }
 
     @GetMapping("/recommendationTest")
