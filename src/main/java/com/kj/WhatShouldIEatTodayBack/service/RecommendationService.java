@@ -12,7 +12,6 @@ import com.kj.WhatShouldIEatTodayBack.service.crawler.Menu;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -83,14 +82,15 @@ public class RecommendationService {
         List<Store> storeList = getDataListByCategoryFromDB(recommendationRequestDto);
         int size = storeList.size();
 
-        Random rand = new Random();
-        int selectedStoreIdx = rand.nextInt(size);
-
         try {
+            Random rand = new Random();
+            int selectedStoreIdx = rand.nextInt(size);
+
+
             Store store = storeList.get(selectedStoreIdx);
 
             CrawlStore crawler = new CrawlStoreFromNaver();
-            CrawlResultDto crawlResultDto = crawler.crawlMenuWithRegion(store.getRegion(), store.getName());
+            CrawlResultDto crawlResultDto = crawler.crawlWithLotAddress(store.getLotAddress(), store.getName());
 
             List<Menu> menuList = null;
             String phoneNumber = null;

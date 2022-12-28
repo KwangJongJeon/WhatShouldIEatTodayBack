@@ -5,7 +5,7 @@
     <link th:href="@{/css/bootstrap.min.css}"
           href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="./recommendationResult.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>EatToday</title>
 </head>
 
@@ -14,7 +14,7 @@
     <div th:replace="${member} ? ~{fragment/header :: header-login} : ~{fragment/header :: header-not-login}">NavBar</div>
 
     <div class="container mt-5" th:object="${recommendationResult}">
-        <h3>오늘은 중식 어때요?</h3>
+        <h3 th:text="|오늘은, *{divisionTwo} 어때요?|"></h3>
         <div class="container row recommendation-info shadow-sm mt-5 p-5 th:ob">
             <div class="col-7 menu-desc">
                 <div class="store-title">
@@ -25,16 +25,14 @@
                         <i class="fa-sharp fa-solid fa-location-dot me-2"></i>
                         <span th:text="*{lotAddress}">Location</span>
                     </div>
-                    <div>
+
+                    <div th:if="${not #strings.isEmpty(recommendationResult.phoneNumber)}">
                         <i class="fa-solid fa-phone mt-3 me-1"></i>
                         <span th:text="*{phoneNumber}? *{phoneNumber} : null">010-0000-0000</span>
                     </div>
-                    <div class="menu mt-5">
+                    <div class="menu mt-5" th:if="${not #lists.isEmpty(recommendationResult.menuList)}">
                         <p class="mb-1">Menu</p>
-                        <li>짜장면 000원</li>
-                        <li>간짜장 8000원</li>
-                        <li>짬뽕 7500원</li>
-                        <li>삼선짬뽕 9000원</li>
+                        <li th:each="menu : *{menuList}" th:text="|${menu.name} ${menu.price}">메뉴리스트</li>
                     </div>
                 </div>
             </div>
