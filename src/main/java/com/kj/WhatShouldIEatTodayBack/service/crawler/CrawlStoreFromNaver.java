@@ -99,9 +99,136 @@ public class CrawlStoreFromNaver implements CrawlStore {
         driver.get(url);
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(LOCAL_SEARCH_WAIT_TIME_MILLIS));
 
-        List<WebElement> menus;
+
         String phoneNumber;
-        boolean searchIFrameDetected = false;
+        List<WebElement> menuNames;
+        List<WebElement> prices;
+
+
+        // 메뉴 Iframe 접근
+        try {
+            WebElement entryIframe = driver.findElement(By.cssSelector("iframe#entryIframe"));
+            log.info("entryIframe = {}", entryIframe);
+            if(entryIframe == null) {
+                // 메뉴를 찾지 못했다면 searchIFrame이 있는지 확인
+                WebElement searchIFrame = driver.findElement(By.cssSelector("iframe#searchIframe"));
+                log.info("searchIFrame = {}", searchIFrame);
+                if(searchIFrame != null) {
+                    driver.switchTo().frame(searchIFrame);
+
+                    try {
+                        List<WebElement> elements = driver.findElements(By.cssSelector(".C6RjW>.place_bluelink"));
+                        elements.get(0).click();
+                    } catch (Exception ex) {
+                        log.error(ex.toString());
+                        driver.quit();
+                        return null;
+                    }
+
+                    // 프레임 변경
+                    driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
+                    driver.switchTo().defaultContent();
+                    driver.manage().timeouts().implicitlyWait(Duration.ofMillis(2000));
+                } else {
+                    return null;
+                }
+            }
+
+            // 상점 상세 Iframe 접근
+            driver.switchTo().frame(entryIframe);
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
+
+
+            menuNames = driver.findElements(By.cssSelector(".place_section_content>ul.jnwQZ>li.gHmZ_" +
+                    ">div.yFDCH>div.RhpMT>span.vEsKn"));
+            prices = driver.findElements(By.cssSelector(".place_section_content>ul.jnwQZ>li.gHmZ_" +
+                    ">div.yFDCH>em"));
+
+            if(menuNames.isEmpty()) {
+                menuNames = driver.findElements(By.cssSelector(".place_section_content>ul.mpoxR>li.yhGu6" +
+                        ">a>div.MN48z>div.erVoL>div.MENyI"));
+                prices = driver.findElements(By.cssSelector(".place_section_content>ul.mpoxR>li.yhGu6" +
+                        ">a.Ozh8q>div.MN48z>div.Yrsei>div.gl2cc"));
+            }
+
+            phoneNumber = driver.findElement(By.cssSelector("div.x8JmK>span.dry01")).getText();
+        } catch(NoSuchElementException e){
+            log.error(e.toString());
+            driver.quit();
+            return null;
+        } catch(NoSuchFrameException e){
+            log.error(e.toString());
+            driver.quit();
+            return null;
+        } catch(StaleElementReferenceException e){
+            log.error(e.toString());
+            driver.quit();
+            return null;
+        }
+
+        List<Menu> menuList = new ArrayList<>();
+
+        // 메뉴 크롤링
+        for (int i = 0; i < menuNames.size(); i++) {
+            try {
+                String menuName = menuNames.get(i).getText();
+                String price = prices.get(i).getText();
+                char[] priceCharArr = price.toCharArray();
+                StringBuilder priceBuilder = new StringBuilder();
+
+                // 이름에 \n이 존재할 경우
+                if(menuName.indexOf("\n") != -1) {
+                    String[] menuTextArr = menuName.split("\n");
+                    menuName = menuTextArr[0];
+                }
+
+                for (char c : priceCharArr) {
+                    if(Character.isDigit(c)) {
+                        priceBuilder.append(c);
+                    }
+                }
+
+                int processedPrice = Integer.parseInt(priceBuilder.toString());
+                menuList.add(new Menu(menuName, processedPrice));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                log.error(e.toString());
+                continue;
+            } catch (IllegalFormatConversionException e) {
+                log.error(e.toString());
+                continue;
+            } catch (NumberFormatException e) {
+                log.error(e.toString());
+                continue;
+            }
+
+        }
+
+
+        driver.quit();
+
+        CrawlResultDto crawlResultDto = new CrawlResultDto(menuList, phoneNumber);
+
+        return crawlResultDto;
+    }
+
+
+
+    @Override
+    public CrawlResultDto crawlWithLotAddress(String lotAddress, String storeName) {
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver();
+
+        String url = getURLFromLotAddress(lotAddress, storeName);
+        if(url == null) return null;
+
+        driver.get(url);
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(LOCAL_SEARCH_WAIT_TIME_MILLIS));
+
+
+        String phoneNumber;
+        List<WebElement> menuNames;
+        List<WebElement> prices;
+
 
         // 메뉴 Iframe 접근
         try {
@@ -126,19 +253,29 @@ public class CrawlStoreFromNaver implements CrawlStore {
                     driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
                     driver.switchTo().defaultContent();
                     driver.manage().timeouts().implicitlyWait(Duration.ofMillis(2000));
-                    searchIFrameDetected = true;
                 } else {
                     return null;
                 }
             }
 
+            // 상점 상세 Iframe 접근
             driver.switchTo().frame(entryIframe);
-            List<WebElement> placeSectionContents = driver.findElements(By.cssSelector(".place_section_content"));
-            WebElement menuElement = placeSectionContents.get(placeSectionContents.size() - 1);
-            menus = menuElement.findElements(By.cssSelector("ul>li"));
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
+
+
+            menuNames = driver.findElements(By.cssSelector(".place_section_content>ul.jnwQZ>li.gHmZ_" +
+                    ">div.yFDCH>div.RhpMT>span.vEsKn"));
+            prices = driver.findElements(By.cssSelector(".place_section_content>ul.jnwQZ>li.gHmZ_" +
+                    ">div.yFDCH>em"));
+
+            if(menuNames.isEmpty()) {
+                menuNames = driver.findElements(By.cssSelector(".place_section_content>ul.mpoxR>li.yhGu6" +
+                        ">a>div.MN48z>div.erVoL>div.MENyI"));
+                prices = driver.findElements(By.cssSelector(".place_section_content>ul.mpoxR>li.yhGu6" +
+                        ">a.Ozh8q>div.MN48z>div.Yrsei>div.gl2cc"));
+            }
 
             phoneNumber = driver.findElement(By.cssSelector("div.x8JmK>span.dry01")).getText();
-
         } catch(NoSuchElementException e){
             log.error(e.toString());
             driver.quit();
@@ -156,20 +293,27 @@ public class CrawlStoreFromNaver implements CrawlStore {
         List<Menu> menuList = new ArrayList<>();
 
         // 메뉴 크롤링
-        for (WebElement menu : menus) {
+        for (int i = 0; i < menuNames.size(); i++) {
             try {
-                String[] menuInfo = menu.getText().split("\n");
-                String name = menuInfo[0];
-                char[] priceCharArr  = menuInfo[1].toCharArray();
+                String menuName = menuNames.get(i).getText();
+                String price = prices.get(i).getText();
+                char[] priceCharArr = price.toCharArray();
                 StringBuilder priceBuilder = new StringBuilder();
+
+                // 이름에 \n이 존재할 경우
+                if(menuName.indexOf("\n") != -1) {
+                    String[] menuTextArr = menuName.split("\n");
+                    menuName = menuTextArr[0];
+                }
 
                 for (char c : priceCharArr) {
                     if(Character.isDigit(c)) {
                         priceBuilder.append(c);
                     }
                 }
-                int price = Integer.parseInt(priceBuilder.toString());
-                menuList.add(new Menu(name, price));
+
+                int processedPrice = Integer.parseInt(priceBuilder.toString());
+                menuList.add(new Menu(menuName, processedPrice));
             } catch (ArrayIndexOutOfBoundsException e) {
                 log.error(e.toString());
                 continue;
@@ -180,80 +324,9 @@ public class CrawlStoreFromNaver implements CrawlStore {
                 log.error(e.toString());
                 continue;
             }
+
         }
 
-
-
-        driver.quit();
-
-        CrawlResultDto crawlResultDto = new CrawlResultDto(menuList, phoneNumber);
-
-        return crawlResultDto;
-    }
-
-    @Override
-    public CrawlResultDto crawlWithLotAddress(String lotAddress, String storeName) {
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-
-        String url = getURLFromLotAddress(lotAddress, storeName);
-        driver.get(url);
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(LOCAL_SEARCH_WAIT_TIME_MILLIS));
-
-        List<WebElement> menus;
-        String phoneNumber;
-
-        // 메뉴 Iframe 접근
-        try {
-            driver.switchTo().frame(driver.findElement(By.cssSelector("iframe#entryIframe")));
-            List<WebElement> placeSectionContents = driver.findElements(By.cssSelector(".place_section_content"));
-            WebElement menuElement = placeSectionContents.get(placeSectionContents.size() - 1);
-            menus = menuElement.findElements(By.cssSelector("ul>li"));
-
-            phoneNumber = driver.findElement(By.cssSelector("div.x8JmK>span.dry01")).getText();
-
-        } catch(NoSuchElementException e){
-            log.error(e.toString());
-            driver.quit();
-            return null;
-        } catch(NoSuchFrameException e){
-            log.error(e.toString());
-            driver.quit();
-            return null;
-        } catch(StaleElementReferenceException e){
-            log.error(e.toString());
-            driver.quit();
-            return null;
-        }
-
-        List<Menu> menuList = new ArrayList<>();
-
-        // 메뉴 크롤링
-        for (WebElement menu : menus) {
-            try {
-                String[] menuInfo = menu.getText().split("\n");
-                String name = menuInfo[0];
-                char[] priceCharArr  = menuInfo[1].toCharArray();
-                StringBuilder priceBuilder = new StringBuilder();
-
-                for (char c : priceCharArr) {
-                    if(Character.isDigit(c)) {
-                        priceBuilder.append(c);
-                    }
-                }
-                int price = Integer.parseInt(priceBuilder.toString());
-                menuList.add(new Menu(name, price));
-            } catch (ArrayIndexOutOfBoundsException e) {
-                log.error(e.toString());
-                continue;
-            } catch (IllegalFormatConversionException e) {
-                log.error(e.toString());
-                continue;
-            } catch (NumberFormatException e) {
-                log.error(e.toString());
-                continue;
-            }
-        }
 
         driver.quit();
 

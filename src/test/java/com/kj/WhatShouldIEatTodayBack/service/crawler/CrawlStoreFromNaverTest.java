@@ -24,7 +24,7 @@ class CrawlStoreFromNaverTest {
     @Test
     public void crawlWithRegion() {
         CrawlStoreFromNaver crawler = new CrawlStoreFromNaver();
-        CrawlResultDto crawlResultDto = crawler.crawlWithRegion("대전", "황해면옥");
+        CrawlResultDto crawlResultDto = crawler.crawlWithRegion("대전", "이태리국시");
         List<Menu> menus = crawlResultDto.getMenuList();
         String phoneNumber = crawlResultDto.getPhoneNumber();
 

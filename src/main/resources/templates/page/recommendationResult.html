@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <link th:href="@{/css/bootstrap.min.css}"
           href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="./recommendationResult.css" rel="stylesheet">
+    <link th:href="@{/css/recommendationResult.css}"
+          href = "../css/recommendationResult.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--개발시 APP KEY 숨겨야함(메시지로)-->
+    <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b880d55870754431f0fedf7f011061fc"></script>
+
     <title>EatToday</title>
 </head>
 
@@ -15,8 +20,8 @@
 
     <div class="container mt-5" th:object="${recommendationResult}">
         <h3 th:text="|오늘은, *{divisionTwo} 어때요?|"></h3>
-        <div class="container row recommendation-info shadow-sm mt-5 p-5 th:ob">
-            <div class="col-7 menu-desc">
+        <div class="container row shadow-sm mt-5 p-5">
+            <div class="col-6 menu-desc">
                 <div class="store-title">
                     <h5 th:text="*{name}">식당 이름</h5>
                 </div>
@@ -32,21 +37,77 @@
                     </div>
                     <div class="menu mt-5" th:if="${not #lists.isEmpty(recommendationResult.menuList)}">
                         <p class="mb-1">Menu</p>
-                        <li th:each="menu : *{menuList}" th:text="|${menu.name} ${menu.price}">메뉴리스트</li>
+                        <ul class="list-group">
+                            <li class="menu-item row" th:each="menu : *{menuList}">
+                                <p class="col-5" th:text="${menu.name}">메뉴 이름</p>
+                                <p class="col-7" th:text="${menu.price}">메뉴 이름</p>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-5 menu-img bg-secondary">
-                <img src="" class="store-img">
+            <div class="col-6 review-container">
+                <h5>방문자 리뷰</h5>
+                <ul class="list-group mt-5">
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                    <li class="list-group-item">A fourth item</li>
+                </ul>
+            </div>
+<!--            <div class="col-5 menu-img bg-secondary">-->
+<!--                <img src="" class="store-img">-->
+<!--            </div>-->
+        </div>
+        <div class="map-container mt-3">
+            <div id="map">
+                <script th:inline="javascript">
+                    let recommendationResult = [[${recommendationResult}]]
+                    console.log(recommendationResult);
+
+                    var locPosition = new kakao.maps.LatLng(recommendationResult.latitude, recommendationResult.longitude);
+                    var message = '<div style="padding:5px" th:text="${recommendationResult.name}">식당 위치</div>';
+
+                    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                        mapOption = {
+                            center: locPosition, // 지도의 중심 좌표
+                            level: 2 // 지도의 확대 레벨
+                        };
+
+                    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다.
+
+
+
+                    function displayMarker(locPosition, message) {
+                        // 마커를 생성합니다.
+                        var marker = new kakao.maps.Marker({
+                            map: map,
+                            position: locPosition
+                        });
+
+                        var iwContent = message, // 인포윈도우에 표시할 내용
+                            iwRemovable = true;
+
+                        // 인포 윈도우를 생성합니다.
+                        var infowindow = new kakao.maps.InfoWindow({
+                            content : iwContent,
+                            removable : iwRemovable
+                        });
+
+                        // 인포윈도우를 마커위에 표시합니다.
+                        infowindow.open(map, marker);
+
+                        // 지도 중심좌표를 접속위치로 변경합니다.
+                        map.setCenter(locPosition);
+                    }
+
+                    displayMarker(locPosition, message);
+
+                </script>
             </div>
         </div>
-        <div id="map" class="container bg-secondary mt-5"></div>
-    </div>
 
-    <!--개발시 APP KEY 숨겨야함(메시지로)-->
-    <script type="text/javascript"
-    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b880d55870754431f0fedf7f011061fc"></script>
-    <script src="./recommendation.js"></script>
+    <script th:src="@{/js/recommendation.js}" src="./recommendation.js"></script>
 
 </body>
 
