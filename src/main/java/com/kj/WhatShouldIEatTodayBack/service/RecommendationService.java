@@ -116,9 +116,9 @@ public class RecommendationService {
 
             return resultDto;
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new RandomIsNotWorkedProperlyException("추천도중 잘못된 인덱스가 반환되었습니다.", e);
+            return null; // 근처에 식당이 없을 경우
         } catch (IllegalArgumentException e) {
-            throw new NoNearbyStoreException("주어진 범위내에 식당이 없습니다.", e);
+            return null; // 근처에 식당이 없을 경우
         }
     }
 }

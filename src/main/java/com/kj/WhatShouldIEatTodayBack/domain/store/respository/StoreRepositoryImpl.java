@@ -1,6 +1,6 @@
 package com.kj.WhatShouldIEatTodayBack.domain.store.respository;
 
-import com.kj.WhatShouldIEatTodayBack.exception.CoordinateIsNotValid;
+import com.kj.WhatShouldIEatTodayBack.exception.recommendation.CoordinateIsNotValid;
 import com.kj.WhatShouldIEatTodayBack.domain.store.QStore;
 import com.kj.WhatShouldIEatTodayBack.domain.store.Store;
 import com.kj.WhatShouldIEatTodayBack.service.CoordinateRange;

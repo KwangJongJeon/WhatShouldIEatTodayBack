@@ -14,8 +14,8 @@ import java.util.IllegalFormatConversionException;
 import java.util.List;
 
 /**
- * 셀레니움을 사용해 웹을 크롤링하는 클래스
- */
+ * 셀레니움을 사용해 네이버 지도를 크롤링하는 클래스
+ * */
 @Slf4j
 @Service
 public class CrawlStoreFromNaver implements CrawlStore {
@@ -87,8 +87,6 @@ public class CrawlStoreFromNaver implements CrawlStore {
     }
 
 
-
-    @Override
     public CrawlResultDto crawlWithRegion(String region, String storeName) {
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();

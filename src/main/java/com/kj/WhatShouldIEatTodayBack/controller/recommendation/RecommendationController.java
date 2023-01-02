@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -38,7 +39,7 @@ public class RecommendationController {
     }
 
     @GetMapping("/recommendation")
-    public String recommendation(HttpServletRequest request,
+    public String recommendationForm(HttpServletRequest request,
                                  @ModelAttribute RecommendationRequestDto recommendationDto,
                                  Model model) {
 
@@ -53,20 +54,14 @@ public class RecommendationController {
     }
 
     @PostMapping("/recommendation")
-    public String recommendationResult(HttpServletRequest request,
+    public String recommendation(HttpServletRequest request,
                                        @ModelAttribute RecommendationRequestDto recommendationRequestDto,
                                        Model model) {
         HttpSession session = request.getSession(false);
 
-        log.info("lat: {}", recommendationRequestDto.getLatitude());
-        log.info("long: {}", recommendationRequestDto.getLongitude());
-
-
-
         for (String category : recommendationRequestDto.getCategories()) {
             log.info("category: {}", category);
         }
-
 
         if(session != null) {
             Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
@@ -74,10 +69,12 @@ public class RecommendationController {
         }
 
         RecommendationResultDto recommendationResult = recommendationService.recommendation(recommendationRequestDto);
+
+        if(recommendationResult == null) {
+
+        }
+
         model.addAttribute("recommendationResult", recommendationResult);
-
-
-        System.out.println("recommendationResult = " + recommendationResult.toString());
 
         return "page/recommendationResult";
     }

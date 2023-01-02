@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/recommendationError.css}"
+          href="../css/recommendationError.css" rel="stylesheet">
+    <title>EatToday</title>
+</head>
+<body>
+<div class="container">
+    <div class="error-container">
+        <h2>근처에 식당이 없습니다!</h2>
+        <p>거리를 조정하여 다시 시도해주세요.</p>
+        <button class="btn btn-light">돌아가기</button>
+    </div>
+</div>
+</body>
+</html>
