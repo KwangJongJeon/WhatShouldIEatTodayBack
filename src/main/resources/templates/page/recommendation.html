@@ -12,7 +12,9 @@
 
     <!--개발시 APP KEY 숨겨야함(메시지로)-->
     <script type="text/javascript"
-            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b880d55870754431f0fedf7f011061fc"></script>
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b880d55870754431f0fedf7f011061fc"
+            th:src="|//dapi.kakao.com/v2/maps/sdk.js?appkey=#{kakao.appkey}|"
+    ></script>
 
     <script src="/js/getLocation.js" th:src="@{/js/getLocation.js}"></script>
     <title>EatToday</title>

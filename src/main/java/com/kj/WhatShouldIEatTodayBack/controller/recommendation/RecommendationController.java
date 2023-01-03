@@ -71,7 +71,7 @@ public class RecommendationController {
         RecommendationResultDto recommendationResult = recommendationService.recommendation(recommendationRequestDto);
 
         if(recommendationResult == null) {
-
+            return "page/recommendationError";
         }
 
         model.addAttribute("recommendationResult", recommendationResult);

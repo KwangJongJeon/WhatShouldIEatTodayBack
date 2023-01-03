@@ -11,11 +11,14 @@
     <title>EatToday</title>
 </head>
 <body>
+<!--NavBar-->
+<div th:replace="${member} ? ~{fragment/header :: header-login} : ~{fragment/header :: header-not-login}">NavBar</div>
+
 <div class="container">
     <div class="error-container">
         <h2>근처에 식당이 없습니다!</h2>
         <p>거리를 조정하여 다시 시도해주세요.</p>
-        <button class="btn btn-light">돌아가기</button>
+        <button onclick="location.href='/recommendation'" class="btn btn-light">돌아가기</button>
     </div>
 </div>
 </body>
