@@ -6,6 +6,7 @@ public enum CategoryTypes {
     JAPANESE("일식"),
     CHINESE("중식");
 
+
     private final String description;
 
     CategoryTypes(String description) {

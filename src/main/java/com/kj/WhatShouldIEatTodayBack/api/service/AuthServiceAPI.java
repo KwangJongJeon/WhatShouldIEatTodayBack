@@ -29,7 +29,7 @@ public class AuthServiceAPI {
     public Long register(MemberRequestDto memberRequestDto) {
         Member member = memberRequestDto.toEntityExceptPassword();
         member.encodePassword(passwordEncoder.encode(memberRequestDto.getMemberPw()));
-        return memberRepository.save(member).getMemberId();
+        return memberRepository.save(member).getId();
     }
 
     public MemberCheckResponseDto getMemberCheck(Principal principal) {

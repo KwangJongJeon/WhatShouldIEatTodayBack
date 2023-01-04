@@ -11,7 +11,7 @@ public class MemberCheckResponseDto {
     String nickName;
 
     public MemberCheckResponseDto(Member member) {
-        memberId = member.getMemberId();
+        memberId = member.getId();
         memberEmail = member.getMemberEmail();
         nickName = member.getNickName();
     }

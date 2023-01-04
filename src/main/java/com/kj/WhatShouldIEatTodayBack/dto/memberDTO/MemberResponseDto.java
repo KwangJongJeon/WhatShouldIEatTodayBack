@@ -16,7 +16,7 @@ public class MemberResponseDto {
     private MemberResponseDto() {}
 
     public MemberResponseDto(Member member) {
-        memberId = member.getMemberId();
+        memberId = member.getId();
         memberEmail = member.getMemberEmail();
         memberName = member.getName();
         if(member.getNickName() == null) {
