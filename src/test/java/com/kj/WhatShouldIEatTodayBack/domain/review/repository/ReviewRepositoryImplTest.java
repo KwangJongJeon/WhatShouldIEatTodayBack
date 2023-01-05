@@ -48,17 +48,6 @@ class ReviewRepositoryImplTest {
                 .build();
 
         memberRepository.save(member);
-
-//        Member reviewMember = memberRepository.findByMemberEmail("reviewTester").get();
-//        Store reviewStore = storeRepository.findById(1L).get();
-//
-//        Review review = Review.builder()
-//                .member(reviewMember)
-//                .store(reviewStore)
-//                .content("Hello!")
-//                .build();
-//
-//        reviewRepository.save(review);
     }
 
     @Test
