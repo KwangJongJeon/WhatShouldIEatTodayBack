@@ -11,6 +11,7 @@ public interface ReviewRepository {
 
     public Review save(Review review);
     public Optional<Review> findById(Long id);
+    public List<Review> findAll();
     public List<Review> findReviewByMember(Member member);
     public List<Review> findReviewByStore(Store store);
 }

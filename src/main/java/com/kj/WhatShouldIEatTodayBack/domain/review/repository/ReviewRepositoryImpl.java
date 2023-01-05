@@ -36,6 +36,11 @@ public class ReviewRepositoryImpl implements ReviewRepository {
     }
 
     @Override
+    public List<Review> findAll() {
+        return em.createQuery("select r from Review r").getResultList();
+    }
+
+    @Override
     public List<Review> findReviewByMember(Member member) {
         String jpql = "select r from Review r where r.member.id = " + member.getId();
 

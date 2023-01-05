@@ -3,17 +3,21 @@ package com.kj.WhatShouldIEatTodayBack.domain.review;
 
 import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
 import com.kj.WhatShouldIEatTodayBack.domain.store.Store;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Builder
+@Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long reviewId;
+    private Long id;
 
     @Column
     private String content;

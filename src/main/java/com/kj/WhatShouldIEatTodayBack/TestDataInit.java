@@ -1,18 +1,18 @@
-package com.kj.WhatShouldIEatTodayBack;
-
-import com.kj.WhatShouldIEatTodayBack.controller.dto.RegisterFormDto;
-import com.kj.WhatShouldIEatTodayBack.domain.member.repository.MemberRepository;
-import com.kj.WhatShouldIEatTodayBack.service.AuthService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-
-
-@Component
-@RequiredArgsConstructor
-public class TestDataInit {
-
+//package com.kj.WhatShouldIEatTodayBack;
+//
+//import com.kj.WhatShouldIEatTodayBack.controller.dto.RegisterFormDto;
+//import com.kj.WhatShouldIEatTodayBack.domain.member.repository.MemberRepository;
+//import com.kj.WhatShouldIEatTodayBack.service.AuthService;
+//import lombok.RequiredArgsConstructor;
+//import org.springframework.stereotype.Component;
+//
+//import javax.annotation.PostConstruct;
+//
+//
+//@Component
+//@RequiredArgsConstructor
+//public class TestDataInit {
+//
 //    private final MemberRepository memberRepository;
 //    private final AuthService authService;
 //    String email = "tester";
@@ -32,4 +32,4 @@ public class TestDataInit {
 //
 //        authService.register(registerFormDto);
 //    }
-}
+//}
