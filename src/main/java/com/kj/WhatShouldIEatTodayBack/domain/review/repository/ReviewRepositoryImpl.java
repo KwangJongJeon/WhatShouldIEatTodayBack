@@ -38,6 +38,13 @@ public class ReviewRepositoryImpl implements ReviewRepository {
     }
 
     @Override
+    public Review updateContentById(Long id, String content) {
+        Review foundReview = em.find(Review.class, id);
+        foundReview.setContent(content);
+        return foundReview;
+    }
+
+    @Override
     public Optional<Review> findById(Long id) {
         Review review = em.find(Review.class, id);
         return Optional.ofNullable(review);

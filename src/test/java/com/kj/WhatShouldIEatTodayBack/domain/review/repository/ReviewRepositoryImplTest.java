@@ -102,6 +102,26 @@ class ReviewRepositoryImplTest {
     }
 
     @Test
+    void updateContentById() {
+        Member reviewMember = memberRepository.findByMemberEmail("reviewTester").get();
+        Store reviewStore = storeRepository.findById(1L).get();
+
+        Review review = Review.builder()
+                .member(reviewMember)
+                .store(reviewStore)
+                .content("Hello!")
+                .build();
+
+        reviewRepository.save(review);
+
+        reviewRepository.updateContentById(1L, "Update!");
+
+        Review result = reviewRepository.findAll().get(0);
+
+        assertThat(result.getContent()).isEqualTo("Update!");
+    }
+
+    @Test
     void findById() {
         Member reviewMember = memberRepository.findByMemberEmail("reviewTester").get();
         Store reviewStore = storeRepository.findById(1L).get();

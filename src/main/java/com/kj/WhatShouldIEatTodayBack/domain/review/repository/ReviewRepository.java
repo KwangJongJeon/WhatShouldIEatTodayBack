@@ -12,6 +12,7 @@ public interface ReviewRepository {
 
     public Review save(Review review);
     public Review update(Review review);
+    public Review updateContentById(Long id, String content);
     public Optional<Review> findById(Long id);
     public List<Review> findAll();
     public List<Review> findReviewByMember(Member member);

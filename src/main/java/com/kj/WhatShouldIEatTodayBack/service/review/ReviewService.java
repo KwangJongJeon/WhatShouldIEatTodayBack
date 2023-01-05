@@ -5,6 +5,8 @@ import com.kj.WhatShouldIEatTodayBack.domain.review.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class ReviewService {
@@ -22,4 +24,15 @@ public class ReviewService {
 
         return reviewDto;
     }
+
+
+//    public ReviewDto updateReview(ReviewUpdateRequestDto requestDto) {
+//        long id = requestDto.getId();
+//        String content = requestDto.getContent();
+//        Optional<Review> reviewOpt = reviewRepository.findById(id);
+//        if(reviewOpt.isEmpty()) return null;
+//
+//        Review review = reviewOpt.get();
+//        reviewRepository.update()
+//    }
 }
