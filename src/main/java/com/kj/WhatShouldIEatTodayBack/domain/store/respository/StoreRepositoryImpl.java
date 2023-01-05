@@ -3,7 +3,7 @@ package com.kj.WhatShouldIEatTodayBack.domain.store.respository;
 import com.kj.WhatShouldIEatTodayBack.exception.recommendation.CoordinateIsNotValid;
 import com.kj.WhatShouldIEatTodayBack.domain.store.QStore;
 import com.kj.WhatShouldIEatTodayBack.domain.store.Store;
-import com.kj.WhatShouldIEatTodayBack.service.CoordinateRange;
+import com.kj.WhatShouldIEatTodayBack.service.recommendation.CoordinateRange;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;

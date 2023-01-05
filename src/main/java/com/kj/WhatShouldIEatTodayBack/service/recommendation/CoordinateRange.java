@@ -1,4 +1,4 @@
-package com.kj.WhatShouldIEatTodayBack.service;
+package com.kj.WhatShouldIEatTodayBack.service.recommendation;
 
 import lombok.Data;
 

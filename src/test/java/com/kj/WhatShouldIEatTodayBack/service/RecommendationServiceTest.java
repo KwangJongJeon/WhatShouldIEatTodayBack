@@ -1,6 +1,9 @@
 package com.kj.WhatShouldIEatTodayBack.service;
 
 import com.kj.WhatShouldIEatTodayBack.controller.dto.RecommendationRequestDto;
+import com.kj.WhatShouldIEatTodayBack.service.recommendation.CoordinateRange;
+import com.kj.WhatShouldIEatTodayBack.service.recommendation.RecommendationResultDto;
+import com.kj.WhatShouldIEatTodayBack.service.recommendation.RecommendationService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

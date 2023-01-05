@@ -1,7 +1,5 @@
-package com.kj.WhatShouldIEatTodayBack.service;
+package com.kj.WhatShouldIEatTodayBack.service.recommendation;
 
-import com.kj.WhatShouldIEatTodayBack.exception.NoNearbyStoreException;
-import com.kj.WhatShouldIEatTodayBack.exception.RandomIsNotWorkedProperlyException;
 import com.kj.WhatShouldIEatTodayBack.controller.dto.RecommendationRequestDto;
 import com.kj.WhatShouldIEatTodayBack.domain.store.Store;
 import com.kj.WhatShouldIEatTodayBack.domain.store.respository.StoreRepository;

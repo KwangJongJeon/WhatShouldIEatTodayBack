@@ -1,4 +1,4 @@
-package com.kj.WhatShouldIEatTodayBack.service;
+package com.kj.WhatShouldIEatTodayBack.service.recommendation;
 
 import com.kj.WhatShouldIEatTodayBack.exception.recommendation.InvalidCategoryName;
 import com.kj.WhatShouldIEatTodayBack.enums.CategoryTypes;

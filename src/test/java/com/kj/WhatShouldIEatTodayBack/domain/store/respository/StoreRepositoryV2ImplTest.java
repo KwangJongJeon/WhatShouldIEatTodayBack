@@ -1,7 +1,7 @@
 package com.kj.WhatShouldIEatTodayBack.domain.store.respository;
 
 import com.kj.WhatShouldIEatTodayBack.domain.store.Store;
-import com.kj.WhatShouldIEatTodayBack.service.CoordinateRange;
+import com.kj.WhatShouldIEatTodayBack.service.recommendation.CoordinateRange;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
