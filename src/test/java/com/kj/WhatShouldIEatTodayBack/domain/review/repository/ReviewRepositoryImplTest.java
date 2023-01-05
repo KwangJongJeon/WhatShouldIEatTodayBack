@@ -6,6 +6,7 @@ import com.kj.WhatShouldIEatTodayBack.domain.review.Review;
 import com.kj.WhatShouldIEatTodayBack.domain.store.Store;
 import com.kj.WhatShouldIEatTodayBack.domain.store.respository.StoreRepository;
 import com.kj.WhatShouldIEatTodayBack.enums.MemberRole;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -61,34 +62,50 @@ class ReviewRepositoryImplTest {
                 .build();
 
         storeRepository.save(store);
+
+//        Member reviewMember = memberRepository.findByMemberEmail("reviewTester").get();
+//        Store reviewStore = storeRepository.findById(1L).get();
+//
+//        Review review = Review.builder()
+//                .member(reviewMember)
+//                .store(reviewStore)
+//                .content("Hello!")
+//                .build();
+//
+//        reviewRepository.save(review);
     }
 
     @Test
     void save() {
-        Member member = memberRepository.findByMemberEmail("reviewTester").get();
-        Store store = storeRepository.findById(1L).get();
+        Member reviewMember = memberRepository.findByMemberEmail("reviewTester").get();
+        Store reviewStore = storeRepository.findById(1L).get();
+
         Review review = Review.builder()
-                .member(member)
-                .store(store)
+                .member(reviewMember)
+                .store(reviewStore)
                 .content("Hello!")
                 .build();
 
         reviewRepository.save(review);
 
-        assertThat(reviewRepository.findById(1L).get()).isNotNull();
+        Review result = reviewRepository.findReviewByStore(reviewStore).get(0);
+
+        assertThat(result).isNotNull();
     }
 
     @Test
     void findById() {
-        Member member = memberRepository.findByMemberEmail("reviewTester").get();
-        Store store = storeRepository.findById(1L).get();
+        Member reviewMember = memberRepository.findByMemberEmail("reviewTester").get();
+        Store reviewStore = storeRepository.findById(1L).get();
+
         Review review = Review.builder()
-                .member(member)
-                .store(store)
+                .member(reviewMember)
+                .store(reviewStore)
                 .content("Hello!")
                 .build();
 
         reviewRepository.save(review);
+
         Review foundReview = reviewRepository.findById(1L).get();
 
         assertThat(foundReview.getContent()).isEqualTo("Hello!");
@@ -96,15 +113,17 @@ class ReviewRepositoryImplTest {
 
     @Test
     void findReviewByMember() {
-        Member member = memberRepository.findByMemberEmail("reviewTester").get();
-        Store store = storeRepository.findById(1L).get();
+        Member reviewMember = memberRepository.findByMemberEmail("reviewTester").get();
+        Store reviewStore = storeRepository.findById(1L).get();
+
         Review review = Review.builder()
-                .member(member)
-                .store(store)
+                .member(reviewMember)
+                .store(reviewStore)
                 .content("Hello!")
                 .build();
 
         reviewRepository.save(review);
+
         Review result = reviewRepository.findReviewByMember(member).get(0);
 
         assertThat(result.getMember().getMemberEmail()).isEqualTo("reviewTester");
@@ -112,17 +131,18 @@ class ReviewRepositoryImplTest {
 
     @Test
     void findReviewByStore() {
-        Member member = memberRepository.findByMemberEmail("reviewTester").get();
-        Store store = storeRepository.findById(1L).get();
+        Member reviewMember = memberRepository.findByMemberEmail("reviewTester").get();
+        Store reviewStore = storeRepository.findById(1L).get();
+
         Review review = Review.builder()
-                .member(member)
-                .store(store)
+                .member(reviewMember)
+                .store(reviewStore)
                 .content("Hello!")
                 .build();
 
         reviewRepository.save(review);
 
-        Review result = reviewRepository.findReviewByStore(store).get(0);
+        Review result = reviewRepository.findReviewByStore(reviewStore).get(0);
 
         assertThat(result.getStore().getName()).isEqualTo("큰손의정부부대찌개");
     }
