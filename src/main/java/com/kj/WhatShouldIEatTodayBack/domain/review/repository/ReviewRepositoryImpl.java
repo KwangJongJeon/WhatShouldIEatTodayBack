@@ -30,6 +30,14 @@ public class ReviewRepositoryImpl implements ReviewRepository {
     }
 
     @Override
+    public Review update(Review review) {
+        Long id = review.getId();
+        Review foundReview = em.find(Review.class, id);
+        foundReview.setContent(review.getContent());
+        return foundReview;
+    }
+
+    @Override
     public Optional<Review> findById(Long id) {
         Review review = em.find(Review.class, id);
         return Optional.ofNullable(review);

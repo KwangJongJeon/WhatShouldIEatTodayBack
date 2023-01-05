@@ -49,20 +49,6 @@ class ReviewRepositoryImplTest {
 
         memberRepository.save(member);
 
-        store = Store.builder()
-                .name("Store")
-                .region("대전")
-                .divisionOne("음식")
-                .divisionTwo("한식")
-                .divisionThree("비빔밥")
-                .lotAddress("Test")
-                .streetAddress("Test")
-                .latitude(36.3467)
-                .longitude(127.3848)
-                .build();
-
-        storeRepository.save(store);
-
 //        Member reviewMember = memberRepository.findByMemberEmail("reviewTester").get();
 //        Store reviewStore = storeRepository.findById(1L).get();
 //
@@ -91,6 +77,28 @@ class ReviewRepositoryImplTest {
         Review result = reviewRepository.findReviewByStore(reviewStore).get(0);
 
         assertThat(result).isNotNull();
+    }
+
+    @Test
+    void update() {
+        Member reviewMember = memberRepository.findByMemberEmail("reviewTester").get();
+        Store reviewStore = storeRepository.findById(1L).get();
+
+        Review review = Review.builder()
+                .member(reviewMember)
+                .store(reviewStore)
+                .content("Hello!")
+                .build();
+
+        reviewRepository.save(review);
+
+        review.setContent("Update!");
+
+        reviewRepository.update(review);
+
+        Review result = reviewRepository.findAll().get(0);
+
+        assertThat(result.getContent()).isEqualTo("Update!");
     }
 
     @Test
