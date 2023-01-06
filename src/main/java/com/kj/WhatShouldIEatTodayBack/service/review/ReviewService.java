@@ -29,8 +29,8 @@ public class ReviewService {
     }
 
 
-    public ReviewCreateRequestDto updateById(Long id, ReviewCreateRequestDto reviewCreateRequestDto) {
-        Review review = reviewRepository.updateContentById(id, reviewCreateRequestDto.getContent());
+    public ReviewCreateRequestDto updateById(Long id, String content) {
+        Review review = reviewRepository.updateContentById(id, content);
         return ReviewCreateRequestDto.builder()
                 .content(review.getContent())
                 .member(review.getMember())
