@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 public class RecommendationResultDto {
 
-    private final int id;
+    private final long id;
     private final String name;
     private final String region;
 

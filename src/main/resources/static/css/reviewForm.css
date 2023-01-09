@@ -1,0 +1,55 @@
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    display: none;
+    background-color: rgba(34, 36, 38, 0.4);
+}
+
+.modal.show {
+    display: block;
+}
+
+.modal-body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 400px;
+    height: 600px;
+
+    padding: 40px;
+
+    text-align: center;
+
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.review-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.review-content {
+    display: flex;
+    width: 100%;
+}
+
+.submit-btn {
+    width: 100%;
+    margin: auto;
+}
+
+textarea {
+    width: 100%;
+    height: 200px;
+    resize: none;
+}
+

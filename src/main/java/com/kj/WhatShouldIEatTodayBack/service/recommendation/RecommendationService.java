@@ -99,17 +99,18 @@ public class RecommendationService {
             }
 
             RecommendationResultDto resultDto = RecommendationResultDto.builder()
-                .name(store.getName())
-                .region(store.getRegion())
-                .divisionOne(store.getDivisionOne())
-                .divisionTwo(store.getDivisionTwo())
-                .divisionThree(store.getDivisionThree())
-                .lotAddress(store.getLotAddress())
-                .streetAddress(store.getStreetAddress())
-                .menuList(menuList)
-                .phoneNumber(phoneNumber)
-                .latitude(store.getLatitude())
-                .longitude(store.getLongitude()).build();
+                    .id(store.getId())
+                    .name(store.getName())
+                    .region(store.getRegion())
+                    .divisionOne(store.getDivisionOne())
+                    .divisionTwo(store.getDivisionTwo())
+                    .divisionThree(store.getDivisionThree())
+                    .lotAddress(store.getLotAddress())
+                    .streetAddress(store.getStreetAddress())
+                    .menuList(menuList)
+                    .phoneNumber(phoneNumber)
+                    .latitude(store.getLatitude())
+                    .longitude(store.getLongitude()).build();
 
 
             return resultDto;

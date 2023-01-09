@@ -6,6 +6,7 @@
           href="../css/bootstrap.min.css" rel="stylesheet">
     <link th:href="@{/css/recommendationResult.css}"
           href = "../css/recommendationResult.css" rel="stylesheet">
+    <link th:href="@{/css/reviewForm.css}" href = "../css/recommendationResult.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!--개발시 APP KEY 숨겨야함(메시지로)-->
     <script type="text/javascript"
@@ -17,6 +18,32 @@
 <body>
     <!--NavBar-->
     <div th:replace="${member} ? ~{fragment/header :: header-login} : ~{fragment/header :: header-not-login}">NavBar</div>
+
+    <div class="modal" th:object="${recommendationResult}">
+        <div class="modal-body">
+            <h4>리뷰남기기</h4>
+            <form class="review-container" th:action="@{/review/add}">
+                <div class="review-content justify-content-center">
+                    <p class="mt-5 mb-0" th:text="*{name}">상점 이름</p>
+                </div>
+                <div class="review-content justify-content-center">
+                    <p class="mt-2 mb-4" th:if="${member} != null" th:text="${member.nickName}">멤버 이메일</p>
+                </div>
+                <div class="review-content mt-2" style="flex-direction: column;">
+                    <textarea class="content" style="width: 100%;" maxlength="255"></textarea>
+                    <div class="count">0/255</div>
+                </div>
+                <div>
+                    <input type="hidden" th:name="member" th:value="${member}">
+                    <input type="hidden" th:name="store" th:value="${store}">
+                </div>
+                <div class="review-content mt-5">
+                    <input type="submit" class="btn btn-success submit-btn" onkeyup="check_length">
+                </div>
+
+            </form>
+        </div>
+    </div>
 
     <div class="container mt-5" th:object="${recommendationResult}">
         <h3 th:text="|오늘은, *{divisionTwo} 어때요?|"></h3>
@@ -54,6 +81,13 @@
                     <li class="list-group-item">A third item</li>
                     <li class="list-group-item">A fourth item</li>
                 </ul>
+                <div class="d-flex justify-content-end mt-3">
+                    <button type="button" class="btn btn-secondary me-3">더보기</button>
+                    <button type="button" class="btn btn-dark btn-open-popup" th:member="${member}"
+                            th:onclick="popUpModal(this.getAttribute('member'))">
+                        리뷰 남기기
+                    </button>
+                </div>
             </div>
 <!--            <div class="col-5 menu-img bg-secondary">-->
 <!--                <img src="" class="store-img">-->
@@ -106,9 +140,10 @@
                 </script>
             </div>
         </div>
+    </div>
 
     <script th:src="@{/js/recommendation.js}" src="./recommendation.js"></script>
-
+    <script th:src="@{/js/reviewForm.js}" src="./reviewForm.js"></script>
 </body>
 
 </html>
