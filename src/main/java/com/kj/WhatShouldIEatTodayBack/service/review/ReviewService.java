@@ -16,16 +16,23 @@ public class ReviewService {
 
     private final ReviewRepository reviewRepository;
 
-    public ReviewCreateRequestDto save(ReviewCreateRequestDto reviewCreateRequestDto) {
+    public ReviewCreateResponseDto save(ReviewCreateRequestDto reviewCreateRequestDto) {
         Review review = Review.builder()
                 .content(reviewCreateRequestDto.getContent())
                 .member(reviewCreateRequestDto.getMember())
                 .store(reviewCreateRequestDto.getStore())
                 .build();
 
-        reviewRepository.save(review);
+        Review savedReview = reviewRepository.save(review);
 
-        return reviewCreateRequestDto;
+        ReviewCreateResponseDto responseDto = ReviewCreateResponseDto.builder()
+                .id(savedReview.getId())
+                .member(savedReview.getMember())
+                .store(savedReview.getStore())
+                .content(savedReview.getContent())
+                .build();
+
+        return responseDto;
     }
 
 
