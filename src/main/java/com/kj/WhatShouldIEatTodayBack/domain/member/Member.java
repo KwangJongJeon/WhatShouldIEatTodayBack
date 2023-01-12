@@ -5,6 +5,7 @@ import lombok.*;
 import org.checkerframework.common.aliasing.qual.Unique;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @NoArgsConstructor
@@ -35,7 +36,6 @@ public class Member extends BaseEntity{
 
     @Column(nullable = false)
     private String phone3;
-
 
     @Column(nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
