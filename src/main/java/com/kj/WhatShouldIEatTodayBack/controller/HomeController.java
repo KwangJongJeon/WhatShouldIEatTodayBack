@@ -21,13 +21,13 @@ public class HomeController {
     public String home(HttpServletRequest request, Model model) {
 
         HttpSession session = request.getSession(false);
-
-        // 로그인 되어있을 경우
-        if(session != null) {
-            Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
-            log.info("nickName = {}", loginMember.getNickName());
-            model.addAttribute("member", loginMember);
-        }
+//
+//        // 로그인 되어있을 경우
+//        if(session != null) {
+//            Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+//            log.info("nickName = {}", loginMember.getNickName());
+//            model.addAttribute("member", loginMember);
+//        }
 
         return "page/home";
     }

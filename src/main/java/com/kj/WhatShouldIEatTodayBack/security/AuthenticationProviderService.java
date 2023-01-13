@@ -29,7 +29,7 @@ public class AuthenticationProviderService implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return false;
+        return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
     }
 
     private Authentication checkPassword(CustomUserDetails user, String rawPassword, PasswordEncoder encoder) {
