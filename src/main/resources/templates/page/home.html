@@ -5,7 +5,7 @@
 </head>
 <body>
 <div class="container">
-    <div th:replace="${member} ? ~{fragment/header :: header-login} : ~{fragment/header :: header-not-login}">Header</div>
+    <div th:replace="${memberInfoDto} ? ~{fragment/header :: header-login(${memberInfoDto})} : ~{fragment/header :: header-not-login}">Header</div>
         <div class="container col-xxl-8 px-4 py-5">
             <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
                 <div class="col-10 col-sm-8 col-lg-6">

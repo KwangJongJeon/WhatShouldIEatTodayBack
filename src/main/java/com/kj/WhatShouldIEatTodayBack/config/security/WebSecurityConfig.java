@@ -10,6 +10,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        // TODO: csrf를 구현해야합니다.
+        http.csrf().disable();
+
         http
                 .authorizeRequests()
                 .antMatchers("/auth/login").permitAll()

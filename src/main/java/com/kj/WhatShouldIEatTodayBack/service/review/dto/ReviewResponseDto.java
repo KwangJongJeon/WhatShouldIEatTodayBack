@@ -1,4 +1,4 @@
-package com.kj.WhatShouldIEatTodayBack.service.review;
+package com.kj.WhatShouldIEatTodayBack.service.review.dto;
 
 import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
 import com.kj.WhatShouldIEatTodayBack.domain.store.Store;

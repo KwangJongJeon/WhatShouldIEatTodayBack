@@ -2,7 +2,7 @@
 //
 //import com.kj.WhatShouldIEatTodayBack.controller.dto.RegisterFormDto;
 //import com.kj.WhatShouldIEatTodayBack.domain.member.repository.MemberRepository;
-//import com.kj.WhatShouldIEatTodayBack.service.AuthService;
+//import com.kj.WhatShouldIEatTodayBack.service.auth.AuthService;
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.stereotype.Component;
 //

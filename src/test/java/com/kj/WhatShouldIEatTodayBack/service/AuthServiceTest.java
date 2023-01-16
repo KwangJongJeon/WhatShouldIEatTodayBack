@@ -4,17 +4,21 @@ import com.kj.WhatShouldIEatTodayBack.controller.dto.EditUserFormDto;
 import com.kj.WhatShouldIEatTodayBack.controller.dto.RegisterFormDto;
 import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
 import com.kj.WhatShouldIEatTodayBack.domain.member.repository.MemberRepository;
+import com.kj.WhatShouldIEatTodayBack.service.auth.AuthService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 
+
+import java.security.Principal;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -107,6 +111,9 @@ class AuthServiceTest {
         assertThat(member.getNickName()).isEqualTo(expectedNickName);
         assertThat(member.getPhone1()+member.getPhone2()+member.getPhone3()).isEqualTo(expectedPhone);
     }
+
+
+
 
 
     /**

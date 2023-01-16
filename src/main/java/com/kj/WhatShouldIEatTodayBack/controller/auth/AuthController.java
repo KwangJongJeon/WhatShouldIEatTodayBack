@@ -2,7 +2,7 @@ package com.kj.WhatShouldIEatTodayBack.controller.auth;
 
 import com.kj.WhatShouldIEatTodayBack.controller.dto.*;
 import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
-import com.kj.WhatShouldIEatTodayBack.service.AuthService;
+import com.kj.WhatShouldIEatTodayBack.service.auth.AuthService;
 import com.kj.WhatShouldIEatTodayBack.session.SessionConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

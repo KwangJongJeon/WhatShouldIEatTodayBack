@@ -4,6 +4,9 @@ import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
 import com.kj.WhatShouldIEatTodayBack.domain.review.Review;
 import com.kj.WhatShouldIEatTodayBack.domain.review.repository.ReviewRepository;
 import com.kj.WhatShouldIEatTodayBack.domain.store.Store;
+import com.kj.WhatShouldIEatTodayBack.service.review.dto.ReviewCreateRequestDto;
+import com.kj.WhatShouldIEatTodayBack.service.review.dto.ReviewCreateResponseDto;
+import com.kj.WhatShouldIEatTodayBack.service.review.dto.ReviewResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

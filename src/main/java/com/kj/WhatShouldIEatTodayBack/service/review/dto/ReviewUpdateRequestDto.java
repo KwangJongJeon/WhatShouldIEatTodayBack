@@ -1,4 +1,4 @@
-package com.kj.WhatShouldIEatTodayBack.service.review;
+package com.kj.WhatShouldIEatTodayBack.service.review.dto;
 
 import lombok.Builder;
 import lombok.Data;

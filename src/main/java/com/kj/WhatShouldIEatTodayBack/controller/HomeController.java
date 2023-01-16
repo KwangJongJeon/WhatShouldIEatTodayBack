@@ -2,34 +2,30 @@ package com.kj.WhatShouldIEatTodayBack.controller;
 
 
 import com.kj.WhatShouldIEatTodayBack.controller.dto.LoginFormDto;
-import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
-import com.kj.WhatShouldIEatTodayBack.session.SessionConst;
+import com.kj.WhatShouldIEatTodayBack.service.auth.AuthService;
+import com.kj.WhatShouldIEatTodayBack.service.auth.MemberInfoDto;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 @Slf4j
+@RequiredArgsConstructor
 @Controller
 public class HomeController {
 
+    private final AuthService authService;
+
     @GetMapping("/")
-    public String home(HttpServletRequest request, Model model) {
+    public String home(Authentication authentication, Model model) {
 
-        HttpSession session = request.getSession(false);
-//
-//        // 로그인 되어있을 경우
-//        if(session != null) {
-//            Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
-//            log.info("nickName = {}", loginMember.getNickName());
-//            model.addAttribute("member", loginMember);
-//        }
+        MemberInfoDto memberInfoDto = authService.getMemberInfo(authentication);
+        model.addAttribute("memberInfoDto", memberInfoDto);
 
-        return "page/home";
+        return "page/test";
     }
 
     @GetMapping("/test")

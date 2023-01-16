@@ -27,6 +27,7 @@ public class CustomUserDetails implements UserDetails {
         return member.getMemberEmail();
     }
 
+
     @Override
     public boolean isAccountNonExpired() {
         return member.getIsEnable();

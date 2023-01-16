@@ -1,4 +1,4 @@
-package com.kj.WhatShouldIEatTodayBack.service;
+package com.kj.WhatShouldIEatTodayBack.service.auth;
 
 import com.kj.WhatShouldIEatTodayBack.controller.dto.EditUserFormDto;
 import com.kj.WhatShouldIEatTodayBack.controller.dto.RegisterFormDto;
@@ -6,6 +6,8 @@ import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
 import com.kj.WhatShouldIEatTodayBack.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +15,9 @@ import org.springframework.validation.BindingResult;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 
 @Slf4j
@@ -24,6 +28,31 @@ public class AuthService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final EntityManagerFactory entityManagerFactory;
+
+    /**
+     * @param authentication 로그인한 유저
+     * @return 만약 오류 없는 authentication 일 경우 MemberInfoDto 객체 반환, 없을경우 null 반환
+     */
+    public MemberInfoDto getMemberInfo(Authentication authentication) {
+
+        Optional<Member> memberOpt = memberRepository.findByMemberEmail((String) authentication.getPrincipal());
+
+        if(memberOpt.isPresent()) {
+            Member member = memberOpt.get();
+            MemberInfoDto memberInfoDto = new MemberInfoDto();
+            memberInfoDto.setMemberEmail(member.getMemberEmail());
+            memberInfoDto.setNickName(member.getNickName());
+            memberInfoDto.setAuthorities(member.getMemberRole().toString());
+
+            log.info("email: {}", member.getMemberEmail());
+            log.info("nickname: {}", member.getNickName());
+            log.info("role: {}", member.getMemberRole().toString());
+
+            return memberInfoDto;
+        }
+        else
+            return null;
+    }
 
 
     /**

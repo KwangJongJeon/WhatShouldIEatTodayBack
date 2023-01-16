@@ -7,7 +7,8 @@ import com.kj.WhatShouldIEatTodayBack.domain.review.repository.ReviewRepository;
 import com.kj.WhatShouldIEatTodayBack.domain.store.Store;
 import com.kj.WhatShouldIEatTodayBack.domain.store.respository.StoreRepository;
 import com.kj.WhatShouldIEatTodayBack.enums.MemberRole;
-import org.assertj.core.api.Assertions;
+import com.kj.WhatShouldIEatTodayBack.service.review.dto.ReviewCreateRequestDto;
+import com.kj.WhatShouldIEatTodayBack.service.review.dto.ReviewResponseDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,7 +18,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
 @ExtendWith(SpringExtension.class)
