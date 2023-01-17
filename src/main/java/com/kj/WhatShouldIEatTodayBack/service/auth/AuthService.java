@@ -54,6 +54,32 @@ public class AuthService {
             return null;
     }
 
+    /**
+     * @param authentication 로그인한 유저
+     * @return 만약 오류 없는 authentication 일 경우 MemberInfoDetailDto 객체 반환, 없을경우 null 반환
+     */
+    public MemberInfoDetailDto getMemberInfoDetail(Authentication authentication) {
+
+        Optional<Member> memberOpt = memberRepository.findByMemberEmail((String) authentication.getPrincipal());
+
+        if(memberOpt.isPresent()) {
+            Member member = memberOpt.get();
+            MemberInfoDetailDto memberInfoDetailDto = new MemberInfoDetailDto();
+            memberInfoDetailDto.setMemberEmail(member.getMemberEmail());
+            memberInfoDetailDto.setNickName(member.getNickName());
+            memberInfoDetailDto.setName(member.getName());
+            memberInfoDetailDto.setPhoneNumberFormatted(member);
+            memberInfoDetailDto.setAuthorities(member.getMemberRole().toString());
+
+            log.info("email: {}", memberInfoDetailDto.getMemberEmail());
+            log.info("nickname: {}", memberInfoDetailDto.getNickName());
+
+            return memberInfoDetailDto;
+        }
+        else
+            return null;
+    }
+
 
     /**
      * @return null 로그인 실패

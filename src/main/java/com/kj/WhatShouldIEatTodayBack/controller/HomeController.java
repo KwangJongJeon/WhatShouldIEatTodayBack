@@ -25,7 +25,7 @@ public class HomeController {
         MemberInfoDto memberInfoDto = authService.getMemberInfo(authentication);
         model.addAttribute("memberInfoDto", memberInfoDto);
 
-        return "page/test";
+        return "page/home";
     }
 
     @GetMapping("/test")

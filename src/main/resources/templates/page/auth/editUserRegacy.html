@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <div th:replace="~{fragment/config :: config}"/>
+    <title>유저 수정</title>
+
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../../css/bootstrap.min.css" rel="stylesheet">
+
+
+    <style>
+        .container-size {
+            max-width: 560px;
+        }
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <div th:replace="${member} ? ~{fragment/header :: header-login} : ~{fragment/header :: header-not-login}">Header</div>
+
+    <!-- 콘텐츠 -->
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2 th:text="#{page.editUser}">유저 정보 수정</h2>
+        </div>
+        <h4 class="mb-3" th:text="#{userInfo.insertTitle}">정보 입력</h4>
+        <form action="" th:action th:object="${editUserFormDto}" method="post">
+            <div class="row pb-2" th:if="${#fields.hasGlobalErrors()}">
+                <p class="field-error" th:each="err : ${#fields.globalErrors()}"
+                   th:text="${err}">전체 오류 메시지</p>
+            </div>
+            <div class="row pb-2">
+                <label class="col-5" for="loginId" th:text="#{userInfo.email}">이메일</label>
+                <input type="text" id="loginId" th:field="*{memberEmail}" class="formcontrol col-5"
+                       th:errorclass="field-error" readonly/>
+                <div class="field-error" th:errors="*{memberEmail}"></div>
+            </div>
+            <div class="row pb-2">
+                <label class="col-5" for="name" th:text="#{userInfo.username}">이름</label>
+                <input type="text" id="name" th:field="*{memberName}" class="formcontrol col-5"
+                       th:errorclass="field-error" readonly />
+                <div class="field-error" th:errors="*{memberName}"></div>
+            </div>
+            <div class="row pb-2">
+                <label class="col-5" for="name" th:text="#{userInfo.nickname}">닉네임</label>
+                <input type="text" id="phoneNumber" th:field="*{nickName}" class="formcontrol col-5"
+                       th:errorclass="field-error">
+                <div class="field-error" th:errors="*{nickName}"></div>
+            </div>
+            <div class="row pb-2">
+                <label class="col-5" for="name" th:text="#{userInfo.phoneNumber}">전화번호('-'를 빼고 입력해주세요)</label>
+                <input type="text" id="phoneNumber" th:field="*{phoneNumber}" class="formcontrol col-5"
+                       th:errorclass="field-error">
+                <div class="field-error" th:errors="*{phoneNumber}"></div>
+            </div>
+
+            <hr class="my-4">
+            <div class="row">
+                <div class="col">
+                    <button class="w-100 btn btn-success btn-lg" type="submit" th:text="#{button.ok}">확인</button>
+                </div>
+                <div class="col">
+                    <button class="w-100 btn btn-warning btn-lg"
+                            onclick="location.href='items.html'"
+                            th:onclick="|location.href='@{/}'|"
+                            th:text="#{button.cancel}"
+                            type="button">취소</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- 푸터 -->
+    <div th:replace="~{fragment/footer :: footer}">footer</div>
+</body>
+</html>

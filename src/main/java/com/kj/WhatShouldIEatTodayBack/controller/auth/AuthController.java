@@ -3,10 +3,14 @@ package com.kj.WhatShouldIEatTodayBack.controller.auth;
 import com.kj.WhatShouldIEatTodayBack.controller.dto.*;
 import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
 import com.kj.WhatShouldIEatTodayBack.service.auth.AuthService;
+import com.kj.WhatShouldIEatTodayBack.service.auth.MemberInfoDetailDto;
+import com.kj.WhatShouldIEatTodayBack.service.auth.MemberInfoDto;
 import com.kj.WhatShouldIEatTodayBack.session.SessionConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -105,19 +109,33 @@ public class AuthController {
         return "redirect:/auth/editUser";
     }
 
+//    @GetMapping("/editUser")
+//    public String editUserForm(@ModelAttribute EditUserFormDto editUserFormDto, HttpServletRequest request) {
+//        HttpSession session = request.getSession();
+//        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+//        if(member == null) {
+//            return "redirect:/";
+//        }
+//
+//        editUserFormDto.setMemberEmail(member.getMemberEmail());
+//        editUserFormDto.setMemberName(member.getName());
+//        editUserFormDto.setNickName(member.getNickName());
+//        editUserFormDto.setPhoneNumber(member.getPhone1()+member.getPhone2()+member.getPhone3());
+//
+//
+//        return "page/auth/editUser";
+//    }
+
     @GetMapping("/editUser")
-    public String editUserForm(@ModelAttribute EditUserFormDto editUserFormDto, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
-        if(member == null) {
-            return "redirect:/";
-        }
+    public String editUserForm(Authentication authentication, @ModelAttribute MemberInfoDetailDto memberInfoDetailDto) {
 
-        editUserFormDto.setMemberEmail(member.getMemberEmail());
-        editUserFormDto.setMemberName(member.getName());
-        editUserFormDto.setNickName(member.getNickName());
-        editUserFormDto.setPhoneNumber(member.getPhone1()+member.getPhone2()+member.getPhone3());
+        MemberInfoDetailDto detail = authService.getMemberInfoDetail(authentication);
 
+        memberInfoDetailDto.setName(detail.getName());
+        memberInfoDetailDto.setMemberEmail(detail.getMemberEmail());
+        memberInfoDetailDto.setAuthorities(detail.getAuthorities());
+        memberInfoDetailDto.setPhoneNumber(detail.getPhoneNumber());
+        memberInfoDetailDto.setNickName(detail.getNickName());
 
         return "page/auth/editUser";
     }

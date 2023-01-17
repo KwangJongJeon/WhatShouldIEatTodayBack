@@ -116,15 +116,19 @@
 
             <div class="dropdown text-end">
                 <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <p th:text="${user.nickName}"></p>
                     <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                 </a>
-                <ul class="dropdown-menu text-small">
-                    <li><a class="dropdown-item" href="#">New project...</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                <ul class="dropdown-menu text-small p-4">
+                    <div class="user-info">
+                        <img th:src="@{/img/test.png}" src="./img.png" class="user-img">
+                        <p class="user-email mt-4 text-center" th:text="${user.memberEmail}">Email@Test.com</p>
+                        <p class="user-nickname text-center" th:text="${user.nickName}">NickName</p>
+                    </div>
+
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="/auth/logout">Sign out</a></li>
+                    <li><a class="dropdown-item text-center" href="/auth/editUser">유저 정보 수정</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-center" href="/auth/logout">로그아웃</a></li>
                 </ul>
             </div>
         </div>
@@ -133,7 +137,8 @@
 
 
 
-<script src="../js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}" src="../js/bootstrap.bundle.min.js"></script>
+
 
 
 </body>
