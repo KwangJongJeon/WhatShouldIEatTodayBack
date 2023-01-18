@@ -126,19 +126,19 @@ public class AuthController {
 //        return "page/auth/editUser";
 //    }
 
-//    @GetMapping("/editUser")
-//    public String editUserForm(Authentication authentication, @ModelAttribute MemberInfoDetailDto memberInfoDetailDto) {
-//
-//        MemberInfoDetailDto detail = authService.getMemberInfoDetail(authentication);
-//
-//        memberInfoDetailDto.setName(detail.getName());
-//        memberInfoDetailDto.setMemberEmail(detail.getMemberEmail());
-//        memberInfoDetailDto.setAuthorities(detail.getAuthorities());
-//        memberInfoDetailDto.setPhoneNumber(detail.getPhoneNumber());
-//        memberInfoDetailDto.setNickName(detail.getNickName());
-//
-//        return "page/auth/editUser";
-//    }
+    @GetMapping("/editUser")
+    public String editUserForm(Authentication authentication, @ModelAttribute MemberInfoDetailDto memberInfoDetailDto) {
+
+        MemberInfoDetailDto detail = authService.getMemberInfoDetail(authentication);
+
+        memberInfoDetailDto.setName(detail.getName());
+        memberInfoDetailDto.setMemberEmail(detail.getMemberEmail());
+        memberInfoDetailDto.setAuthorities(detail.getAuthorities());
+        memberInfoDetailDto.setPhoneNumber(detail.getPhoneNumber());
+        memberInfoDetailDto.setNickName(detail.getNickName());
+
+        return "page/auth/editUser";
+    }
 //
 //    @PostMapping("/editUser")
 //    public String editUser(@ModelAttribute EditUserFormDto editUserFormDto, BindingResult result, HttpServletRequest request) {
@@ -179,5 +179,22 @@ public class AuthController {
         authService.changeNickname(authentication, editNickNameDto.getNickName());
 
         return "redirect:/auth/editUser";
+    }
+    @GetMapping("/editUserPhoneNumber")
+    public String editPhoneNumberForm(@ModelAttribute EditPhoneNumberDto editPhoneNumberDto, BindingResult result) {
+        return "page/auth/editUserPhoneNumber";
+    }
+
+    @PostMapping("/editUserPhoneNumber")
+    public String editPhoneNumber(@Validated @ModelAttribute EditPhoneNumberDto editPhoneNumberDto, BindingResult result, Authentication authentication) {
+
+        if(result.hasErrors()) {
+            return "page/auth/editUserPhoneNumber";
+        }
+
+        authService.changePhoneNumber(authentication, editPhoneNumberDto.getPhoneNumber());
+
+        return "redirect:/auth/editUser";
+
     }
 }

@@ -144,13 +144,21 @@ public class AuthService {
      */
     @Transactional
     public String changeNickname(Authentication authentication, String nickname) {
-        log.info("email!!: {}", authentication.getPrincipal().toString());
         String email = authentication.getPrincipal().toString();
         Member member = memberRepository.findByMemberEmail(email).get();
         member.changeNickName(nickname);
 
-        log.info("NICKAME: {}", nickname);
         return member.getNickName();
+    }
+
+    @Transactional
+    public String changePhoneNumber(Authentication authentication, String phoneNumber) {
+        String email = authentication.getPrincipal().toString();
+        Member member = memberRepository.findByMemberEmail(email).get();
+
+        String ret = member.changePhoneNumber(phoneNumber);
+
+        return ret;
     }
 
     @Transactional

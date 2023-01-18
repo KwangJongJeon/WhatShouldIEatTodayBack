@@ -20,7 +20,7 @@ public class MemberInfoDetailDto {
         sb.append("-");
         sb.append(member.getPhone2());
         sb.append("-");
-        sb.append(member.getPhone1());
+        sb.append(member.getPhone3());
 
         phoneNumber = sb.toString();
     }

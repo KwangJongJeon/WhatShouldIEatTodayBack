@@ -2,12 +2,13 @@ package com.kj.WhatShouldIEatTodayBack.domain.member;
 
 import com.kj.WhatShouldIEatTodayBack.enums.MemberRole;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import org.checkerframework.common.aliasing.qual.Unique;
 
 import javax.persistence.*;
 import java.util.List;
 
-
+@Slf4j
 @NoArgsConstructor
 @Getter
 @Entity
@@ -72,10 +73,18 @@ public class Member extends BaseEntity{
         this.memberRole = role;
     }
 
-    public void changePhoneNumber(String phoneNumber) {
+    public String changePhoneNumber(String phoneNumber) {
         int mid = phoneNumber.length() == 10? 6: 7;
         this.phone1 = phoneNumber.substring(0, 3);
         this.phone2 = phoneNumber.substring(3, mid);
         this.phone3 = phoneNumber.substring(mid);
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(phone1);
+        sb.append(phone2);
+        sb.append(phone3);
+
+        return sb.toString();
     }
 }
