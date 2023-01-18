@@ -126,37 +126,58 @@ public class AuthController {
 //        return "page/auth/editUser";
 //    }
 
-    @GetMapping("/editUser")
-    public String editUserForm(Authentication authentication, @ModelAttribute MemberInfoDetailDto memberInfoDetailDto) {
+//    @GetMapping("/editUser")
+//    public String editUserForm(Authentication authentication, @ModelAttribute MemberInfoDetailDto memberInfoDetailDto) {
+//
+//        MemberInfoDetailDto detail = authService.getMemberInfoDetail(authentication);
+//
+//        memberInfoDetailDto.setName(detail.getName());
+//        memberInfoDetailDto.setMemberEmail(detail.getMemberEmail());
+//        memberInfoDetailDto.setAuthorities(detail.getAuthorities());
+//        memberInfoDetailDto.setPhoneNumber(detail.getPhoneNumber());
+//        memberInfoDetailDto.setNickName(detail.getNickName());
+//
+//        return "page/auth/editUser";
+//    }
+//
+//    @PostMapping("/editUser")
+//    public String editUser(@ModelAttribute EditUserFormDto editUserFormDto, BindingResult result, HttpServletRequest request) {
+//
+//        if(!authService.checkMemberNicknameIsUnique(editUserFormDto.getMemberEmail(), editUserFormDto.getNickName(), result)) {
+//            result.rejectValue("nickName", "duplicate", "이미 존재하는 닉네임입니다.");
+//        }
+//
+//        if(result.hasErrors()) {
+//            return "page/editUser";
+//        }
+//
+//        log.info("test");
+//
+//        Member updatedMember = authService.updateUser(editUserFormDto);
+//        request.getSession().setAttribute(SessionConst.LOGIN_MEMBER, updatedMember);
+//
+//
+//        return "redirect:/";
+//    }
 
-        MemberInfoDetailDto detail = authService.getMemberInfoDetail(authentication);
-
-        memberInfoDetailDto.setName(detail.getName());
-        memberInfoDetailDto.setMemberEmail(detail.getMemberEmail());
-        memberInfoDetailDto.setAuthorities(detail.getAuthorities());
-        memberInfoDetailDto.setPhoneNumber(detail.getPhoneNumber());
-        memberInfoDetailDto.setNickName(detail.getNickName());
-
-        return "page/auth/editUser";
+    @GetMapping("/editUserNickName")
+    public String editUserNickNameForm(@ModelAttribute EditNickNameDto editNickNameDto, BindingResult result) {
+        return "page/auth/editUserNickName";
     }
 
-    @PostMapping("/editUser")
-    public String editUser(@ModelAttribute EditUserFormDto editUserFormDto, BindingResult result, HttpServletRequest request) {
+    @PostMapping("/editUserNickName")
+    public String editUserNickName(@Validated @ModelAttribute EditNickNameDto editNickNameDto, BindingResult result, Authentication authentication) {
 
-        if(!authService.checkMemberNicknameIsUnique(editUserFormDto.getMemberEmail(), editUserFormDto.getNickName(), result)) {
+        if(!authService.checkMemberNicknameIsUnique(editNickNameDto.getNickName(), result)) {
             result.rejectValue("nickName", "duplicate", "이미 존재하는 닉네임입니다.");
         }
 
         if(result.hasErrors()) {
-            return "page/editUser";
+            return "/page/auth/editUserNickName";
         }
 
-        log.info("test");
+        authService.changeNickname(authentication, editNickNameDto.getNickName());
 
-        Member updatedMember = authService.updateUser(editUserFormDto);
-        request.getSession().setAttribute(SessionConst.LOGIN_MEMBER, updatedMember);
-
-
-        return "redirect:/";
+        return "redirect:/auth/editUser";
     }
 }

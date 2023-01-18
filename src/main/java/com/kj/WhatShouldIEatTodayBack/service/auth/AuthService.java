@@ -1,5 +1,6 @@
 package com.kj.WhatShouldIEatTodayBack.service.auth;
 
+import com.kj.WhatShouldIEatTodayBack.controller.auth.EditNickNameDto;
 import com.kj.WhatShouldIEatTodayBack.controller.dto.EditUserFormDto;
 import com.kj.WhatShouldIEatTodayBack.controller.dto.RegisterFormDto;
 import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
@@ -106,6 +107,20 @@ public class AuthService {
         return true;
     }
 
+    public boolean checkMemberNicknameIsUnique(String nickName, BindingResult result) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        List<Member> resultList = em.createQuery("select m From Member m where m.nickName = :nickName", Member.class)
+                .setParameter("nickName", nickName)
+                .getResultList();
+
+        if(resultList.isEmpty()) return true;
+
+        for (Member member : resultList) {
+            log.info("memberEmail = {}", member);
+        }
+        return false;
+    }
+
     public boolean checkMemberNicknameIsUnique(String email, String nickName, BindingResult result) {
         EntityManager em = entityManagerFactory.createEntityManager();
         List<Member> resultList = em.createQuery("select m From Member m where m.nickName = :nickName", Member.class)
@@ -121,8 +136,26 @@ public class AuthService {
         return false;
     }
 
+    /**
+     *
+     * @param authentication 유저의 auth
+     * @param nickname 변경할 닉네임
+     * @return 변경된 닉네임
+     */
+    @Transactional
+    public String changeNickname(Authentication authentication, String nickname) {
+        log.info("email!!: {}", authentication.getPrincipal().toString());
+        String email = authentication.getPrincipal().toString();
+        Member member = memberRepository.findByMemberEmail(email).get();
+        member.changeNickName(nickname);
+
+        log.info("NICKAME: {}", nickname);
+        return member.getNickName();
+    }
+
     @Transactional
     public Member updateUser(EditUserFormDto editUserFormDto) {
+
         Member member = memberRepository.findByMemberEmail(editUserFormDto.getMemberEmail()).get();
         member.changeNickName(editUserFormDto.getNickName());
         member.changePhoneNumber(editUserFormDto.getPhoneNumber());

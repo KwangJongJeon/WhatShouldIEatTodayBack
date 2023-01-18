@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/userEdit.css}"
+          href="../css/userEdit.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+          integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Eat Today</title>
+
+    <style>
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+<div class="header-title p-5">
+    <a class="row" href="/">
+        <h3 class="header-title col-10">오늘 뭐먹지</h3>
+        <p class="header-title col-2 align-self-center">닉네임 변경</p>
+    </a>
+</div>
+<div class="m-5" th:object="${editNickNameDto}">
+    <h4 class="text-center">닉네임 변경</h4>
+    <div class="edit-sector d-flex flex-column">
+        <form href="#" class="card mt-5" action="/auth/editUserNickName" method="post">
+            <div class="edit-item card-body p-5">
+                <label class="align-self-center p-0">Nickname</label>
+                <input name="nickName" class="form-control mt-3" type="text" maxlength="15"
+                       th:field="*{nickName}"
+                       th:erroclass="field-error">
+                <div class="form-text p-0 mt-1">15글자 이내의 닉네임을 사용해주세요.</div>
+                <div class="field-error" th:errors="*{nickName}">닉네임 오류</div>
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-success form-btn me-3">제출</button>
+                    <button class="btn btn-secondary form-btn" onclick="location.href='/auth/editUser'">취소</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
