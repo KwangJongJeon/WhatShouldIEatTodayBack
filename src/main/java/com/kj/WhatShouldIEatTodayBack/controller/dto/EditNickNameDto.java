@@ -1,4 +1,4 @@
-package com.kj.WhatShouldIEatTodayBack.controller.auth;
+package com.kj.WhatShouldIEatTodayBack.controller.dto;
 
 import lombok.Data;
 

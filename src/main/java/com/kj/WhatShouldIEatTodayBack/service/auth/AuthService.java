@@ -1,6 +1,5 @@
 package com.kj.WhatShouldIEatTodayBack.service.auth;
 
-import com.kj.WhatShouldIEatTodayBack.controller.auth.EditNickNameDto;
 import com.kj.WhatShouldIEatTodayBack.controller.dto.EditUserFormDto;
 import com.kj.WhatShouldIEatTodayBack.controller.dto.RegisterFormDto;
 import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
@@ -8,7 +7,6 @@ import com.kj.WhatShouldIEatTodayBack.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +14,6 @@ import org.springframework.validation.BindingResult;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -169,5 +166,13 @@ public class AuthService {
         member.changePhoneNumber(editUserFormDto.getPhoneNumber());
 
         return member;
+    }
+
+    @Transactional
+    public boolean changePassword(Authentication authentication, String password) {
+        String email = authentication.getPrincipal().toString();
+        Member member = memberRepository.findByMemberEmail(email).get();
+        member.encodePassword(passwordEncoder.encode(password));
+        return true;
     }
 }

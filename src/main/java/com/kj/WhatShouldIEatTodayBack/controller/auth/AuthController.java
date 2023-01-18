@@ -1,20 +1,20 @@
 package com.kj.WhatShouldIEatTodayBack.controller.auth;
 
+import com.github.dockerjava.api.model.Bind;
 import com.kj.WhatShouldIEatTodayBack.controller.dto.*;
 import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
 import com.kj.WhatShouldIEatTodayBack.service.auth.AuthService;
 import com.kj.WhatShouldIEatTodayBack.service.auth.MemberInfoDetailDto;
-import com.kj.WhatShouldIEatTodayBack.service.auth.MemberInfoDto;
 import com.kj.WhatShouldIEatTodayBack.session.SessionConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.Binding;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -195,6 +195,25 @@ public class AuthController {
         authService.changePhoneNumber(authentication, editPhoneNumberDto.getPhoneNumber());
 
         return "redirect:/auth/editUser";
+    }
 
+    @GetMapping("/editUserPassword")
+    public String editUserPasswordForm(@ModelAttribute EditPasswordDto editPasswordDto, BindingResult result) {
+        return "/page/auth/editUserPassword";
+    }
+
+    @PostMapping("/editUserPassword")
+    public String editUserPassword(@Validated @ModelAttribute EditPasswordDto editPasswordDto, BindingResult result, Authentication authentication) {
+
+        if(!editPasswordDto.getPassword().equals(editPasswordDto.getPasswordConfirm())) {
+            result.rejectValue("password", "notEqual", "두 패스워드가 다릅니다.");
+        }
+        if(result.hasErrors()) {
+            return "/page/auth/editUserPassword";
+        }
+
+        authService.changePassword(authentication, editPasswordDto.getPassword());
+
+        return "redirect:/auth/editUser";
     }
 }
