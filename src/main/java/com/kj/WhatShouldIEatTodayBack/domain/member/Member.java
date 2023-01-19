@@ -46,6 +46,9 @@ public class Member extends BaseEntity{
     @Column
     private String nickName;
 
+    @Column(length = 64)
+    private String photos;
+
     @Builder
     public Member(String memberEmail, String memberPw, String name, String nickName,
                   String phone1, String phone2, String phone3, MemberRole memberRole) {
@@ -86,5 +89,16 @@ public class Member extends BaseEntity{
         sb.append(phone3);
 
         return sb.toString();
+    }
+
+    public void changePhotos(String fileName) {
+        photos = fileName;
+    }
+
+    @Transient
+    public String getPhotosImagePath() {
+        if(photos == null || id == null) return null;
+
+        return "/user-photos/" + id + "/" + photos;
     }
 }

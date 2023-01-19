@@ -10,13 +10,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.naming.Binding;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Slf4j
 @Controller
@@ -198,7 +201,7 @@ public class AuthController {
     }
 
     @GetMapping("/editUserPassword")
-    public String editUserPasswordForm(@ModelAttribute EditPasswordDto editPasswordDto, BindingResult result) {
+    public String editUserPasswordForm(@ModelAttribute EditPasswordDto editPasswordDto) {
         return "/page/auth/editUserPassword";
     }
 
@@ -214,6 +217,22 @@ public class AuthController {
 
         authService.changePassword(authentication, editPasswordDto.getPassword());
 
+        return "redirect:/auth/editUser";
+    }
+
+
+    @GetMapping("/editUserPhoto")
+    public String editUserPhotoForm() {
+        return "/page/auth/editUserPhoto";
+    }
+
+
+    @PostMapping("/editUserPhoto")
+    public String editUserPhoto(@RequestParam("photo") MultipartFile multipartFile, Authentication authentication) {
+
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+
+        authService.changePhoto(authentication, fileName, multipartFile);
         return "redirect:/auth/editUser";
     }
 }

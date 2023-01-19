@@ -11,9 +11,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -173,6 +176,25 @@ public class AuthService {
         String email = authentication.getPrincipal().toString();
         Member member = memberRepository.findByMemberEmail(email).get();
         member.encodePassword(passwordEncoder.encode(password));
+        return true;
+    }
+
+    // TODO: Exception 처리
+    @Transactional
+    public boolean changePhoto(Authentication authentication, String fileName, MultipartFile multipartFile)  {
+        String email = authentication.getPrincipal().toString();
+        Member member = memberRepository.findByMemberEmail(email).get();
+        member.changePhotos(fileName);
+
+        String uploadDir = "user-photos/" + member.getId();
+
+        try {
+            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        } catch (IOException ioe) {
+            log.error(ioe.getMessage());
+            return false;
+        }
+
         return true;
     }
 }

@@ -120,7 +120,7 @@
                 </a>
                 <ul class="dropdown-menu text-small p-4">
                     <div class="user-info">
-                        <img th:src="@{/img/test.png}" src="./img.png" class="user-img">
+                        <img th:src="@{${user.photosImagePath}}" src="./img.png" class="user-img">
                         <p class="user-email mt-4 text-center" th:text="${user.memberEmail}">Email@Test.com</p>
                         <p class="user-nickname text-center" th:text="${user.nickName}">NickName</p>
                     </div>

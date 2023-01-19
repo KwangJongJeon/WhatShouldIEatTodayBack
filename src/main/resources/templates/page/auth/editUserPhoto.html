@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/userEdit.css}"
+          href="../css/userEdit.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+          integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Eat Today</title>
+
+    <style>
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+<div class="header-title p-5">
+    <a class="row" href="/">
+        <h3 class="header-title col-10">오늘 뭐먹지</h3>
+        <p class="header-title col-2 align-self-center">닉네임 변경</p>
+    </a>
+</div>
+<div class="m-5">
+    <h4 class="text-center">이미지 변경</h4>
+    <div class="edit-sector d-flex flex-column">
+        <form class="card mt-5" action="/auth/editUserPhoto" method="post" enctype="multipart/form-data">
+            <div class="edit-item card-body p-5">
+                <label class="align-self-center p-0">Photo</label>
+                <input name="photo" class="form-control mt-3" type="file" maxlength="15"
+                       th:erroclass="field-error" accept="image/png, image/jpg, image/jpeg">
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-success form-btn me-3">제출</button>
+                    <button type="button" class="btn btn-secondary" onclick="location.href='/auth/editUser'">취소</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
