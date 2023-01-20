@@ -21,6 +21,7 @@ public class FileUploadUtil {
         }
 
         try (InputStream inputStream = multipartFile.getInputStream()) {
+
             Path filePath = uploadPath.resolve(fileName);
             log.info("PATH: {}", filePath.toString());
             Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);

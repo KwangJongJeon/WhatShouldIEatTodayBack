@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -123,21 +122,6 @@ public class AuthService {
         return false;
     }
 
-    public boolean checkMemberNicknameIsUnique(String email, String nickName, BindingResult result) {
-        EntityManager em = entityManagerFactory.createEntityManager();
-        List<Member> resultList = em.createQuery("select m From Member m where m.nickName = :nickName", Member.class)
-                .setParameter("nickName", nickName)
-                .getResultList();
-
-        if(resultList.isEmpty()) return true;
-
-
-        for (Member member : resultList) {
-            log.info("memberEmail = {}", member);
-        }
-        return false;
-    }
-
     /**
      *
      * @param authentication 유저의 auth
@@ -181,7 +165,6 @@ public class AuthService {
         return true;
     }
 
-    // TODO: Exception 처리
     @Transactional
     public boolean changePhoto(Authentication authentication, String fileName, MultipartFile multipartFile)  {
         String email = authentication.getPrincipal().toString();

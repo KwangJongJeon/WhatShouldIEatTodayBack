@@ -62,7 +62,7 @@ public class AuthController {
 
     @GetMapping("/register")
     public String registerForm(@ModelAttribute RegisterFormDto registerFormDto) {
-        return "auth/register";
+        return "page/auth/register";
     }
 
     @PostMapping("/register")
@@ -73,7 +73,7 @@ public class AuthController {
         }
 
         if(result.hasErrors()) {
-            return "auth/register";
+            return "page/auth/register";
         }
 
         authService.register(registerFormDto);
