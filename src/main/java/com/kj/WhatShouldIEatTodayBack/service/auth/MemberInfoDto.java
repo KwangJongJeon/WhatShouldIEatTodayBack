@@ -12,4 +12,5 @@ public class MemberInfoDto {
     private String memberEmail;
     private String nickName;
     private String authorities;
+    private String photosImagePath;
 }

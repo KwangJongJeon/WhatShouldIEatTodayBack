@@ -139,6 +139,7 @@ public class AuthController {
         memberInfoDetailDto.setAuthorities(detail.getAuthorities());
         memberInfoDetailDto.setPhoneNumber(detail.getPhoneNumber());
         memberInfoDetailDto.setNickName(detail.getNickName());
+        memberInfoDetailDto.setPhotosImagePath(detail.getPhotosImagePath());
 
         return "page/auth/editUser";
     }

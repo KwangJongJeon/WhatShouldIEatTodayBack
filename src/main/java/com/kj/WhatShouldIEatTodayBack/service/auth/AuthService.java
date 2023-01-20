@@ -44,6 +44,7 @@ public class AuthService {
             memberInfoDto.setMemberEmail(member.getMemberEmail());
             memberInfoDto.setNickName(member.getNickName());
             memberInfoDto.setAuthorities(member.getMemberRole().toString());
+            memberInfoDto.setPhotosImagePath(member.getPhotosImagePath());
 
             log.info("email: {}", member.getMemberEmail());
             log.info("nickname: {}", member.getNickName());
@@ -71,6 +72,7 @@ public class AuthService {
             memberInfoDetailDto.setName(member.getName());
             memberInfoDetailDto.setPhoneNumberFormatted(member);
             memberInfoDetailDto.setAuthorities(member.getMemberRole().toString());
+            memberInfoDetailDto.setPhotosImagePath(member.getPhotosImagePath());
 
             log.info("email: {}", memberInfoDetailDto.getMemberEmail());
             log.info("nickname: {}", memberInfoDetailDto.getNickName());

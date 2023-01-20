@@ -13,6 +13,7 @@ public class MemberInfoDetailDto {
     private String nickName;
     private String phoneNumber;
     private String authorities;
+    private String photosImagePath;
 
     public void setPhoneNumberFormatted(Member member) {
         StringBuilder sb = new StringBuilder();

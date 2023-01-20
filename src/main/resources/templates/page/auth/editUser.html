@@ -29,7 +29,7 @@
             <div class="edit-item card-body row p-4">
                 <p class="m-0 col-4 align-self-center" style="color:gray">Photo</p>
                 <p class="m-0 col-7 align-self-center"></p>
-                <img src="./userTest.png" class="user-img col-1"/>
+                <img src="./userTest.png" th:src="@{${memberInfoDetailDto.photosImagePath}}" class="rounded-circle col-1"/>
             </div>
         </a>
         <a href="/auth/editUserNickName" class="edit-link card mt-5">
