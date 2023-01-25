@@ -17,7 +17,7 @@
 
 <body>
     <!--NavBar-->
-    <div th:replace="${member} ? ~{fragment/header :: header-login} : ~{fragment/header :: header-not-login}">NavBar</div>
+    <div th:replace="${memberInfoDto} ? ~{fragment/header :: header-login(${memberInfoDto})} : ~{fragment/header :: header-not-login}">Header</div>
 
     <div class="modal" th:object="${recommendationResult}">
         <div class="modal-body">
@@ -144,6 +144,8 @@
 
     <script th:src="@{/js/recommendation.js}" src="./recommendation.js"></script>
     <script th:src="@{/js/reviewForm.js}" src="./reviewForm.js"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}" src="../js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>

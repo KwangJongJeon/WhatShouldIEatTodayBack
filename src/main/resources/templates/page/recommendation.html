@@ -7,22 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link href="../css/recommendation.css" rel="stylesheet">
+    <link th:src="@{/css/recommendation.css}" href="../css/recommendation.css" rel="stylesheet">
+    <link th:href="@{/css/loading.css}" rel="stylesheet">
 
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script type="text/javascript"
             src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b880d55870754431f0fedf7f011061fc"></script>
-
     <script src="/js/getLocation.js" th:src="@{/js/getLocation.js}"></script>
+
     <title>EatToday</title>
 </head>
 
 <body>
 <!--NavBar-->
-<div th:replace="${member} ? ~{fragment/header :: header-login} : ~{fragment/header :: header-not-login}">NavBar</div>
+<div th:replace="${memberInfoDto} ? ~{fragment/header :: header-login(${memberInfoDto})} : ~{fragment/header :: header-not-login}">Header</div>
 
 <div class="container">
-    <form class="form-container p-4" th:object="${recommendationRequestDto}" action="/recommendation" th:action="@{/recommendation}" method="post">
+    <form id="recommendationForm" class="form-container p-4" th:object="${recommendationRequestDto}" action="/recommendation" th:action="@{/recommendation}" method="post">
         <h3 class="pageName pt-5 pb-5">오늘의 식사 추천</h3>
         <div class="p-5 shadow-sm">
             <div class="row">
@@ -111,11 +112,19 @@
             <div class="d-flex justify-content-end">
                 <button type="submit" class="form-btn mt-5">추천받기</button>
             </div>
+
+            <!--로딩바-->
+            <div id="loading" style="margin-left: 0px;">
+                <img th:src="@{/img/spinner.gif}" src="./spinner.gif">
+                <p>추천중입니다. 잠시 기다려주세요.</p>
+            </div>
         </div>
     </form>
 </div>
 
 <script src="/js/recommendation.js" th:src="@{/js/recommendation.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}" src="../js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/loading.js}" src="../js/loading.js"></script>
 
 </body>
 

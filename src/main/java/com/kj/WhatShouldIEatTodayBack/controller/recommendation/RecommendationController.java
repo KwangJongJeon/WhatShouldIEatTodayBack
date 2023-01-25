@@ -3,11 +3,14 @@ package com.kj.WhatShouldIEatTodayBack.controller.recommendation;
 import com.kj.WhatShouldIEatTodayBack.controller.dto.RecommendationRequestDto;
 import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
 import com.kj.WhatShouldIEatTodayBack.enums.CategoryTypes;
+import com.kj.WhatShouldIEatTodayBack.service.auth.AuthService;
+import com.kj.WhatShouldIEatTodayBack.service.auth.MemberInfoDto;
 import com.kj.WhatShouldIEatTodayBack.service.recommendation.RecommendationResultDto;
 import com.kj.WhatShouldIEatTodayBack.service.recommendation.RecommendationService;
 import com.kj.WhatShouldIEatTodayBack.session.SessionConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +28,7 @@ import java.util.Map;
 public class RecommendationController {
 
     private final RecommendationService recommendationService;
+    private final AuthService authService;
 
     @ModelAttribute("categories")
     public Map<String, String> categories() {
@@ -35,6 +39,11 @@ public class RecommendationController {
         }
 
         return categories;
+    }
+
+    @ModelAttribute("memberInfoDto")
+    public MemberInfoDto memberInfoDto(Authentication authentication) {
+        return authService.getMemberInfo(authentication);
     }
 
     @GetMapping("/recommendation")

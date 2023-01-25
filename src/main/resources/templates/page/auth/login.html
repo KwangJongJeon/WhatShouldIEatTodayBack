@@ -21,7 +21,7 @@
 <body>
 
         <!-- 헤더 -->
-        <div th:replace="${member} ? ~{fragment/header :: header-login} : ~{fragment/header :: header-not-login}">Header</div>
+        <div th:replace="${memberInfoDto} ? ~{fragment/header :: header-login(${memberInfoDto})} : ~{fragment/header :: header-not-login}">Header</div>
 
 
         <!-- 콘텐츠 -->
