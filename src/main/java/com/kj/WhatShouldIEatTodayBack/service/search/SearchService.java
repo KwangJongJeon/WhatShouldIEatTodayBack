@@ -1,7 +1,6 @@
 package com.kj.WhatShouldIEatTodayBack.service.search;
 
 
-import com.kj.WhatShouldIEatTodayBack.controller.dto.SearchStoreDto;
 import com.kj.WhatShouldIEatTodayBack.domain.store.Store;
 import com.kj.WhatShouldIEatTodayBack.domain.store.respository.StoreRepository;
 import lombok.RequiredArgsConstructor;
