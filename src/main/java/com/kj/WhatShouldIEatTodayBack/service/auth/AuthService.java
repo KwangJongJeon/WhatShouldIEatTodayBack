@@ -35,24 +35,28 @@ public class AuthService {
      */
     public MemberInfoDto getMemberInfo(Authentication authentication) {
 
-        Optional<Member> memberOpt = memberRepository.findByMemberEmail((String) authentication.getPrincipal());
+        if(authentication != null) {
 
-        if(memberOpt.isPresent()) {
-            Member member = memberOpt.get();
-            MemberInfoDto memberInfoDto = new MemberInfoDto();
-            memberInfoDto.setMemberEmail(member.getMemberEmail());
-            memberInfoDto.setNickName(member.getNickName());
-            memberInfoDto.setAuthorities(member.getMemberRole().toString());
-            memberInfoDto.setPhotosImagePath(member.getPhotosImagePath());
+            Optional<Member> memberOpt = memberRepository.findByMemberEmail((String) authentication.getPrincipal());
 
-            log.info("email: {}", member.getMemberEmail());
-            log.info("nickname: {}", member.getNickName());
-            log.info("role: {}", member.getMemberRole().toString());
+            if (memberOpt.isPresent()) {
+                Member member = memberOpt.get();
+                MemberInfoDto memberInfoDto = new MemberInfoDto();
+                memberInfoDto.setMemberEmail(member.getMemberEmail());
+                memberInfoDto.setNickName(member.getNickName());
+                memberInfoDto.setAuthorities(member.getMemberRole().toString());
+                memberInfoDto.setPhotosImagePath(member.getPhotosImagePath());
 
-            return memberInfoDto;
+                log.info("email: {}", member.getMemberEmail());
+                log.info("nickname: {}", member.getNickName());
+                log.info("role: {}", member.getMemberRole().toString());
+
+                return memberInfoDto;
+            } else
+                return null;
         }
-        else
-            return null;
+
+        return null;
     }
 
     /**
@@ -61,25 +65,29 @@ public class AuthService {
      */
     public MemberInfoDetailDto getMemberInfoDetail(Authentication authentication) {
 
-        Optional<Member> memberOpt = memberRepository.findByMemberEmail((String) authentication.getPrincipal());
+        if(authentication != null) {
 
-        if(memberOpt.isPresent()) {
-            Member member = memberOpt.get();
-            MemberInfoDetailDto memberInfoDetailDto = new MemberInfoDetailDto();
-            memberInfoDetailDto.setMemberEmail(member.getMemberEmail());
-            memberInfoDetailDto.setNickName(member.getNickName());
-            memberInfoDetailDto.setName(member.getName());
-            memberInfoDetailDto.setPhoneNumberFormatted(member);
-            memberInfoDetailDto.setAuthorities(member.getMemberRole().toString());
-            memberInfoDetailDto.setPhotosImagePath(member.getPhotosImagePath());
+            Optional<Member> memberOpt = memberRepository.findByMemberEmail((String) authentication.getPrincipal());
 
-            log.info("email: {}", memberInfoDetailDto.getMemberEmail());
-            log.info("nickname: {}", memberInfoDetailDto.getNickName());
+            if (memberOpt.isPresent()) {
+                Member member = memberOpt.get();
+                MemberInfoDetailDto memberInfoDetailDto = new MemberInfoDetailDto();
+                memberInfoDetailDto.setMemberEmail(member.getMemberEmail());
+                memberInfoDetailDto.setNickName(member.getNickName());
+                memberInfoDetailDto.setName(member.getName());
+                memberInfoDetailDto.setPhoneNumberFormatted(member);
+                memberInfoDetailDto.setAuthorities(member.getMemberRole().toString());
+                memberInfoDetailDto.setPhotosImagePath(member.getPhotosImagePath());
 
-            return memberInfoDetailDto;
+                log.info("email: {}", memberInfoDetailDto.getMemberEmail());
+                log.info("nickname: {}", memberInfoDetailDto.getNickName());
+
+                return memberInfoDetailDto;
+            } else
+                return null;
         }
-        else
-            return null;
+
+        return null;
     }
 
 

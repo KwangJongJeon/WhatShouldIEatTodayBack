@@ -85,7 +85,6 @@ class AuthControllerTest {
         mvc.perform(get("/auth/register"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("auth/register"))
-
                 .andReturn();
     }
 

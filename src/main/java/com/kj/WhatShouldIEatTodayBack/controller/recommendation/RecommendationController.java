@@ -7,9 +7,14 @@ import com.kj.WhatShouldIEatTodayBack.service.auth.AuthService;
 import com.kj.WhatShouldIEatTodayBack.service.auth.MemberInfoDto;
 import com.kj.WhatShouldIEatTodayBack.service.recommendation.RecommendationResultDto;
 import com.kj.WhatShouldIEatTodayBack.service.recommendation.RecommendationService;
+import com.kj.WhatShouldIEatTodayBack.service.review.ReviewService;
+import com.kj.WhatShouldIEatTodayBack.service.review.dto.ReviewResponseDto;
 import com.kj.WhatShouldIEatTodayBack.session.SessionConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -29,6 +35,7 @@ public class RecommendationController {
 
     private final RecommendationService recommendationService;
     private final AuthService authService;
+    private final ReviewService reviewService;
 
     @ModelAttribute("categories")
     public Map<String, String> categories() {
@@ -62,19 +69,16 @@ public class RecommendationController {
     }
 
     @PostMapping("/recommendation")
-    public String recommendation(HttpServletRequest request,
+    public String recommendation(Authentication authentication,
                                        @ModelAttribute RecommendationRequestDto recommendationRequestDto,
                                        Model model) {
-        HttpSession session = request.getSession(false);
 
         for (String category : recommendationRequestDto.getCategories()) {
             log.info("category: {}", category);
         }
 
-        if(session != null) {
-            Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
-            model.addAttribute("member", loginMember);
-        }
+        MemberInfoDto memberInfo = authService.getMemberInfo(authentication);
+        model.addAttribute("member", memberInfo);
 
         RecommendationResultDto recommendationResult = recommendationService.recommendation(recommendationRequestDto);
 
@@ -82,6 +86,9 @@ public class RecommendationController {
             return "page/recommendationError";
         }
 
+        List<ReviewResponseDto> reviews = reviewService.findByStore(recommendationResult.getId());
+
+        model.addAttribute("reviews", reviews);
         model.addAttribute("recommendationResult", recommendationResult);
 
         return "page/recommendationResult";

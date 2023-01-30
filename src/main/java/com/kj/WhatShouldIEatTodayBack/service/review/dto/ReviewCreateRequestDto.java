@@ -17,6 +17,6 @@ import lombok.*;
 @Data
 public class ReviewCreateRequestDto {
     private String content;
-    private Member member;
-    private Store store;
+    private String memberEmail;
+    private Long storeId;
 }

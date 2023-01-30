@@ -4,6 +4,8 @@ import com.kj.WhatShouldIEatTodayBack.domain.member.Member;
 import com.kj.WhatShouldIEatTodayBack.domain.review.Review;
 import com.kj.WhatShouldIEatTodayBack.domain.store.Store;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,7 +15,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public class ReviewRepositoryImpl implements ReviewRepository {
+public class ReviewRepositoryImpl implements ReviewRepository  {
 
     private final EntityManager em;
     private final JPAQueryFactory query;
@@ -55,6 +57,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
         return em.createQuery("select r from Review r").getResultList();
     }
 
+
     @Override
     public List<Review> findReviewByMember(Member member) {
         String jpql = "select r from Review r where r.member.id = " + member.getId();
@@ -66,6 +69,14 @@ public class ReviewRepositoryImpl implements ReviewRepository {
     @Override
     public List<Review> findReviewByStore(Store store) {
         String jpql = "select r from Review r where r.store.id = " + store.getId();
+
+        List<Review> result = em.createQuery(jpql, Review.class).getResultList();
+        return result;
+    }
+
+    @Override
+    public List<Review> findReviewByStore(Long storeId) {
+        String jpql = "select r from Review r where r.store.id = " + storeId;
 
         List<Review> result = em.createQuery(jpql, Review.class).getResultList();
         return result;
