@@ -23,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 class AuthControllerTest {
 
     @Autowired
@@ -45,7 +46,6 @@ class AuthControllerTest {
     }
 
     @Test
-    @Transactional
     void login() throws Exception {
         // given
         String memberEmail = registerMember();
@@ -62,7 +62,6 @@ class AuthControllerTest {
     }
 
     @Test
-    @Transactional
     void loginFail() throws Exception {
         // given
         String memberEmail = registerMember();
@@ -75,8 +74,7 @@ class AuthControllerTest {
         // when, then
         mvc.perform(post("/auth/login")
                         .flashAttr("loginFormDto", loginFormDto))
-                .andExpect(status().isOk())
-                .andExpect(view().name("page/auth/login"))
+                .andExpect(status().is3xxRedirection())
                 .andReturn();
     }
 
@@ -84,12 +82,11 @@ class AuthControllerTest {
     void registerForm() throws Exception {
         mvc.perform(get("/auth/register"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("auth/register"))
+                .andExpect(view().name("page/auth/register"))
                 .andReturn();
     }
 
     @Test
-    @Transactional
     void register() throws Exception {
         // given
         RegisterFormDto registerFormDto = new RegisterFormDto();
@@ -106,20 +103,36 @@ class AuthControllerTest {
     }
 
     @Test
-    @Transactional
     void registerFail() throws Exception {
         // given
         RegisterFormDto registerFormDto = new RegisterFormDto();
         registerFormDto.setMemberEmail(email);
         registerFormDto.setMemberPw("wrongpassword");
         registerFormDto.setMemberName("tester");
-        registerFormDto.setPhoneNumber("01012345678"); // password를 공백으로 한 상황
+        registerFormDto.setPhoneNumber("01012345678"); // 패스워드 규칙을 어긴 상황
 
         // when, then
         mvc.perform(post("/auth/register")
                         .flashAttr("registerFormDto", registerFormDto))
                 .andExpect(status().isOk())
-                .andExpect(view().name("auth/register"))
+                .andExpect(view().name("page/auth/register"))
+                .andReturn();
+    }
+
+    @Test
+    void registerFailWithEmpty() throws Exception {
+        // given
+        RegisterFormDto registerFormDto = new RegisterFormDto();
+        registerFormDto.setMemberEmail(email);
+        registerFormDto.setMemberPw("");
+        registerFormDto.setMemberName("tester");
+        registerFormDto.setPhoneNumber("01012345678"); // 패스워드가 공백인 상황
+
+        // when, then
+        mvc.perform(post("/auth/register")
+                        .flashAttr("registerFormDto", registerFormDto))
+                .andExpect(status().isOk())
+                .andExpect(view().name("page/auth/register"))
                 .andReturn();
     }
 

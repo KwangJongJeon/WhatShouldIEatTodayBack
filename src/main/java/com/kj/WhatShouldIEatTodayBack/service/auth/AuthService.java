@@ -122,6 +122,7 @@ public class AuthService {
                 .setParameter("nickName", nickName)
                 .getResultList();
 
+
         if(resultList.isEmpty()) return true;
 
         for (Member member : resultList) {
