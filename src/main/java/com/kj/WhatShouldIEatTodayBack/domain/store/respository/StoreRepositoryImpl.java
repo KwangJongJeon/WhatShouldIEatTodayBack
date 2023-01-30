@@ -1,5 +1,6 @@
 package com.kj.WhatShouldIEatTodayBack.domain.store.respository;
 
+import com.kj.WhatShouldIEatTodayBack.exception.NoSearchResultException;
 import com.kj.WhatShouldIEatTodayBack.exception.recommendation.CoordinateIsNotValid;
 import com.kj.WhatShouldIEatTodayBack.domain.store.QStore;
 import com.kj.WhatShouldIEatTodayBack.domain.store.Store;
@@ -93,7 +94,24 @@ public class StoreRepositoryImpl implements StoreRepository {
                 .fetch();
     }
 
+    @Override
+    public List<Store> findByStoreName(String storeName) {
+        QStore store = QStore.store;
 
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(likeName(storeName));
+
+        return query
+                .select(store)
+                .from(store)
+                .where(builder)
+                .fetch();
+    }
+
+    private BooleanExpression likeName(String storeName) {
+        BooleanExpression result = QStore.store.name.like("%" + storeName + "%");
+        return result;
+    }
 
     private BooleanExpression betweenLatitude(double latitudeStart, double latitudeEnd) {
         BooleanExpression result = QStore.store.latitude.between(latitudeStart, latitudeEnd);

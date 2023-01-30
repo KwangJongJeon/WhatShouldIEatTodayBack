@@ -95,4 +95,18 @@ class StoreRepositoryImplTest {
 
         assertThat(result.isEmpty()).isEqualTo(false);
     }
+
+    @Test
+    @DisplayName("상점 이름을 통해 검색 기능을 사용 할 수 있습니다.")
+    void findByStoreName() {
+        // given
+        String keyword = "큰손"; // 데이터베이스의 맨 첫번째 상점 이름이 큰손의 정부 부대 찌개
+
+        // when
+        List<Store> result = storeRepository.findByStoreName(keyword);
+
+        // then
+        assertThat(result).isNotNull();
+        assertThat(result.get(0).getName()).isEqualTo("큰손의정부부대찌개");
+    }
 }
