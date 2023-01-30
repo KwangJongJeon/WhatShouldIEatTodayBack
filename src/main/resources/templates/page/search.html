@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/searchBar.css}" href="../css/searchBar.css" rel="stylesheet">
+
+    <title>EatToday</title>
+</head>
+<body>
+    <!--NavBar-->
+    <div th:replace="${memberInfoDto} ? ~{fragment/header :: header-login(${memberInfoDto})} : ~{fragment/header :: header-not-login}">Header</div>
+
+    <form class="flex-column container">
+        <div class="search-container d-flex">
+            <input class="form-control mr-sm-2 w-80" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success mt-2 submit-btn" type="submit">검색</button>
+        </div>
+    </form>
+</body>
+</html>
