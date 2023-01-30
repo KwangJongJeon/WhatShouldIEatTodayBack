@@ -1,6 +1,5 @@
 package com.kj.WhatShouldIEatTodayBack.controller;
 
-import com.kj.WhatShouldIEatTodayBack.controller.dto.SearchStoreDto;
 import com.kj.WhatShouldIEatTodayBack.service.search.SearchService;
 import com.kj.WhatShouldIEatTodayBack.service.auth.AuthService;
 import com.kj.WhatShouldIEatTodayBack.service.auth.MemberInfoDto;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Size;
 import java.util.List;
 
 
@@ -29,15 +29,15 @@ public class SearchController {
 
 
     @GetMapping("/store")
-    public String searchStoreForm(@ModelAttribute SearchStoreDto searchStoreDto) {
-        return "page/searchStore";
+    public String searchStoreForm() {
+        return "page/search/store";
     }
 
     @PostMapping("/store/{keyword}")
-    public String searchStore(@ModelAttribute SearchStoreDto searchStoreDto,
+    public String searchStore(@PathVariable("keyword") @Size(min=1, max=64) String keyword,
                               Model model) {
-        List<SearchStoreResponseDto> searchResults = searchService.searchStoreByName(searchStoreDto.getKeyword());
+        List<SearchStoreResponseDto> searchResults = searchService.searchStoreByName(keyword);
         model.addAttribute("searchResults", searchResults);
-        return "page/searchResult";
+        return "page/search/storeDetail";
     }
 }
