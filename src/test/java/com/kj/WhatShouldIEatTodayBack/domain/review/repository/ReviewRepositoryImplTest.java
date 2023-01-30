@@ -112,6 +112,8 @@ class ReviewRepositoryImplTest {
 
     @Test
     void findById() {
+
+        // given
         Member reviewMember = memberRepository.findByMemberEmail("reviewTester").get();
         Store reviewStore = storeRepository.findById(1L).get();
 
@@ -121,10 +123,13 @@ class ReviewRepositoryImplTest {
                 .content("Hello!")
                 .build();
 
-        reviewRepository.save(review);
+        Review savedReview = reviewRepository.save(review);
+        Long id = savedReview.getId();
 
-        Review foundReview = reviewRepository.findById(1L).get();
+        // when
+        Review foundReview = reviewRepository.findById(id).get();
 
+        // then
         assertThat(foundReview.getContent()).isEqualTo("Hello!");
     }
 

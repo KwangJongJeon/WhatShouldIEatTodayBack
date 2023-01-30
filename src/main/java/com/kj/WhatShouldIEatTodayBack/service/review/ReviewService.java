@@ -9,10 +9,12 @@ import com.kj.WhatShouldIEatTodayBack.domain.store.respository.StoreRepository;
 import com.kj.WhatShouldIEatTodayBack.service.review.dto.ReviewCreateRequestDto;
 import com.kj.WhatShouldIEatTodayBack.service.review.dto.ReviewCreateResponseDto;
 import com.kj.WhatShouldIEatTodayBack.service.review.dto.ReviewResponseDto;
+import com.kj.WhatShouldIEatTodayBack.service.review.dto.ReviewUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +60,21 @@ public class ReviewService {
         }
     }
 
+    public ReviewResponseDto findById(Long id) {
+        Optional<Review> reviewOpt = reviewRepository.findById(id);
+
+        if(reviewOpt.isEmpty()) return null;
+
+        Review review = reviewOpt.get();
+
+        return ReviewResponseDto.builder()
+                .id(review.getId())
+                .content(review.getContent())
+                .member(review.getMember())
+                .store(review.getStore())
+                .build();
+    }
+
 
     public List<ReviewResponseDto> findByMember(Member member) {
         List<Review> reviewByMember = reviewRepository.findReviewByMember(member);
@@ -75,6 +92,17 @@ public class ReviewService {
         List<Review> reviewsByStore = reviewRepository.findReviewByStore(id);
 
         return convertToReviewResponseDtoList(reviewsByStore);
+    }
+
+    @Transactional
+    public Long updateReviewContent(ReviewUpdateRequestDto requestDto) {
+        Optional<Review> reviewOpt = reviewRepository.findById(requestDto.getId());
+
+        if(reviewOpt.isEmpty()) return null;
+
+        Review review = reviewOpt.get();
+        review.setContent(requestDto.getContent());
+        return review.getId();
     }
 
 
