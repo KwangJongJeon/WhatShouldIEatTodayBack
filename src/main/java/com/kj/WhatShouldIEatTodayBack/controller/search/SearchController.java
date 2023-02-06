@@ -1,10 +1,11 @@
-package com.kj.WhatShouldIEatTodayBack.controller;
+package com.kj.WhatShouldIEatTodayBack.controller.search;
 
 import com.kj.WhatShouldIEatTodayBack.service.search.SearchService;
 import com.kj.WhatShouldIEatTodayBack.service.auth.AuthService;
 import com.kj.WhatShouldIEatTodayBack.service.auth.MemberInfoDto;
 import com.kj.WhatShouldIEatTodayBack.service.search.SearchStoreResponseDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 
+@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/search")
 @Controller
@@ -33,11 +35,30 @@ public class SearchController {
         return "page/search/store";
     }
 
-    @PostMapping("/store/{keyword}")
-    public String searchStore(@PathVariable("keyword") @Size(min=1, max=64) String keyword,
+    @GetMapping("/store/result")
+    public String searchStore(@RequestParam("keyword") @Size(min=1, max=64) String keyword,
+                              @RequestParam(name = "page", defaultValue = "1") int page,
                               Model model) {
-        List<SearchStoreResponseDto> searchResults = searchService.searchStoreByName(keyword);
-        model.addAttribute("searchResults", searchResults);
-        return "page/search/storeDetail";
+
+        // 총 게시물 수
+        int totalListCnt = searchService.getResultCnt(keyword);
+
+        // 생성 인자로 총 게시물 수, 현재 페이지를 전달
+        Pagination pagination = new Pagination(totalListCnt, page);
+
+        // DB select start index
+        int startIndex = pagination.getStartIndex();
+
+        // 페이지당 보여지는 게시글의 최대 개수
+        int pageSize = pagination.getPageSize();
+
+        List<SearchStoreResponseDto> storeList = searchService.searchByStoreNamePaging(keyword, startIndex, pageSize);
+
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("storeList", storeList);
+        model.addAttribute("pagination", pagination);
+
+
+        return "page/search/storeResult";
     }
 }

@@ -108,6 +108,26 @@ public class StoreRepositoryImpl implements StoreRepository {
                 .fetch();
     }
 
+    @Override
+    public int findByStoreNameCnt(String storeName) {
+        String nameQuery = "'%" + storeName + "%'";
+        String query = "SELECT count(*) FROM Store s WHERE name LIKE " + nameQuery;
+
+        return ((Number) em.createQuery(query)
+                            .getSingleResult()).intValue();
+    }
+
+    @Override
+    public List<Store> findByStoreNamePaging(String storeName, int startIndex, int pageSize) {
+        String nameQuery = "'%" + storeName + "%'";
+        String query = "SELECT s FROM Store s WHERE name LIKE " + nameQuery;
+
+        return em.createQuery(query, Store.class)
+                .setFirstResult(startIndex)
+                .setMaxResults(pageSize)
+                .getResultList();
+    }
+
     private BooleanExpression likeName(String storeName) {
         BooleanExpression result = QStore.store.name.like("%" + storeName + "%");
         return result;

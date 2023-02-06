@@ -9,8 +9,17 @@ import java.util.Optional;
 public interface StoreRepository {
 
     public Store save(Store store);
+
     public Optional<Store> findById(Long id);
+
     public List<Store> findAllInRange(CoordinateRange coordinateRange);
+
     public List<Store> findByCategoryAndInRange(CoordinateRange coordinateRange, List<String> categories);
+
     public List<Store> findByStoreName(String storeName);
+
+    public int findByStoreNameCnt(String storeName);
+
+    public List<Store> findByStoreNamePaging(String storeName, int startIndex, int pageSize);
 }
+

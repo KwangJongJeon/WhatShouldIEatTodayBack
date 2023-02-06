@@ -12,9 +12,9 @@
     <!--NavBar-->
     <div th:replace="${memberInfoDto} ? ~{fragment/header :: header-login(${memberInfoDto})} : ~{fragment/header :: header-not-login}">Header</div>
 
-    <form class="flex-column container">
+    <form class="flex-column container" action="/search/store/result" method="get">
         <div class="search-container d-flex">
-            <input class="form-control mr-sm-2 w-80" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control mr-sm-2 w-80" type="search" placeholder="Search" aria-label="Search" th:name="keyword">
             <button class="btn btn-outline-success mt-2 submit-btn" type="submit">검색</button>
         </div>
     </form>
