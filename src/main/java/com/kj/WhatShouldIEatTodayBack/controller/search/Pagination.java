@@ -72,7 +72,7 @@ public class Pagination {
 
         // 블럭 마지막 페이지에 대한 validation
         if(endPage > totalPageCnt) {
-            this.endPage = totalListCnt;
+            this.endPage = totalPageCnt;
         }
 
         // 이전 블럭(클릭 시, 이전 블럭 마지막 페이지)

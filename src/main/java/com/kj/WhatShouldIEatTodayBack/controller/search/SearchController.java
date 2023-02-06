@@ -42,9 +42,13 @@ public class SearchController {
 
         // 총 게시물 수
         int totalListCnt = searchService.getResultCnt(keyword);
+        log.info("TOTALLISTCNT: {}", totalListCnt);
 
         // 생성 인자로 총 게시물 수, 현재 페이지를 전달
         Pagination pagination = new Pagination(totalListCnt, page);
+
+        log.info("TotalPageCnt: {}", pagination.getTotalPageCnt());
+        log.info("endPage: {}", pagination.getEndPage());
 
         // DB select start index
         int startIndex = pagination.getStartIndex();
