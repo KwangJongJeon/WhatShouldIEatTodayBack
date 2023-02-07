@@ -108,6 +108,8 @@ public class SearchService {
                 .divisionThree(store.getDivisionThree())
                 .lotAddress(store.getLotAddress())
                 .streetAddress(store.getStreetAddress())
+                .latitude(store.getLatitude())
+                .longitude(store.getLongitude())
                 .build();
 
         dto.initReviews(reviewRepository.findReviewByStore(store.getId()));

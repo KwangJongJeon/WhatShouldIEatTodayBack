@@ -26,14 +26,14 @@
                     <p class="mt-5 mb-0" th:text="*{name}">상점 이름</p>
                 </div>
                 <div class="review-content justify-content-center">
-                    <p class="mt-2 mb-4" th:if="${member} != null" th:text="${member.nickName}">멤버 이메일</p>
+                    <p class="mt-2 mb-4" th:if="${memberInfoDto} != null" th:text="${memberInfoDto.nickName}">멤버 이메일</p>
                 </div>
                 <div class="review-content mt-2" style="flex-direction: column;">
                     <textarea type="text" class="content" style="width: 100%;" maxlength="255" name="content" form="review-form" r></textarea>
                     <div class="count">0/255</div>
                 </div>
                 <div>
-                    <input type="hidden" th:name="memberEmail" th:value="${member.memberEmail}">
+                    <input type="hidden" th:if="${memberInfoDto} != null" th:name="memberEmail" th:value="${memberInfoDto.memberEmail}">
                     <input type="hidden" th:name="storeId" th:value="${recommendationResult.id}">
                 </div>
                 <div class="review-content mt-5">
@@ -79,7 +79,7 @@
                 </ul>
                 <div class="d-flex justify-content-end mt-3">
                     <button type="button" class="btn btn-secondary me-3">더보기</button>
-                    <button type="button" class="btn btn-dark btn-open-popup" th:member="${member}"
+                    <button type="button" class="btn btn-dark btn-open-popup" th:member="${memberInfoDto}"
                             th:onclick="popUpModal(this.getAttribute('member'))">
                         리뷰 남기기
                     </button>

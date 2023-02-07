@@ -81,7 +81,7 @@
         <div class="map-container mt-3">
             <div id="map">
                 <script th:inline="javascript">
-                    let recommendationResult = [[${recommendationResult}]]
+                    let recommendationResult = [[${searchResult}]]
                     console.log(recommendationResult);
 
                     var locPosition = new kakao.maps.LatLng(recommendationResult.latitude, recommendationResult.longitude);

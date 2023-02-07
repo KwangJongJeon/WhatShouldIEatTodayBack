@@ -24,6 +24,9 @@ public class SearchStoreResponseDetailDto {
     private String streetAddress;
     private List<ReviewResponseDto> reviews;
 
+    private double latitude;
+    private double longitude;
+
     void initReviews(List<Review> reviewList) {
 
         List<ReviewResponseDto> reviewResponseDtos = new ArrayList<>();
