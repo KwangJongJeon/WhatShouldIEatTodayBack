@@ -3,13 +3,12 @@ package com.kj.WhatShouldIEatTodayBack.controller.review;
 import com.kj.WhatShouldIEatTodayBack.service.review.dto.ReviewCreateRequestDto;
 import com.kj.WhatShouldIEatTodayBack.service.review.dto.ReviewCreateResponseDto;
 import com.kj.WhatShouldIEatTodayBack.service.review.ReviewService;
+import com.kj.WhatShouldIEatTodayBack.service.review.dto.ReviewResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Slf4j
@@ -30,13 +29,10 @@ public class ReviewController {
     }
 
     @GetMapping("/{reviewId}")
-    public String reviewDetail(@RequestParam("reviewId") Long reviewId) {
+    public String reviewDetail(@PathVariable("reviewId") Long reviewId, Model model) {
+        ReviewResponseDto reviewDto = reviewService.findById(reviewId);
+
+        model.addAttribute("reviewDto", reviewDto);
         return "/page/reviewDetail";
     }
-
-
-
-
-
-
 }

@@ -7,6 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-<h1>Hello</h1>
+    <!--NavBar-->
+    <div th:replace="${memberInfoDto} ? ~{fragment/header :: header-login(${memberInfoDto})} : ~{fragment/header :: header-not-login}">Header</div>
+    <div class="container">
+
+    </div>
 </body>
 </html>

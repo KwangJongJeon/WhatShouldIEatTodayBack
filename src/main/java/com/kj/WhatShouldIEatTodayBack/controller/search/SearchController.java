@@ -1,5 +1,7 @@
 package com.kj.WhatShouldIEatTodayBack.controller.search;
 
+import com.kj.WhatShouldIEatTodayBack.domain.review.repository.ReviewRepository;
+import com.kj.WhatShouldIEatTodayBack.service.review.dto.ReviewResponseDto;
 import com.kj.WhatShouldIEatTodayBack.service.search.SearchService;
 import com.kj.WhatShouldIEatTodayBack.service.auth.AuthService;
 import com.kj.WhatShouldIEatTodayBack.service.auth.MemberInfoDto;
@@ -24,6 +26,8 @@ public class SearchController {
 
     private final AuthService authService;
     private final SearchService searchService;
+
+    private final ReviewRepository reviewRepository;
 
     @ModelAttribute("memberInfoDto")
     public MemberInfoDto memberInfoDto(Authentication authentication) {
@@ -70,6 +74,9 @@ public class SearchController {
     @GetMapping("/store/result/{id}")
     public String searchStoreResult(@PathVariable Long id, Model model) {
         SearchStoreResponseDetailDto searchResult = searchService.searchByStoreId(id);
+        for (ReviewResponseDto review : searchResult.getReviews()) {
+            log.info("review: {}", review);
+        }
 
         model.addAttribute("searchResult", searchResult);
         return "page/search/storeDetail";

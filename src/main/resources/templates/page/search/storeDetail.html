@@ -48,11 +48,11 @@
     </div>
 
     <div class="container mt-5" th:object="${searchResult}">
-        <h3 th:text="|오늘은, *{divisionTwo} 어때요?|"></h3>
+        <h3 th:text="*{name}"></h3>
         <div class="container row shadow-sm mt-5 p-5">
             <div class="col-6 menu-desc">
                 <div class="store-title">
-                    <h5 th:text="*{name}">식당 이름</h5>
+                    <h5 th:text="*{divisionTwo}">요리 종류</h5>
                 </div>
                 <div class="store-desc mt-4">
                     <div class="location">
@@ -62,8 +62,8 @@
                 </div>
             </div>
             <div class="col-6 review-container">
-                <h5>방문자 리뷰</h5>
-                <ul class="list-group mt-5" th:each="review : ${reviews}">
+                <h5 class="mb-5">방문자 리뷰</h5>
+                <ul class="list-group" th:each="review : *{reviews}">
                     <li class="list-group-item" th:text="${review.content}">An item</li>
                 </ul>
                 <div class="d-flex justify-content-end mt-3">
