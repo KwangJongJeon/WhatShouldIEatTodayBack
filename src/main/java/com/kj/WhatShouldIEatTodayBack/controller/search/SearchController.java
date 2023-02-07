@@ -3,6 +3,7 @@ package com.kj.WhatShouldIEatTodayBack.controller.search;
 import com.kj.WhatShouldIEatTodayBack.service.search.SearchService;
 import com.kj.WhatShouldIEatTodayBack.service.auth.AuthService;
 import com.kj.WhatShouldIEatTodayBack.service.auth.MemberInfoDto;
+import com.kj.WhatShouldIEatTodayBack.service.search.SearchStoreResponseDetailDto;
 import com.kj.WhatShouldIEatTodayBack.service.search.SearchStoreResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -65,4 +66,13 @@ public class SearchController {
 
         return "page/search/storeResult";
     }
+
+    @GetMapping("/store/result/{id}")
+    public String searchStoreResult(@PathVariable Long id, Model model) {
+        SearchStoreResponseDetailDto searchResult = searchService.searchByStoreId(id);
+
+        model.addAttribute("searchResult", searchResult);
+        return "page/search/storeDetail";
+    }
+
 }

@@ -21,15 +21,15 @@
             <tr>
                 <th scope="col" style="width: 10%">번호</th>
                 <th scope="col">이름</th>
-                <th scope="col" style="width: 15%">지역</th>
+                <th scope="col" style="width: 30%">위치</th>
             </tr>
             </thead>
 
             <tbody>
             <tr th:each="store : ${storeList}">
                 <th scope="row" th:text="${storeStat.index + 1}">1</th>
-                <td th:text="${store.name}"></td>
-                <td th:text="${store.region}"></td>
+                <td><a th:href="@{|/search/store/result/${store.id}|}" th:text="${store.name}"></a></td>
+                <td th:text="${store.lotAddress}"></td>
             </tr>
             </tbody>
         </table>

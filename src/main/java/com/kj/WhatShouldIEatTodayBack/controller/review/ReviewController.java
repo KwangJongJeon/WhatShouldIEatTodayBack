@@ -31,7 +31,6 @@ public class ReviewController {
 
     @GetMapping("/{reviewId}")
     public String reviewDetail(@RequestParam("reviewId") Long reviewId) {
-
         return "/page/reviewDetail";
     }
 

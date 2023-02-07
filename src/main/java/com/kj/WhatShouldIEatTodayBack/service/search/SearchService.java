@@ -1,19 +1,23 @@
 package com.kj.WhatShouldIEatTodayBack.service.search;
 
 
+import com.kj.WhatShouldIEatTodayBack.domain.review.repository.ReviewRepository;
 import com.kj.WhatShouldIEatTodayBack.domain.store.Store;
 import com.kj.WhatShouldIEatTodayBack.domain.store.respository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class SearchService {
 
     private final StoreRepository storeRepository;
+    private final ReviewRepository repository;
 
     public List<SearchStoreResponseDto> searchStoreByName(String storeName) {
 
@@ -77,5 +81,30 @@ public class SearchService {
         }
 
         return result;
+    }
+
+    public SearchStoreResponseDetailDto searchByStoreId(Long id) {
+        Optional<Store> storeOpt = storeRepository.findById(id);
+
+        if(storeOpt.isEmpty()) {
+            throw new NoResultException("해당 상점이 존재하지 않습니다.");
+        }
+
+        Store store = storeOpt.get();
+
+        SearchStoreResponseDetailDto dto = SearchStoreResponseDetailDto.builder()
+                .id(store.getId())
+                .region(store.getRegion())
+                .name(store.getName())
+                .divisionOne(store.getDivisionOne())
+                .divisionTwo(store.getDivisionTwo())
+                .divisionThree(store.getDivisionThree())
+                .lotAddress(store.getLotAddress())
+                .streetAddress(store.getStreetAddress())
+                .build();
+
+        dto.initReviews(repository.findReviewByStore(store.getId()));
+
+        return dto;
     }
 }
