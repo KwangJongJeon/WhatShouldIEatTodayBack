@@ -14,12 +14,12 @@
     <div class="container">
 
         <form action="/recommendation" th:action method="post">
-            <div class="form-check" th:with="minDistance=100,maxDistance=4000">
-                <span>탐색 범위:</span>
-                <span id="rangeValue">500</span>
-                <span>m</span>
-                <input
-                        id="range"
+                <div class="form-check" th:with="minDistance=100,maxDistance=4000">
+                    <span>탐색 범위:</span>
+                    <span id="rangeValue">500</span>
+                    <span>m</span>
+                    <input
+                            id="range"
                         type="range"
                         class="form-range"
                         min="100"
