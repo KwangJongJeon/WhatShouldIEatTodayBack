@@ -35,8 +35,8 @@ public class SearchStoreResponseDetailDto {
             reviewResponseDtos.add(ReviewResponseDto.builder()
                     .id(review.getId())
                     .content(review.getContent())
-                    .member(review.getMember())
-                    .store(review.getStore())
+                    .nickName(review.getMember().getNickName())
+                    .storeName(review.getStore().getName())
                     .build());
         }
 

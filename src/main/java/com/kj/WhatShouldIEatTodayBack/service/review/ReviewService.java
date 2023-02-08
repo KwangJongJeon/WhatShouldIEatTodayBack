@@ -60,19 +60,12 @@ public class ReviewService {
         }
     }
 
-    public ReviewResponseDto findById(Long id) {
+    public Review findById(Long id) {
         Optional<Review> reviewOpt = reviewRepository.findById(id);
 
         if(reviewOpt.isEmpty()) return null;
 
-        Review review = reviewOpt.get();
-
-        return ReviewResponseDto.builder()
-                .id(review.getId())
-                .content(review.getContent())
-                .member(review.getMember())
-                .store(review.getStore())
-                .build();
+        return reviewOpt.get();
     }
 
 
@@ -114,8 +107,8 @@ public class ReviewService {
             reviewResponseDtos.add(ReviewResponseDto.builder()
                     .id(review.getId())
                     .content(review.getContent())
-                    .member(review.getMember())
-                    .store(review.getStore())
+                    .nickName(review.getMember().getNickName())
+                    .storeName(review.getStore().getName())
                     .build());
         }
 

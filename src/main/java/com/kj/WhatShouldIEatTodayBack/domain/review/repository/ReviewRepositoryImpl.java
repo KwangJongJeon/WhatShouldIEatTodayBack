@@ -48,19 +48,29 @@ public class ReviewRepositoryImpl implements ReviewRepository  {
 
     @Override
     public Optional<Review> findById(Long id) {
-        Review review = em.find(Review.class, id);
+        String query = "select r from Review r" +
+                " join fetch r.member m" +
+                " join fetch r.store s" +
+                " where r.id = " + id;
+        Review review = em.createQuery(query, Review.class).getSingleResult();
         return Optional.ofNullable(review);
     }
 
     @Override
     public List<Review> findAll() {
-        return em.createQuery("select r from Review r").getResultList();
+        String query = "select r from Review r" +
+                " join fetch r.member m" +
+                " join fetch r.store";
+        return em.createQuery(query).getResultList();
     }
 
 
     @Override
     public List<Review> findReviewByMember(Member member) {
-        String jpql = "select r from Review r where r.member.id = " + member.getId();
+        String jpql = "select r from Review r" +
+                " join fetch r.member m" +
+                " join fetch r.store s" +
+                " where r.member.id = " + member.getId();
 
         List<Review> result = em.createQuery(jpql, Review.class).getResultList();
         return result;

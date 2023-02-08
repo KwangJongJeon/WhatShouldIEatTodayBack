@@ -1,3 +1,7 @@
+a {
+    text-decoration: none;
+}
+
 .modal {
     position: absolute;
     top: 0;
@@ -52,4 +56,9 @@ textarea {
     height: 200px;
     resize: none;
 }
+
+.review-item:hover {
+    background-color: lightgrey;
+}
+
 

@@ -86,9 +86,9 @@ class ReviewServiceTest {
         long id = reviewService.save(reviewCreateRequestDto).getId();
 
 
-        ReviewResponseDto result = reviewService.findById(id);
+        Review foundReview = reviewService.findById(id);
 
-        assertThat(result.getContent()).isEqualTo(content);
+        assertThat(foundReview.getContent()).isEqualTo(content);
     }
 
     @Test

@@ -1,0 +1,13 @@
+.info-container {
+    width: 800px;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content-container {
+    width: 800px;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}

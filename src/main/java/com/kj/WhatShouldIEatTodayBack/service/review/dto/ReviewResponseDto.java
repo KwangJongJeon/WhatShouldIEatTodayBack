@@ -20,6 +20,6 @@ import lombok.RequiredArgsConstructor;
 public class ReviewResponseDto {
     private final long id;
     private final String content;
-    private final Member member;
-    private final Store store;
+    private final String nickName;
+    private final String storeName;
 }

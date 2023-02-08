@@ -1,5 +1,6 @@
 package com.kj.WhatShouldIEatTodayBack.controller.review;
 
+import com.kj.WhatShouldIEatTodayBack.domain.review.Review;
 import com.kj.WhatShouldIEatTodayBack.service.review.dto.ReviewCreateRequestDto;
 import com.kj.WhatShouldIEatTodayBack.service.review.dto.ReviewCreateResponseDto;
 import com.kj.WhatShouldIEatTodayBack.service.review.ReviewService;
@@ -30,7 +31,13 @@ public class ReviewController {
 
     @GetMapping("/{reviewId}")
     public String reviewDetail(@PathVariable("reviewId") Long reviewId, Model model) {
-        ReviewResponseDto reviewDto = reviewService.findById(reviewId);
+        Review review = reviewService.findById(reviewId);
+
+        ReviewResponseDto reviewDto = ReviewResponseDto.builder()
+                .id(review.getId())
+                .content(review.getContent())
+                .nickName(review.getMember().getNickName())
+                .storeName(review.getStore().getName()).build();
 
         model.addAttribute("reviewDto", reviewDto);
         return "/page/reviewDetail";

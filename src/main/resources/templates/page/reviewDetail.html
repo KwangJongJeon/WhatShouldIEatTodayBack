@@ -1,16 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <link th:src="@{/css/reviewDetail.css}" href="../css/recommendation.css" rel="stylesheet">
+
+    <title>Eat Today</title>
 </head>
 <body>
-    <!--NavBar-->
-    <div th:replace="${memberInfoDto} ? ~{fragment/header :: header-login(${memberInfoDto})} : ~{fragment/header :: header-not-login}">Header</div>
-    <div class="container">
 
+<!--NavBar-->
+<div th:replace="${memberInfoDto} ? ~{fragment/header :: header-login(${memberInfoDto})} : ~{fragment/header :: header-not-login}">Header</div>
+
+<div class="container" th:object="${reviewDto}">
+    <div class="info-container border rounded p-3">
+        <div>
+            <span>닉네임 </span><p th:text="*{nickName}">닉네임</p>
+            <span>상점 </span><p th:text="*{storeName}">상점 이름</p>
+        </div>
     </div>
+    <div class="content-container border rounded p-3">
+        <p th:text="*{content}">콘텐츠</p>
+    </div>
+</div>
 </body>
 </html>

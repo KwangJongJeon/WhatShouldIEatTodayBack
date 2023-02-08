@@ -64,7 +64,7 @@
             <div class="col-6 review-container">
                 <h5 class="mb-5">방문자 리뷰</h5>
                 <ul class="list-group" th:each="review : *{reviews}">
-                    <li class="list-group-item" th:text="${review.content}">An item</li>
+                    <a th:href="@{|/review/${review.id}|}"> <li class="list-group-item review-item" th:text="${review.content}">An item</li></a>
                 </ul>
                 <div class="d-flex justify-content-end mt-3">
                     <button type="button" class="btn btn-secondary me-3">더보기</button>
