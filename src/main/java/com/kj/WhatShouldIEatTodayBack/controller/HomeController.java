@@ -27,20 +27,4 @@ public class HomeController {
 
         return "page/home";
     }
-
-    @GetMapping("/test")
-    public String test() {
-        return "page/test";
-    }
-
-    @GetMapping("/test2")
-    public String test2() {
-        return "fragment/footer";
-    }
-
-    @GetMapping("/test3")
-    public String test3(@ModelAttribute LoginFormDto loginFormDto) {
-        return "page/login";
-    }
-
 }

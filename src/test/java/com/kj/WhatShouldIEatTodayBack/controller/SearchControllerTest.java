@@ -33,10 +33,10 @@ class SearchControllerTest {
     @Test
     void searchStore() throws Exception {
         String keyword = "큰손";
-        mvc.perform(post("/search/store")
+        mvc.perform(get("/search/store/result?keyword=" + keyword)
                         .param("keyword", keyword))
                 .andExpect(status().isOk())
-                .andExpect(view().name("page/search/storeDetail"))
+                .andExpect(view().name("page/search/storeResult"))
                 .andReturn();
     }
 }
