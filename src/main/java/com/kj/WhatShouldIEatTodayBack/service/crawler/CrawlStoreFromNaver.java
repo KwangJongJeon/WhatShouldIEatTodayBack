@@ -32,7 +32,6 @@ public class CrawlStoreFromNaver implements CrawlStore {
         sb.append(URLEncoder.encode(storeName, StandardCharsets.UTF_8));
 
         String url = sb.toString();
-        log.info("url: {}", url);
         driver.get(url);
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe#searchIframe")));
@@ -149,7 +148,7 @@ public class CrawlStoreFromNaver implements CrawlStore {
                         ">a.Ozh8q>div.MN48z>div.Yrsei>div.gl2cc"));
             }
 
-            phoneNumber = driver.findElement(By.cssSelector("div.x8JmK>span.dry01")).getText();
+            phoneNumber = driver.findElement(By.cssSelector("div.vV_z_>span.xlx7Q")).getText();
         } catch(NoSuchElementException e){
             log.error(e.toString());
             driver.quit();
@@ -273,7 +272,8 @@ public class CrawlStoreFromNaver implements CrawlStore {
                         ">a.Ozh8q>div.MN48z>div.Yrsei>div.gl2cc"));
             }
 
-            phoneNumber = driver.findElement(By.cssSelector("div.x8JmK>span.dry01")).getText();
+
+            phoneNumber = driver.findElement(By.cssSelector("div.vV_z_>span.xlx7Q")).getText();
         } catch(NoSuchElementException e){
             log.error(e.toString());
             driver.quit();
@@ -324,7 +324,6 @@ public class CrawlStoreFromNaver implements CrawlStore {
             }
 
         }
-
 
         driver.quit();
 
