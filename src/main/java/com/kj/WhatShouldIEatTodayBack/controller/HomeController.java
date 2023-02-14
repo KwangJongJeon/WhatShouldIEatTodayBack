@@ -25,6 +25,11 @@ public class HomeController {
         MemberInfoDto memberInfoDto = authService.getMemberInfo(authentication);
         model.addAttribute("memberInfoDto", memberInfoDto);
 
+        if(memberInfoDto!= null) {
+            log.info("getPhotosImagePath: null");
+        }
+
+
         return "page/home";
     }
 }

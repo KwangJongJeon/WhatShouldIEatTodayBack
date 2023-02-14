@@ -88,7 +88,6 @@
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="/recommendation" class="nav-link px-2 link-dark">식사 추천</a></li>
                 <li><a href="/search/store" class="nav-link px-2 link-dark">식당 검색</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
             </ul>
 
             <div class="text-end">
@@ -109,16 +108,18 @@
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="/recommendation" class="nav-link px-2 link-dark">식사 추천</a></li>
                 <li><a href="/search/store" class="nav-link px-2 link-dark">식당 검색</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
             </ul>
 
             <div class="dropdown text-end">
                 <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img th:src="@{${user.photosImagePath}}" src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                    <img th:if="${user.photosImagePath!=null}" th:src="@{${user.photosImagePath}}" src="/img/default_photo" alt="mdo" width="32" height="32" class="rounded-circle">
+                    <img th:if="${user.photosImagePath==null}" th:src="@{/img/default_photo.png}" src="/img/default_photo" alt="mdo" width="32" height="32" class="rounded-circle">
                 </a>
                 <ul class="dropdown-menu text-small p-4">
                     <div class="user-info">
-                        <img th:src="@{${user.photosImagePath}}" src="./img.png" class="user-img">
+                        <img th:if="${user.photosImagePath!=null}" th:src="@{${user.photosImagePath}}" src="./img.png" class="user-img">
+                        <img th:if="${user.photosImagePath==null}" th:src="@{/img/default_photo.png}" src="/img/default_photo" alt="mdo" width="32" height="32" class="user-img rounded-circle">
+
                         <p class="user-email mt-4 text-center" th:text="${user.memberEmail}">Email@Test.com</p>
                         <p class="user-nickname text-center" th:text="${user.nickName}">NickName</p>
                     </div>

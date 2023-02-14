@@ -57,6 +57,7 @@ public class AuthController {
         // 세션에 로그인 회원 정보를 보관
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
 
+
         return "redirect:" + redirectURL;
     }
 

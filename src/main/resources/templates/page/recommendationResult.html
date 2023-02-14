@@ -78,7 +78,6 @@
                     <li class="list-group-item" th:text="${review.content}">An item</li>
                 </ul>
                 <div class="d-flex justify-content-end mt-3">
-                    <button type="button" class="btn btn-secondary me-3">더보기</button>
                     <button type="button" class="btn btn-dark btn-open-popup" th:member="${memberInfoDto}"
                             th:onclick="popUpModal(this.getAttribute('member'))">
                         리뷰 남기기
